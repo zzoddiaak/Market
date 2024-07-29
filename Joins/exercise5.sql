@@ -1,7 +1,6 @@
 DROP TABLE bookings;
 DROP TABLE members;
 DROP TABLE faсilities;
-
 CREATE TABLE faсilities(
     facid integer PRIMARY KEY,
     name varchar(100)
@@ -17,9 +16,6 @@ CREATE TABLE bookings(
     facid integer,
     memid integer
 );
-
-
-
 insert into bookings(bookid,  facid, memid)   values (968	,1,10);
 insert into bookings(bookid,  facid, memid)   values (1289,	0 ,	5);
 insert into bookings(bookid,  facid, memid)   values (1234,	0 ,	5);
@@ -70,9 +66,6 @@ insert into bookings(bookid,  facid, memid)   values (563	,0 ,0);
 insert into bookings(bookid,  facid, memid)   values (325	,0 ,5);
 insert into bookings(bookid,  facid, memid)   values (181	,1 ,3);
 insert into bookings(bookid,  facid, memid)   values (849	,1 ,9);
-
-
-
 insert into faсilities(facid, name) values(0, 'Tennis Court 1');
 insert into faсilities(facid, name) values(1, 'Tennis Court 2');
 insert into faсilities(facid, name) values(2, 'Badminton Court');
@@ -82,7 +75,6 @@ insert into faсilities(facid, name) values(5, 'Massage Room 2');
 insert into faсilities(facid, name) values(6, 'Squash Court');
 insert into faсilities(facid, name) values(7, 'Snooker Table');
 insert into faсilities(facid, name) values(8, 'Pool Table');
-
 insert into members(memid, surname, firstname) values(0, 'GUEST', 'GUEST'	);
 insert into members(memid, surname, firstname) values(1, 'Smith', 'Darren'	);
 insert into members(memid, surname, firstname) values(2, 'Smith', 'Tracy'	);
