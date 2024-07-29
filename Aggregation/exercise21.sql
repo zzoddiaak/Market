@@ -5,7 +5,6 @@ CREATE TABLE faсilities(
     name varchar(100),
     membercost numeric,
     guestcost numeric
-    
 );
 CREATE TABLE bookings(
     bookid integer PRIMARY KEY,
