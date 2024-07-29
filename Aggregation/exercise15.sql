@@ -42,7 +42,6 @@ insert into members(memid, surname, firstname) values(33, 'Tupperware', 'Hyacint
 insert into members(memid, surname, firstname) values(35, 'Hunt', 'John');
 insert into members(memid, surname, firstname) values(36, 'Crumpet', 'Erica');
 insert into members(memid, surname, firstname) values(37, 'Smith', 'Darren');
-
 insert into bookings(bookid,  memid, starttime) values(2130, 0, '2012-09-01 08:00:00');
 insert into bookings(bookid,  memid, starttime) values(2131, 17, '2012-09-01 11:00:00');
 insert into bookings(bookid,  memid, starttime) values(2132, 7, '2012-09-01 12:30:00');
@@ -94,7 +93,6 @@ insert into bookings(bookid,  memid, starttime) values(2177, 3, '2012-09-01 16:0
 insert into bookings(bookid,  memid, starttime) values(2178, 20, '2012-09-01 18:00:00');
 insert into bookings(bookid,  memid, starttime) values(2179, 3, '2012-09-01 18:30:00');
 insert into bookings(bookid,  memid, starttime) values(2180, 7, '2012-09-01 19:30:00');
-
 
 SELECT mem.surname, mem.firstname, mem.memid, min(bk.starttime) as starttime
 FROM bookings bk
