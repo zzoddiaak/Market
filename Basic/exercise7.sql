@@ -18,10 +18,6 @@ insert into faсilities(facid, name, monthlymaintenance) values(6, 'Squash Court
 insert into faсilities(facid, name, monthlymaintenance) values(7, 'Snooker Table',     15);
 insert into faсilities(facid, name, monthlymaintenance) values(8, 'Pool Table',       15);
 
-
-
-
-
 SELECT name, 
 CASE WHEN monthlymaintenance > 100 
 THEN 'expensive' 
