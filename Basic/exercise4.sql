@@ -18,8 +18,6 @@ insert into faсilities(facid, name, membercost, monthlymaintenance) values(6, '
 insert into faсilities(facid, name, membercost, monthlymaintenance) values(7, 'Snooker Table', 0, 15);
 insert into faсilities(facid, name, membercost, monthlymaintenance) values(8, 'Pool Table', 0, 15);
 
-
-
 SELECT facid, name, membercost,monthlymaintenance 
 FROM faсilities 
 WHERE membercost < (monthlymaintenance)/50 and membercost != 0;
