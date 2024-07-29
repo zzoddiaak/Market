@@ -39,9 +39,12 @@ insert into bookings(bookid, facid, slots) values(2943,	4,	2);
 insert into bookings(bookid, facid, slots) values(2922,	0,	3);
 insert into bookings(bookid, facid, slots) values(2944,	4,	2);
 
-select facs.facid, facs.name, trim(to_char(sum(bks.slots)/2.0, '9999999999999999D99')) as "Total Hours"
-from bookings bks
-inner join faсilities facs
-on facs.facid = bks.facid
-group by facs.facid, facs.name
-order by facs.facid;     
+SELECT 
+    facs.facid, 
+    facs.name, 
+    TRIM(TO_CHAR(SUM(bks.slots) / 2.0, '9999999999999999D99')) AS "Total Hours"
+FROM cd.bookings bks
+INNER JOIN cd.facilities facs ON facs.facid = bks.facid
+GROUP BY facs.facid, facs.name
+ORDER BY facs.facid;
+
