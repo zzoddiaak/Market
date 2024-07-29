@@ -1,6 +1,5 @@
 DROP TABLE bookings;
 DROP TABLE faсilities;
-
 CREATE TABLE faсilities(
     facid integer PRIMARY KEY,
     name varchar(100),
@@ -8,8 +7,6 @@ CREATE TABLE faсilities(
     guestcost numeric
     
 );
-
-
 CREATE TABLE bookings(
     bookid integer PRIMARY KEY,
     facid integer,
@@ -25,7 +22,6 @@ insert into faсilities(facid, name, membercost, guestcost) values(5, 'Massage R
 insert into faсilities(facid, name, membercost, guestcost) values(6, 'Squash Court', 3.5, 17.5);
 insert into faсilities(facid, name, membercost, guestcost) values(7, 'Snooker Table', 0, 5);
 insert into faсilities(facid, name, membercost, guestcost) values(8, 'Pool Table', 0, 5);
-
 insert into bookings(bookid, facid, memid,  slots) values(2936,	4,	14,	2);
 insert into bookings(bookid, facid, memid,  slots) values(2937,	4,	0,		2);
 insert into bookings(bookid, facid, memid,  slots) values(2945,	5,	15,	2);
