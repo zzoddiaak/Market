@@ -9,13 +9,11 @@ CREATE TABLE faсilities(
     initialoutlay numeric,
     monthlymaintenance numeric
 );
-
 CREATE TABLE members(
     memid integer PRIMARY KEY,
     surname varchar(200),
     firstname varchar(200)
 );
-
 CREATE TABLE bookings(
     bookid integer PRIMARY KEY,
     facid integer,
@@ -23,7 +21,6 @@ CREATE TABLE bookings(
     starttime timestamp,
     slots integer
 );
-
 insert into faсilities(facid, name, membercost, guestcost, initialoutlay, monthlymaintenance) values(0, 'Tennis Court 1', 5, 25, 10000, 200);
 insert into faсilities(facid, name, membercost, guestcost, initialoutlay, monthlymaintenance) values(1, 'Tennis Court 2', 5, 25, 8000, 200);
 insert into faсilities(facid, name, membercost, guestcost, initialoutlay, monthlymaintenance) values(2, 'Badminton Court', 0, 15.5, 4000, 50);
