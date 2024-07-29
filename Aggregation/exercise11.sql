@@ -1,7 +1,5 @@
 DROP TABLE bookings;
 DROP TABLE faсilities;
-
-
 CREATE TABLE faсilities(
     facid integer PRIMARY KEY,
     name varchar(100),
