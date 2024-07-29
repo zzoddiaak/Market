@@ -33,7 +33,6 @@ insert into faсilities(facid, name, membercost, guestcost, initialoutlay, month
 insert into faсilities(facid, name, membercost, guestcost, initialoutlay, monthlymaintenance) values(6, 'Squash Court', 3.5, 17.5, 5000, 80);
 insert into faсilities(facid, name, membercost, guestcost, initialoutlay, monthlymaintenance) values(7, 'Snooker Table', 0, 5, 450, 15);
 insert into faсilities(facid, name, membercost, guestcost, initialoutlay, monthlymaintenance) values(8, 'Pool Table', 0, 5, 400, 15);
-
 insert into bookings(bookid, facid, memid, starttime, slots) values(2936,	4,	14,	'2012-09-14 08:00:00',	2);
 insert into bookings(bookid, facid, memid, starttime, slots) values(2937,	4,	0,	'2012-09-14 09:00:00',	2);
 insert into bookings(bookid, facid, memid, starttime, slots) values(2945,	5,	15,	'2012-09-14 09:30:00',	2);
@@ -52,9 +51,6 @@ insert into bookings(bookid, facid, memid, starttime, slots) values(2926,	1,	0,	
 insert into bookings(bookid, facid, memid, starttime, slots) values(2943,	4,	6,	'2012-09-14 18:00:00',	2);
 insert into bookings(bookid, facid, memid, starttime, slots) values(2922,	0,	0,	'2012-09-14 19:00:00',	3);
 insert into bookings(bookid, facid, memid, starttime, slots) values(2944,	4,	20,	'2012-09-14 19:00:00',	2);
-
-
-
 insert into members(memid, surname, firstname) values(0, 'GUEST', 'GUEST'	);
 insert into members(memid, surname, firstname) values(1, 'Smith', 'Darren'	);
 insert into members(memid, surname, firstname) values(2, 'Smith', 'Tracy'	);
