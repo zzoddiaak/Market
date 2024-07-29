@@ -1,4 +1,3 @@
-
 DROP TABLE members;
 
 CREATE TABLE members(
@@ -43,7 +42,6 @@ insert into members(memid, surname, firstname, address, zipcode, telephone, reco
 insert into members(memid, surname, firstname, address, zipcode, telephone, recommendedby, joindate) values(35, 'Hunt', 'John', '5 Bullington Lane, Boston', 54333, '(899) 720-6978', 30, '2012-09-19 11:32:45');
 insert into members(memid, surname, firstname, address, zipcode, telephone, recommendedby, joindate) values(36, 'Crumpet', 'Erica', 'Crimson Road, North Reading', 75655, '(811) 732-4816', 2, '2012-09-22 08:36:38');
 insert into members(memid, surname, firstname, address, zipcode, telephone, recommendedby, joindate) values(37, 'Smith', 'Darren', '3 Funktown, Denzington, Boston', 66796, '(822) 577-3541', NULL, '2012-09-26 18:08:45');
-
 
 SELECT row_number() over(ORDER BY joindate), firstname, surname
 FROM members
