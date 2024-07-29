@@ -1,13 +1,10 @@
 DROP TABLE members;
-
 CREATE TABLE members(
     memid integer PRIMARY KEY,
     surname varchar(200),
     firstname varchar(200),
     recommendedby integer REFERENCES members(memid)
-    
 );
-
 insert into members(memid, surname, firstname, recommendedby) values(0, 'GUEST', 'GUEST', NULL);
 insert into members(memid, surname, firstname, recommendedby) values(1, 'Smith', 'Darren',NULL);
 insert into members(memid, surname, firstname, recommendedby) values(2, 'Smith', 'Tracy',  NULL);
@@ -40,11 +37,7 @@ insert into members(memid, surname, firstname, recommendedby) values(35, 'Hunt',
 insert into members(memid, surname, firstname, recommendedby) values(36, 'Crumpet', 'Erica', 2);
 insert into members(memid, surname, firstname, recommendedby) values(37, 'Smith', 'Darren', NULL);
 
-
-
-select distinct recs.firstname as firstname, recs.surname as surname
- from 
-  members mems
-  inner join members recs
-   on recs.memid = mems.recommendedby
-order by surname, firstname;
+SELECT DISTINCT recs.firstname AS firstname, recs.surname AS surname
+FROM cd.members mems
+INNER JOIN cd.members recs ON recs.memid = mems.recommendedby
+ORDER BY recs.surname, recs.firstname;
