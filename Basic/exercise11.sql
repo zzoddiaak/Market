@@ -37,6 +37,4 @@ insert into members(memid, joindate) values(35,  '2012-09-19 11:32:45');
 insert into members(memid, joindate) values(36, '2012-09-22 08:36:38');
 insert into members(memid, joindate) values(37,  '2012-09-26 18:08:45');
 
-
-
 SELECT joindate FROM members ORDER BY joindate DESC LIMIT 1;
