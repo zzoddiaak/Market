@@ -1,12 +1,10 @@
 DROP TABLE members;
-
 CREATE TABLE members(
     memid integer PRIMARY KEY,
     surname varchar(200),
     firstname varchar(200),
     recommendedby integer REFERENCES members(memid)
 );
-
 insert into members(memid, surname, firstname, recommendedby) values(0, 'GUEST', 'GUEST', NULL);
 insert into members(memid, surname, firstname, recommendedby) values(1, 'Smith', 'Darren',NULL);
 insert into members(memid, surname, firstname, recommendedby) values(2, 'Smith', 'Tracy',  NULL);
