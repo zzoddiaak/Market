@@ -1,7 +1,4 @@
-
 DROP TABLE bookings;
-
-
 CREATE TABLE bookings(
     bookid integer PRIMARY KEY,
     facid integer,
@@ -9,9 +6,6 @@ CREATE TABLE bookings(
     starttime timestamp,
     slots integer
 );
-
-
-
 
 insert into bookings(bookid, facid, memid, starttime, slots) values(0, 3, 1, '2012-07-03 11:00:00', 2);
 insert into bookings(bookid, facid, memid, starttime, slots) values(1, 4, 1, '2012-07-03 08:00:00', 2);
@@ -818,7 +812,6 @@ insert into bookings(bookid, facid, memid, starttime, slots) values(2808, 3, 10,
 insert into bookings(bookid, facid, memid, starttime, slots) values(2809, 3, 3, '2012-09-12 14:30:00', 2);
 insert into bookings(bookid, facid, memid, starttime, slots) values(2810, 3, 16, '2012-09-12 15:30:00', 2);
 insert into bookings(bookid, facid, memid, starttime, slots) values(2811, 3, 0, '2012-09-12 19:00:00', 2);
-
 
 SELECT facid, sum(slots) AS "Total Slots"
 FROM bookings 
