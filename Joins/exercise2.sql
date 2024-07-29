@@ -22,7 +22,6 @@ insert into bookings(bookid,  facid, starttime) values(3364,	0,	'2012-09-21 15:3
 insert into bookings(bookid,  facid, starttime) values(3370,	1,	'2012-09-21 16:00:00');
 insert into bookings(bookid,  facid, starttime) values(3365,	0,	'2012-09-21 17:00:00');
 insert into bookings(bookid,  facid, starttime) values(3371,	1,	'2012-09-21 18:00:00');
-
 insert into faсilities(facid, name) values(0, 'Tennis Court 1');
 insert into faсilities(facid, name) values(1, 'Tennis Court 2');
 insert into faсilities(facid, name) values(2, 'Badminton Court');
@@ -32,8 +31,6 @@ insert into faсilities(facid, name) values(5, 'Massage Room 2');
 insert into faсilities(facid, name) values(6, 'Squash Court');
 insert into faсilities(facid, name) values(7, 'Snooker Table');
 insert into faсilities(facid, name) values(8, 'Pool Table');
-
-
 
 SELECT book.starttime as start, fc.name 
 FROM bookings book,
