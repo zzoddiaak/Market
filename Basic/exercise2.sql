@@ -16,5 +16,4 @@ insert into faсilities(facid, name, membercost) values(6, 'Squash Court', 3.5);
 insert into faсilities(facid, name, membercost) values(7, 'Snooker Table', 0);
 insert into faсilities(facid, name, membercost) values(8, 'Pool Table', 0);
 
-
 SELECT name, membercost FROM faсilities;
