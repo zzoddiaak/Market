@@ -10,7 +10,6 @@ CREATE TABLE faсilities(
     facid integer PRIMARY KEY,
     name varchar(100)
 );
-
 insert into faсilities(facid, name) values(0, 'Tennis Court 1' );
 insert into faсilities(facid, name) values(1, 'Tennis Court 2' );
 insert into faсilities(facid, name) values(2, 'Badminton Court');
@@ -20,7 +19,6 @@ insert into faсilities(facid, name) values(5, 'Massage Room 2' );
 insert into faсilities(facid, name) values(6, 'Squash Court'   );
 insert into faсilities(facid, name) values(7, 'Snooker Table'  );
 insert into faсilities(facid, name) values(8, 'Pool Table'		);
-
 insert into members(memid, surname) values(0, 'GUEST'    );
 insert into members(memid, surname) values(1, 'Smith'    );
 insert into members(memid, surname) values(2, 'Smith'    );
