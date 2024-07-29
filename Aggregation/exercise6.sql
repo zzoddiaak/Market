@@ -1,14 +1,11 @@
 DROP TABLE bookings;
 
-
 CREATE TABLE bookings(
     bookid integer PRIMARY KEY,
     facid integer,
     starttime timestamp,
     slots integer
 );
-
-
 
 insert into bookings(bookid, facid, starttime, slots) values(2132, 0, '2012-09-01 12:30:00', 3);
 insert into bookings(bookid, facid, starttime, slots) values(2133, 0, '2012-09-01 15:00:00', 3);
@@ -59,8 +56,6 @@ insert into bookings(bookid, facid, starttime, slots) values(2177, 8, '2012-09-0
 insert into bookings(bookid, facid, starttime, slots) values(2178, 8,  '2012-09-01 18:00:00', 1);
 insert into bookings(bookid, facid, starttime, slots) values(2179, 8, '2012-09-01 18:30:00', 1);
 insert into bookings(bookid, facid, starttime, slots) values(2180, 8, '2012-09-01 19:30:00', 1);
-
-
 
 SELECT facid, EXTRACT(MONTH FROM starttime) AS month ,sum(slots) AS "Total Slots"
 FROM bookings 
