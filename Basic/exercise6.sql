@@ -18,8 +18,4 @@ insert into faсilities(facid, name, membercost, guestcost, initialoutlay, month
 insert into faсilities(facid, name, membercost, guestcost, initialoutlay, monthlymaintenance) values(7, 'Snooker Table', 0, 5, 450, 15);
 insert into faсilities(facid, name, membercost, guestcost, initialoutlay, monthlymaintenance) values(8, 'Pool Table', 0, 5, 400, 15);
 
-
-
-
-
 SELECT * FROM faсilities WHERE facid IN (1,5);
