@@ -20,7 +20,6 @@ insert into faсilities(facid, name) values(5, 'Massage Room 2' );
 insert into faсilities(facid, name) values(6, 'Squash Court'   );
 insert into faсilities(facid, name) values(7, 'Snooker Table'  );
 insert into faсilities(facid, name) values(8, 'Pool Table'		);
-
 insert into bookings(bookid, facid, slots) values(2936,	4,	2);
 insert into bookings(bookid, facid, slots) values(2937,	4,	2);
 insert into bookings(bookid, facid, slots) values(2945,	5,	2);
@@ -39,7 +38,6 @@ insert into bookings(bookid, facid, slots) values(2926,	1,	6);
 insert into bookings(bookid, facid, slots) values(2943,	4,	2);
 insert into bookings(bookid, facid, slots) values(2922,	0,	3);
 insert into bookings(bookid, facid, slots) values(2944,	4,	2);
-
 
 select facs.facid, facs.name, trim(to_char(sum(bks.slots)/2.0, '9999999999999999D99')) as "Total Hours"
 from bookings bks
