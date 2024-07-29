@@ -14,7 +14,6 @@ CREATE TABLE bookings(
 
     slots integer
 );
-
 insert into faсilities(facid, name, membercost, guestcost ) values(0, 'Tennis Court 1', 5, 25);
 insert into faсilities(facid, name, membercost, guestcost ) values(1, 'Tennis Court 2', 5, 25);
 insert into faсilities(facid, name, membercost, guestcost ) values(2, 'Badminton Court', 0, 15.5);
@@ -24,7 +23,6 @@ insert into faсilities(facid, name, membercost, guestcost ) values(5, 'Massage 
 insert into faсilities(facid, name, membercost, guestcost ) values(6, 'Squash Court', 3.5, 17.5);
 insert into faсilities(facid, name, membercost, guestcost ) values(7, 'Snooker Table', 0, 5);
 insert into faсilities(facid, name, membercost, guestcost ) values(8, 'Pool Table', 0, 5);
-
 insert into bookings(bookid, facid, memid,  slots) values(2936,	4,	14,	2);
 insert into bookings(bookid, facid, memid,  slots) values(2937,	4,	0,		2);
 insert into bookings(bookid, facid, memid,  slots) values(2945,	5,	15,	2);
