@@ -1,6 +1,5 @@
 DROP TABLE bookings;
 DROP TABLE members;
-
 CREATE TABLE members(
     memid integer PRIMARY KEY,
     surname varchar(200),
@@ -12,7 +11,6 @@ CREATE TABLE bookings(
     memid integer,
     starttime timestamp
 );
-
 insert into bookings(bookid,  memid, starttime) values(3167,	28,	'2012-09-18 09:00:00');
 insert into bookings(bookid,  memid, starttime) values(3172,	28,	'2012-09-18 17:30:00');
 insert into bookings(bookid,  memid, starttime) values(3219,	28,	'2012-09-18 13:30:00');
@@ -47,7 +45,6 @@ insert into bookings(bookid,  memid, starttime) values(3963,	28,	'2012-09-29 13:
 insert into bookings(bookid,  memid, starttime) values(3965,	28,	'2012-09-29 14:30:00');
 insert into bookings(bookid,  memid, starttime) values(3969,	28,	'2012-09-29 17:30:00');
 insert into bookings(bookid,  memid, starttime) values(4036,	28,	'2012-09-30 14:30:00');
-
 insert into members(memid, surname, firstname) values(0, 'GUEST', 'GUEST');
 insert into members(memid, surname, firstname) values(1, 'Smith', 'Darren');
 insert into members(memid, surname, firstname) values(2, 'Smith', 'Tracy');
@@ -79,8 +76,6 @@ insert into members(memid, surname, firstname) values(33, 'Tupperware', 'Hyacint
 insert into members(memid, surname, firstname) values(35, 'Hunt', 'John');
 insert into members(memid, surname, firstname) values(36, 'Crumpet', 'Erica');
 insert into members(memid, surname, firstname) values(37, 'Smith', 'Darren');
-
-
 SELECT starttime
 FROM bookings
 JOIN members ON bookings.memid = members.memid
