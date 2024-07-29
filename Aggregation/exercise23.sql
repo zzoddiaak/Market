@@ -1,6 +1,5 @@
 DROP TABLE bookings;
 DROP TABLE faсilities;
-
 CREATE TABLE faсilities(
     facid integer PRIMARY KEY,
     name varchar(100),
@@ -8,7 +7,6 @@ CREATE TABLE faсilities(
     guestcost numeric
     
 );
-
 CREATE TABLE bookings(
     bookid integer PRIMARY KEY,
     facid integer,
@@ -16,7 +14,6 @@ CREATE TABLE bookings(
     starttime timestamp,
     slots integer
 );
-
 
 insert into bookings(bookid, facid, memid, starttime, slots) values(2013, 8, 15, '2012-08-29 08:00:00', 1);
 insert into bookings(bookid, facid, memid, starttime, slots) values(2014, 8, 0, '2012-08-29 11:30:00', 1);
@@ -91,7 +88,6 @@ insert into bookings(bookid, facid, memid, starttime, slots) values(2082, 1, 10,
 insert into bookings(bookid, facid, memid, starttime, slots) values(2083, 1, 8, '2012-08-31 18:30:00', 3);
 insert into bookings(bookid, facid, memid, starttime, slots) values(2084, 2, 2, '2012-08-31 08:30:00', 3);
 insert into bookings(bookid, facid, memid, starttime, slots) values(2085, 2, 0, '2012-08-31 11:00:00', 3);
-
 insert into faсilities(facid, name, membercost, guestcost) values(0, 'Tennis Court 1', 5, 25);
 insert into faсilities(facid, name, membercost, guestcost) values(1, 'Tennis Court 2', 5, 25);
 insert into faсilities(facid, name, membercost, guestcost) values(2, 'Badminton Court', 0, 15.5);
