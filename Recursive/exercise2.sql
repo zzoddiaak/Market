@@ -5,7 +5,6 @@ CREATE TABLE members(
     surname varchar(200),
     firstname varchar(200),
     recommendedby integer REFERENCES members(memid)
-    
 );
 
 insert into members(memid, surname, firstname, recommendedby) values(0, 'GUEST', 'GUEST', NULL);
@@ -40,18 +39,16 @@ insert into members(memid, surname, firstname, recommendedby) values(35, 'Hunt',
 insert into members(memid, surname, firstname, recommendedby) values(36, 'Crumpet', 'Erica', 2);
 insert into members(memid, surname, firstname, recommendedby) values(37, 'Smith', 'Darren', NULL);
 
-
-
-with recursive recommendeds(memid) as (
-select memid from members where recommendedby = 1
-union all
-select mems.memid
-from recommendeds recs
-inner join members mems
-on mems.recommendedby = recs.memid
+WITH RECURSIVE recommendeds AS (
+    SELECT memid 
+    FROM cd.members 
+    WHERE recommendedby = 1
+    UNION ALL
+    SELECT m.memid
+    FROM cd.members m
+    INNER JOIN recommendeds r ON m.recommendedby = r.memid
 )
-select recs.memid, mems.firstname, mems.surname
-from recommendeds recs
-inner join members mems
-on recs.memid = mems.memid
-order by memid;      
+SELECT r.memid, m.firstname, m.surname
+FROM recommendeds r
+INNER JOIN cd.members m ON r.memid = m.memid
+ORDER BY r.memid;
