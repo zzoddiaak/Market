@@ -1,6 +1,5 @@
 DROP TABLE bookings;
 DROP TABLE faсilities;
-
 CREATE TABLE faсilities(
     facid integer PRIMARY KEY,
     name varchar(100),
@@ -9,15 +8,12 @@ CREATE TABLE faсilities(
     initialoutlay numeric,
     monthlymaintenance numeric
 );
-
-
 CREATE TABLE bookings(
     bookid integer PRIMARY KEY,
     facid integer,
 	memid integer,
     slots integer
 );
-
 insert into faсilities(facid, name, membercost, guestcost, initialoutlay, monthlymaintenance) values(0, 'Tennis Court 1', 5, 25, 10000, 200);
 insert into faсilities(facid, name, membercost, guestcost, initialoutlay, monthlymaintenance) values(1, 'Tennis Court 2', 5, 25, 8000, 200);
 insert into faсilities(facid, name, membercost, guestcost, initialoutlay, monthlymaintenance) values(2, 'Badminton Court', 0, 15.5, 4000, 50);
@@ -27,7 +23,6 @@ insert into faсilities(facid, name, membercost, guestcost, initialoutlay, month
 insert into faсilities(facid, name, membercost, guestcost, initialoutlay, monthlymaintenance) values(6, 'Squash Court', 3.5, 17.5, 5000, 80);
 insert into faсilities(facid, name, membercost, guestcost, initialoutlay, monthlymaintenance) values(7, 'Snooker Table', 0, 5, 450, 15);
 insert into faсilities(facid, name, membercost, guestcost, initialoutlay, monthlymaintenance) values(8, 'Pool Table', 0, 5, 400, 15);
-
 insert into bookings(bookid, facid, memid,  slots) values(2936,	4,	14,	2);
 insert into bookings(bookid, facid, memid,  slots) values(2937,	4,	0,		2);
 insert into bookings(bookid, facid, memid,  slots) values(2945,	5,	15,	2);
@@ -46,7 +41,6 @@ insert into bookings(bookid, facid, memid,  slots) values(2926,	1,	0,		6);
 insert into bookings(bookid, facid, memid,  slots) values(2943,	4,	6,		2);
 insert into bookings(bookid, facid, memid,  slots) values(2922,	0,	0,		3);
 insert into bookings(bookid, facid, memid,  slots) values(2944,	4,	20,	2);
-
 
 SELECT 	facs.name as name, facs.initialoutlay/((sum(case
 WHEN memid = 0 
