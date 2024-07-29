@@ -1,14 +1,11 @@
 DROP TABLE bookings;
 
-
 CREATE TABLE bookings(
     bookid integer PRIMARY KEY,
     facid integer,
     starttime timestamp,
     slots integer
 );
-
-
 
 insert into bookings(bookid, facid, starttime, slots) values(2132, 0, '2012-09-01 12:30:00', 3);
 insert into bookings(bookid, facid, starttime, slots) values(2133, 0, '2012-09-01 15:00:00', 3);
