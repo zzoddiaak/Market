@@ -38,10 +38,4 @@ insert into members(memid, surname) values(35, 'Hunt'     );
 insert into members(memid, surname) values(36, 'Crumpet' );
 insert into members(memid, surname) values(37, 'Smith'  );
 
-
-
-
-
-
-
 SELECT DISTINCT surname FROM members ORDER BY surname LIMIT 10;
