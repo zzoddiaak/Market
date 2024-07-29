@@ -33,7 +33,6 @@ insert into bookings(bookid, memid,  slots) values(2926,		0,		6);
 insert into bookings(bookid, memid,  slots) values(2943,		6,		2);
 insert into bookings(bookid, memid,  slots) values(2922,		0,		3);
 insert into bookings(bookid, memid,  slots) values(2944,		20,	2);
-	
 insert into members(memid, surname, firstname) values(0, 'GUEST', 'GUEST'	);
 insert into members(memid, surname, firstname) values(1, 'Smith', 'Darren'	);
 insert into members(memid, surname, firstname) values(2, 'Smith', 'Tracy'	);
