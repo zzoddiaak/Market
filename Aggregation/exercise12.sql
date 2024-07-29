@@ -1,6 +1,5 @@
 DROP TABLE bookings;
 
-
 CREATE TABLE bookings(
     bookid integer PRIMARY KEY,
     facid integer,
