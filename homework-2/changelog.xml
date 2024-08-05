@@ -52,4 +52,10 @@
     <changeSet id="homework-2-index" author="postgres">
         <sqlFile encoding="utf8" path="./sql/index.sql" relativeToChangelogFile="true"/>
     </changeSet>
+    <changeSet id="homework-2-insert" author="postgres">
+        <sqlFile encoding="utf8" path="./sql/insert.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="homework-2-select" author="postgres">
+        <sqlFile encoding="utf8" path="./sql/select.sql" relativeToChangelogFile="true"/>
+    </changeSet>
 </databaseChangeLog>
