@@ -5,3 +5,4 @@ CREATE TABLE listing_categories (
   FOREIGN KEY (listing_id) REFERENCES listings(id),
   FOREIGN KEY (category_id) REFERENCES categories(id)
 );
+--rollback DROP TABLE listing_categories;

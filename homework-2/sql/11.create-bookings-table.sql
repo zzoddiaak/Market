@@ -9,3 +9,4 @@ CREATE TABLE bookings (
   FOREIGN KEY (listing_id) REFERENCES listings(id),
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
+--rollback DROP TABLE bookings;

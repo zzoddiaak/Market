@@ -7,3 +7,4 @@ CREATE TABLE user_ratings (
   FOREIGN KEY (rater_id) REFERENCES users(id),
   FOREIGN KEY (rated_user_id) REFERENCES users(id)
 );
+--rollback DROP TABLE user_ratings;

@@ -7,3 +7,4 @@ CREATE TABLE comments (
   FOREIGN KEY (user_id) REFERENCES users(id),
   FOREIGN KEY (commenter_id) REFERENCES users(id)
 );
+--rollback DROP TABLE comments;

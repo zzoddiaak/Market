@@ -8,3 +8,4 @@ CREATE TABLE listing_requests (
   FOREIGN KEY (listing_id) REFERENCES listings(id),
   FOREIGN KEY (requester_id) REFERENCES users(id)
 );
+--rollback DROP TABLE listing_requests;

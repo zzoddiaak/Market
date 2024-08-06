@@ -5,3 +5,4 @@ CREATE TABLE user_roles (
   FOREIGN KEY (user_id) REFERENCES users(id),
   FOREIGN KEY (role_id) REFERENCES roles(id)
 );
+--rollback DROP TABLE user_roles;
