@@ -1,5 +1,5 @@
 CREATE TABLE comments (
-  id SERIAL PRIMARY KEY,
+  id BIGSERIAL PRIMARY KEY,
   user_id INT,
   commenter_id INT,
   comment_text TEXT,

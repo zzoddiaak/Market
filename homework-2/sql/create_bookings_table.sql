@@ -1,5 +1,5 @@
 CREATE TABLE bookings (
-  id SERIAL PRIMARY KEY,
+  id BIGSERIAL PRIMARY KEY,
   listing_id INT,
   user_id INT,
   start_date DATE,

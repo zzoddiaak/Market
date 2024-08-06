@@ -1,5 +1,5 @@
 CREATE TABLE listing_requests (
-  id SERIAL PRIMARY KEY,
+  id BIGSERIAL PRIMARY KEY,
   listing_id INT,
   requester_id INT,
   offered_price DECIMAL(10, 2), -- Для покупки и обмена

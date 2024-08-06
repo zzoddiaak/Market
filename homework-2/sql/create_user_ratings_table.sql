@@ -1,5 +1,5 @@
 CREATE TABLE user_ratings (
-  id SERIAL PRIMARY KEY,
+  id BIGSERIAL PRIMARY KEY,
   rater_id INT,
   rated_user_id INT,
   rating INT CHECK (rating BETWEEN 1 AND 5),

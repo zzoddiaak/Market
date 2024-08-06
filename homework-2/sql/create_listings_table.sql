@@ -1,5 +1,5 @@
 CREATE TABLE listings (
-  id SERIAL PRIMARY KEY,
+  id BIGSERIAL PRIMARY KEY,
   user_id INT,
   title VARCHAR(100) NOT NULL,
   description TEXT,
