@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd
+      http://www.liquibase.org/xml/ns/pro
+      http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd"
+        logicalFilePath="homework-2">
+
+    <changeSet id="homework-2-user_credentials" author="postgres">
+        <sqlFile encoding="utf8" path="sql/01.create-user_credentials-table.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="homework-2-users" author="postgres">
+        <sqlFile encoding="utf8" path="sql/02.create-users-table.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="homework-2-roles" author="postgres">
+        <sqlFile encoding="utf8" path="sql/03.create-roles-table.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="homework-2-user_roles" author="postgres">
+        <sqlFile encoding="utf8" path="sql/04.create-user_roles-table.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="homework-2-categories" author="postgres">
+        <sqlFile encoding="utf8" path="sql/05.create-categories-table.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="homework-2-listings" author="postgres">
+        <sqlFile encoding="utf8" path="sql/06.create-listings-table.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="homework-2-listing_categories" author="postgres">
+        <sqlFile encoding="utf8" path="sql/07.create-listing_categories-table.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="homework-2-comments" author="postgres">
+        <sqlFile encoding="utf8" path="sql/08.create_comments_table.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="homework-2-listing_requests" author="postgres">
+        <sqlFile encoding="utf8" path="sql/09.create-listing_requests-table.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="homework-2-transactions" author="postgres">
+        <sqlFile encoding="utf8" path="sql/10.create-transactions-table.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="homework-2-bookings" author="postgres">
+        <sqlFile encoding="utf8" path="sql/11.create-bookings-table.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="homework-2-user_ratings" author="postgres">
+        <sqlFile encoding="utf8" path="sql/12.create-user_ratings-table.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="homework-2-favorite_items" author="postgres">
+        <sqlFile encoding="utf8" path="sql/13.create-favorite_items-table.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="homework-2-index" author="postgres">
+        <sqlFile encoding="utf8" path="./sql/index.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="homework-2-insert" author="postgres">
+        <sqlFile encoding="utf8" path="./sql/insert.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="homework-2-select" author="postgres">
+        <sqlFile encoding="utf8" path="./sql/select.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,16 @@
+CREATE INDEX idx_listings_user_id ON listings(user_id);
+CREATE INDEX idx_listing_categories_listing_id ON listing_categories(listing_id);
+CREATE INDEX idx_listing_categories_category_id ON listing_categories(category_id);
+CREATE INDEX idx_comments_user_id ON comments(user_id);
+CREATE INDEX idx_comments_commenter_id ON comments(commenter_id);
+CREATE INDEX idx_listing_requests_listing_id ON listing_requests(listing_id);
+CREATE INDEX idx_listing_requests_requester_id ON listing_requests(requester_id);
+CREATE INDEX idx_transactions_request_id ON transactions(request_id);
+CREATE INDEX idx_bookings_listing_id ON bookings(listing_id);
+CREATE INDEX idx_bookings_user_id ON bookings(user_id);
+CREATE INDEX idx_user_ratings_rater_id ON user_ratings(rater_id);
+CREATE INDEX idx_user_ratings_rated_user_id ON user_ratings(rated_user_id);
+CREATE INDEX idx_favorite_items_user_id ON favorite_items(user_id);
+CREATE INDEX idx_favorite_items_listing_id ON favorite_items(listing_id);
+CREATE INDEX idx_user_roles_user_id ON user_roles(user_id);
+CREATE INDEX idx_user_roles_role_id ON user_roles(role_id);
