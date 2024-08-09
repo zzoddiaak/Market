@@ -13,49 +13,49 @@
         <sqlFile encoding="utf8" path="sql/01.create-user_credentials-table.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
-    <changeSet id="homework-2-users" author="postgres">
+    <changeSet id="homework-2-users" author="Daniil Savko">
         <sqlFile encoding="utf8" path="sql/02.create-users-table.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    <changeSet id="homework-2-roles" author="postgres">
+    <changeSet id="homework-2-roles" author="Daniil Savko">
         <sqlFile encoding="utf8" path="sql/03.create-roles-table.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    <changeSet id="homework-2-user_roles" author="postgres">
+    <changeSet id="homework-2-user_roles" author="Daniil Savko">
         <sqlFile encoding="utf8" path="sql/04.create-user_roles-table.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    <changeSet id="homework-2-categories" author="postgres">
+    <changeSet id="homework-2-categories" author="Daniil Savko">
         <sqlFile encoding="utf8" path="sql/05.create-categories-table.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    <changeSet id="homework-2-listings" author="postgres">
+    <changeSet id="homework-2-listings" author="Daniil Savko">
         <sqlFile encoding="utf8" path="sql/06.create-listings-table.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    <changeSet id="homework-2-listing_categories" author="postgres">
+    <changeSet id="homework-2-listing_categories" author="Daniil Savko">
         <sqlFile encoding="utf8" path="sql/07.create-listing_categories-table.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    <changeSet id="homework-2-comments" author="postgres">
+    <changeSet id="homework-2-comments" author="Daniil Savko">
         <sqlFile encoding="utf8" path="sql/08.create_comments_table.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    <changeSet id="homework-2-listing_requests" author="postgres">
+    <changeSet id="homework-2-listing_requests" author="Daniil Savko">
         <sqlFile encoding="utf8" path="sql/09.create-listing_requests-table.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    <changeSet id="homework-2-transactions" author="postgres">
+    <changeSet id="homework-2-transactions" author="Daniil Savko">
         <sqlFile encoding="utf8" path="sql/10.create-transactions-table.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    <changeSet id="homework-2-bookings" author="postgres">
+    <changeSet id="homework-2-bookings" author="Daniil Savko">
         <sqlFile encoding="utf8" path="sql/11.create-bookings-table.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    <changeSet id="homework-2-user_ratings" author="postgres">
+    <changeSet id="homework-2-user_ratings" author="Daniil Savko">
         <sqlFile encoding="utf8" path="sql/12.create-user_ratings-table.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    <changeSet id="homework-2-favorite_items" author="postgres">
+    <changeSet id="homework-2-favorite_items" author="Daniil Savko">
         <sqlFile encoding="utf8" path="sql/13.create-favorite_items-table.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    <changeSet id="homework-2-index" author="postgres">
+    <changeSet id="homework-2-index" author="Daniil Savko">
         <sqlFile encoding="utf8" path="./sql/index.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    <changeSet id="homework-2-insert" author="postgres">
+    <changeSet id="homework-2-insert" author="Daniil Savko">
         <sqlFile encoding="utf8" path="./sql/insert.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    <changeSet id="homework-2-select" author="postgres">
+    <changeSet id="homework-2-select" author="Daniil Savko">
         <sqlFile encoding="utf8" path="./sql/select.sql" relativeToChangelogFile="true"/>
     </changeSet>
 </databaseChangeLog>

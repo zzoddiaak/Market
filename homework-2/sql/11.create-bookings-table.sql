@@ -1,7 +1,7 @@
 CREATE TABLE bookings (
   id BIGSERIAL PRIMARY KEY,
-  listing_id INT,
-  user_id INT,
+  listing_id BIGINT,
+  user_id BIGINT,
   start_date DATE,
   end_date DATE,
   status VARCHAR(20) DEFAULT 'pending',
