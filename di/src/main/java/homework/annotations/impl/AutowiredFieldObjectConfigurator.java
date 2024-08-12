@@ -1,12 +1,14 @@
-package homework.config;
+package homework.annotations.impl;
 
 import homework.annotations.Autowired;
+import homework.config.ObjectConfig;
 import homework.context.ApplicationContext;
 import lombok.SneakyThrows;
 
+
 import java.lang.reflect.Field;
 
-public class AutowiredMethodObjectConfigurator implements ObjectConfig {
+public class AutowiredFieldObjectConfigurator implements ObjectConfig {
     @Override
     @SneakyThrows
     public void configure(Object t, ApplicationContext context) {
