@@ -15,3 +15,4 @@ public class DBImpl implements DBInterface {
         return parametersHolder.getSomeText();
     }
 }
+

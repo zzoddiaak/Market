@@ -9,16 +9,22 @@ import java.lang.reflect.Field;
 
 public class AutowiredMethodObjectConfigurator implements ObjectConfig {
     @Override
-    @SneakyThrows
     public void configure(Object t, ApplicationContext context) {
-        for (Field field : t.getClass().getDeclaredFields()) {
-            if (field.isAnnotationPresent(Autowired.class)) {
-                field.setAccessible(true);
+        try {
+            for (Field field : t.getClass().getDeclaredFields()) {
+                if (field.isAnnotationPresent(Autowired.class)) {
+                    field.setAccessible(true);
 
-                Object object = context.getObject(field.getType());
+                    Object object = context.getObject(field.getType());
+                    if (object == null) {
+                        throw new RuntimeException("No bean found for type: " + field.getType());
+                    }
 
-                field.set(t, object);
+                    field.set(t, object);
+                }
             }
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException("Failed to inject dependencies", e);
         }
     }
 }
