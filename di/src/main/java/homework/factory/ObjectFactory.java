@@ -11,8 +11,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.reflections.Reflections.log;
-
 public class ObjectFactory {
     private final ApplicationContext context;
     private List<ObjectConfig> configurators = new ArrayList<>();
@@ -23,7 +21,6 @@ public class ObjectFactory {
             try {
                 configurators.add(aClass.getDeclaredConstructor().newInstance());
             } catch (Exception e) {
-                log.error("Failed to instantiate ObjectConfigurer", e);
                 throw new ObjectInstantiationException("Failed to instantiate ObjectConfig", e);
             }
         }
@@ -53,9 +50,6 @@ public class ObjectFactory {
     private <T> T create(Class<T> implClass) {
         List<Constructor<T>> autowiredConstructors = getAutowiredConstructors(implClass);
         if (!autowiredConstructors.isEmpty()) {
-            for (Constructor<T> constructor : autowiredConstructors) {
-                log.info("Autowired constructor found for class {}: {}", implClass.getName(), constructor);
-            }
             return createWithAutowiredConstructor(autowiredConstructors.get(0));
         } else {
             return createWithDefaultConstructor(implClass);
@@ -73,7 +67,6 @@ public class ObjectFactory {
 
             return constructor.newInstance(parameters);
         } catch (Exception e) {
-            log.error("Failed to create bean using autowired constructor", e);
             throw new ObjectInstantiationException("Failed to create bean using autowired constructor", e);
         }
     }
@@ -82,7 +75,6 @@ public class ObjectFactory {
         try {
             return implClass.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
-            log.error("Failed to create bean using default constructor", e);
             throw new ObjectInstantiationException("Failed to create bean using default constructor", e);
         }
     }
@@ -93,7 +85,6 @@ public class ObjectFactory {
                 try {
                     method.invoke(t);
                 } catch (Exception e) {
-                    log.error("Failed to invoke @PostConstruct method", e);
                     throw new ObjectInstantiationException("Failed to invoke @PostConstruct method", e);
                 }
             }

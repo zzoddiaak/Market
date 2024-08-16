@@ -1,28 +1,26 @@
 package homework.config.impl;
 
-import lombok.SneakyThrows;
 
-import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class PropertyManager {
     private static final PropertyManager instance = new PropertyManager();
     private final Properties appProps = new Properties();
 
-
     private PropertyManager() {
-        String appConfigPath = Thread.currentThread().getContextClassLoader().getResource("application.properties").getPath();
-
-        loadAppProperties(appConfigPath);
+        try (InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("application.properties")) {
+            if (inputStream == null) {
+                throw new RuntimeException("Resource not found: application.properties");
+            }
+            appProps.load(inputStream);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to load properties", e);
+        }
     }
 
     public static PropertyManager getInstance() {
         return instance;
-    }
-
-    @SneakyThrows
-    private void loadAppProperties(String appConfigPath) {
-        appProps.load(new FileInputStream(appConfigPath));
     }
 
     public String getProperty(String key) {

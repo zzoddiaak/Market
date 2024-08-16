@@ -3,8 +3,6 @@ package homework.annotations.impl;
 import homework.annotations.Autowired;
 import homework.config.ObjectConfig;
 import homework.context.ApplicationContext;
-import lombok.SneakyThrows;
-
 
 import java.lang.reflect.Field;
 
@@ -28,5 +26,4 @@ public class AutowiredFieldObjectConfigurator implements ObjectConfig {
             throw new RuntimeException("Failed to inject dependencies", e);
         }
     }
-
 }

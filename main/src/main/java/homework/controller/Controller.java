@@ -13,7 +13,7 @@ public class Controller {
         this.serviceInterface = serviceInterface;
     }
 
-    public void execute(){
+    public void execute() {
         System.out.println(serviceInterface.execute());
     }
 }

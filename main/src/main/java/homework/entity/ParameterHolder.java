@@ -7,6 +7,6 @@ import lombok.Getter;
 @Component
 public class ParameterHolder {
     @Getter
-    @Value("parameters.holder.sometext")
+    @Value("parameters.holder.text")
     private String someText;
 }

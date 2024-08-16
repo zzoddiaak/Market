@@ -7,12 +7,15 @@ import homework.repository.DBInterface;
 
 @Component
 public class DBImpl implements DBInterface {
+    private final ParameterHolder parametersHolder;
+
     @Autowired
-    private ParameterHolder parametersHolder;
+    public DBImpl(ParameterHolder parametersHolder) {
+        this.parametersHolder = parametersHolder;
+    }
 
     @Override
     public String execute() {
         return parametersHolder.getSomeText();
     }
 }
-

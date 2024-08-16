@@ -5,13 +5,12 @@ import homework.annotations.Component;
 import homework.repository.DBInterface;
 import homework.service.ServiceInterface;
 
-
 @Component
 public class ServiceImpl implements ServiceInterface {
-    private DBInterface databaseInterface;
+    private final DBInterface databaseInterface;
 
     @Autowired
-    public void setDatabaseInterface(DBInterface databaseInterface) {
+    public ServiceImpl(DBInterface databaseInterface) {
         this.databaseInterface = databaseInterface;
     }
 
