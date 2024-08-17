@@ -1,6 +1,5 @@
 package homework.config.impl;
 
-
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -9,10 +8,14 @@ public class PropertyManager {
     private final Properties appProps = new Properties();
 
     private PropertyManager() {
-        try (InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("application.properties")) {
+        try {
+            Thread currentThread = Thread.currentThread();
+            ClassLoader classLoader = currentThread.getContextClassLoader();
+            InputStream inputStream = classLoader.getResourceAsStream("application.properties");
             if (inputStream == null) {
                 throw new RuntimeException("Resource not found: application.properties");
             }
+
             appProps.load(inputStream);
         } catch (Exception e) {
             throw new RuntimeException("Failed to load properties", e);
