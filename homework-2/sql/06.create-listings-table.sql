@@ -1,6 +1,6 @@
 CREATE TABLE listings (
   id BIGSERIAL PRIMARY KEY,
-  user_id INT,
+  user_id BIGINT,
   title VARCHAR(100) NOT NULL,
   description TEXT,
   price DECIMAL(10, 2),

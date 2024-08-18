@@ -1,7 +1,7 @@
 CREATE TABLE user_ratings (
   id BIGSERIAL PRIMARY KEY,
-  rater_id INT,
-  rated_user_id INT,
+  rater_id BIGINT,
+  rated_user_id BIGINT,
   rating INT CHECK (rating BETWEEN 1 AND 5),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (rater_id) REFERENCES users(id),
