@@ -6,7 +6,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Category {
-    private long id;
+public class Category extends Entity{
+
     private String name;
 }

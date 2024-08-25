@@ -9,8 +9,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserRating {
-    private long id;
+public class UserRating extends Entity{
     private int rating;
     private LocalDateTime createdAt;
 

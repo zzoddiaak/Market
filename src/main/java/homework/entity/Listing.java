@@ -10,8 +10,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Listing {
-    private long id;
+public class Listing extends Entity{
     private String title;
     private String description;
     private BigDecimal price;

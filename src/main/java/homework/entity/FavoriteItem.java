@@ -8,7 +8,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class FavoriteItem {
+public class FavoriteItem extends Entity{
     private List<User> user;
     private List<Listing> listing;
 }

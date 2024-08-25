@@ -6,7 +6,6 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Role {
-    private long id;
+public class Role extends Entity{
     private String name;
 }

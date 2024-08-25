@@ -8,8 +8,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
-    private long id;
+public class User extends Entity{
     private String firstName;
     private String lastName;
     private String bio;

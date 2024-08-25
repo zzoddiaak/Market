@@ -8,8 +8,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserCredential {
-    private long id;
+public class UserCredential extends Entity{
     private String username;
     private String password;
     private LocalDateTime createdAt;

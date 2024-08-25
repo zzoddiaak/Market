@@ -8,8 +8,7 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Transaction {
-    private long id;
+public class Transaction extends Entity{
     private LocalDate completedAt;
 
     private ListingRequest request;

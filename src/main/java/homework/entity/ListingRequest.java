@@ -10,8 +10,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ListingRequest {
-    private long id;
+public class ListingRequest extends Entity{
     private BigDecimal offeredPrice;
     private String status;
     private LocalDateTime createdAt;

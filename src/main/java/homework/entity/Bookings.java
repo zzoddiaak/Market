@@ -9,8 +9,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Bookings {
-    private long id;
+public class Bookings extends Entity{
     private String status;
     private LocalDateTime crearedAt;
     private LocalDateTime startDate;

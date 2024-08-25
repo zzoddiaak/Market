@@ -8,8 +8,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Comment {
-    private long id;
+public class Comment extends Entity{
     private String commentText;
     private LocalDateTime createdAt;
 
