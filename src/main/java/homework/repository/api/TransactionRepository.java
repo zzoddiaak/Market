@@ -9,4 +9,6 @@ public interface TransactionRepository {
     List<Transaction> findAll();
     void save(Transaction transaction);
     void deleteById(Long id);
+    void update(Long id, Transaction transaction);
+
 }

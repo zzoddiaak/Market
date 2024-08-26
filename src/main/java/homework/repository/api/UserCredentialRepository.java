@@ -9,4 +9,6 @@ public interface UserCredentialRepository {
     List<UserCredential> findAll();
     void save(UserCredential userCredential);
     void deleteById(Long id);
+    void update(Long id, UserCredential userCredential);
+
 }

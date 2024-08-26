@@ -9,4 +9,5 @@ public interface CommentRepository {
     List<Comment> findAll();
     void save(Comment comment);
     void deleteById(Long id);
+    void update(Long id, Comment comment);
 }

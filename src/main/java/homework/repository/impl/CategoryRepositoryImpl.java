@@ -1,11 +1,12 @@
 package homework.repository.impl;
 
-import homework.entity.Bookings;
 import homework.entity.Category;
 import homework.repository.AbstractRepository;
-import homework.repository.api.BookingsRepository;
 import homework.repository.api.CategoryRepository;
+import org.springframework.stereotype.Repository;
 
+
+@Repository
 public class CategoryRepositoryImpl extends AbstractRepository<Category> implements CategoryRepository {
 
 
@@ -15,7 +16,11 @@ public class CategoryRepositoryImpl extends AbstractRepository<Category> impleme
     private void initializeData(){
 
         save(Category.builder()
-                .name("Drop")
+                .name("Phone")
+                .build());
+
+        save(Category.builder()
+                .name("Table")
                 .build());
     }
 

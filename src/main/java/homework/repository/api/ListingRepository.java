@@ -10,4 +10,6 @@ public interface ListingRepository {
     List<Listing> findAll();
     void save(Listing listing);
     void deleteById(Long id);
+    void update(Long id, Listing listing);
+
 }

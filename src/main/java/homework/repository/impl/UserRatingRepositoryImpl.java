@@ -5,10 +5,12 @@ import homework.entity.UserRating;
 import homework.repository.AbstractRepository;
 import homework.repository.api.UserRatingRepository;
 import homework.repository.api.UserRepository;
-
 import java.time.LocalDateTime;
 import java.util.List;
+import org.springframework.stereotype.Repository;
 
+
+@Repository
 public class UserRatingRepositoryImpl extends AbstractRepository<UserRating> implements UserRatingRepository {
     private UserRepository userRepository;
 

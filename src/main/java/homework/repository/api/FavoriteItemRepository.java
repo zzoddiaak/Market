@@ -9,4 +9,5 @@ public interface FavoriteItemRepository {
     List<FavoriteItem> findAll();
     void save(FavoriteItem favoriteItem);
     void deleteById(Long id);
+    void update(Long id, FavoriteItem favoriteItem);
 }

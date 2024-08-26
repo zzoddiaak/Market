@@ -3,7 +3,6 @@ package homework.repository;
 import homework.entity.Entity;
 import org.springframework.stereotype.Repository;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +32,13 @@ public abstract class AbstractRepository<T extends Entity> {
             int index = objects.indexOf(object);
             objects.set(index, object);
         }
+    }
+
+    public void update(Long id, T updatedObject) {
+        T existingObject = findById(id);
+        objects.remove(existingObject);
+        updatedObject.setId(id);
+        objects.add(updatedObject);
     }
 
     public void deleteById(Long uuid) {

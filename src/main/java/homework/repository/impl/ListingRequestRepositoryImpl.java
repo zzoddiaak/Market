@@ -7,11 +7,13 @@ import homework.repository.AbstractRepository;
 import homework.repository.api.ListingRepository;
 import homework.repository.api.ListingRequestRepository;
 import homework.repository.api.UserRepository;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import org.springframework.stereotype.Repository;
 
+
+@Repository
 public class ListingRequestRepositoryImpl extends AbstractRepository<ListingRequest> implements ListingRequestRepository {
 
     private UserRepository userRepository;
@@ -29,6 +31,7 @@ public class ListingRequestRepositoryImpl extends AbstractRepository<ListingRequ
 
         List<User> user = (List<User>) userRepository.findById(1L);
         List<Listing> listing = (List<Listing>) listingRepository.findById(1L);
+        List<Listing> listing2 = (List<Listing>) listingRepository.findById(2L);
 
        save(ListingRequest.builder()
                .listing(listing)
@@ -37,6 +40,14 @@ public class ListingRequestRepositoryImpl extends AbstractRepository<ListingRequ
                .status("Active")
                .offeredPrice(new BigDecimal("44.4"))
                .build());
+
+        save(ListingRequest.builder()
+                .listing(listing2)
+                .requester(user)
+                .createdAt(LocalDateTime.of(2024, 12, 5, 10, 0))
+                .status("Active")
+                .offeredPrice(new BigDecimal("44.4"))
+                .build());
 
     }
 

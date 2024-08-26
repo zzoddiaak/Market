@@ -5,9 +5,11 @@ import homework.entity.UserCredential;
 import homework.repository.AbstractRepository;
 import homework.repository.api.UserCredentialRepository;
 import homework.repository.api.UserRepository;
-
 import java.time.LocalDateTime;
+import org.springframework.stereotype.Repository;
 
+
+@Repository
 public class UserRepositoryImpl extends AbstractRepository<User> implements UserRepository {
     private UserCredentialRepository userCredentialRepository;
 

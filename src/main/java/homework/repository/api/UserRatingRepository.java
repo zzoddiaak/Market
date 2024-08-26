@@ -9,4 +9,6 @@ public interface UserRatingRepository {
     List<UserRating> findAll();
     void save(UserRating userRating);
     void deleteById(Long id);
+    void update(Long id, UserRating userRating);
+
 }

@@ -9,4 +9,6 @@ public interface RoleRepository {
     List<Role> findAll();
     void save(Role role);
     void deleteById(Long id);
+    void update(Long id, Role role);
+
 }

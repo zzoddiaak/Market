@@ -9,4 +9,6 @@ public interface ListingRequestRepository {
     List<ListingRequest> findAll();
     void save(ListingRequest listingRequest);
     void deleteById(Long id);
+    void update(Long id, ListingRequest listingRequest);
+
 }
