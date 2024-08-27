@@ -7,34 +7,37 @@ import homework.repository.AbstractRepository;
 import homework.repository.api.FavoriteItemRepository;
 import homework.repository.api.ListingRepository;
 import homework.repository.api.UserRepository;
-import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collections;
 
 @Repository
 public class FavoriteItemRepositoryImpl extends AbstractRepository<FavoriteItem> implements FavoriteItemRepository {
-    private UserRepository userRepository;
-    private ListingRepository listingRepository;
 
-    public FavoriteItemRepositoryImpl() {
-        userRepository = new UserRepositoryImpl();
-        listingRepository = new ListingRepositoryImpl();
+    private final UserRepository userRepository;
+    private final ListingRepository listingRepository;
+
+    @Autowired
+    public FavoriteItemRepositoryImpl(UserRepository userRepository, ListingRepository listingRepository) {
+        this.userRepository = userRepository;
+        this.listingRepository = listingRepository;
         initializeData();
     }
-    private void initializeData(){
-        List<User> user = (List<User>) userRepository.findById(1L);
-        List<Listing> listing = (List<Listing>) listingRepository.findById(1L);
-        List<Listing> listing1 = (List<Listing>) listingRepository.findById(2L);
+
+    private void initializeData() {
+        User user = userRepository.findById(1L);
+        Listing listing = listingRepository.findById(1L);
+        Listing listing1 = listingRepository.findById(2L);
 
         save(FavoriteItem.builder()
-                .listing(listing)
-                .user(user)
+                .listing(Collections.singletonList(listing))
+                .user(Collections.singletonList(user))
                 .build());
 
         save(FavoriteItem.builder()
-                .listing(listing1)
-                .user(user)
+                .listing(Collections.singletonList(listing1))
+                .user(Collections.singletonList(user))
                 .build());
     }
-
-    }
+}

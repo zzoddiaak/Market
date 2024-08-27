@@ -1,54 +1,51 @@
 package homework.repository.impl;
 
-import homework.entity.Listing;
 import homework.entity.ListingRequest;
+import homework.entity.Listing;
 import homework.entity.User;
 import homework.repository.AbstractRepository;
-import homework.repository.api.ListingRepository;
 import homework.repository.api.ListingRequestRepository;
+import homework.repository.api.ListingRepository;
 import homework.repository.api.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import org.springframework.stereotype.Repository;
-
 
 @Repository
 public class ListingRequestRepositoryImpl extends AbstractRepository<ListingRequest> implements ListingRequestRepository {
 
-    private UserRepository userRepository;
-    private ListingRepository listingRepository;
+    private final UserRepository userRepository;
+    private final ListingRepository listingRepository;
 
-    public ListingRequestRepositoryImpl() {
-
-        this.userRepository = new UserRepositoryImpl();
-        this.listingRepository = new ListingRepositoryImpl();
+    @Autowired
+    public ListingRequestRepositoryImpl(UserRepository userRepository, ListingRepository listingRepository) {
+        this.userRepository = userRepository;
+        this.listingRepository = listingRepository;
         initializeData();
-
     }
 
-    private void initializeData(){
-
-        List<User> user = (List<User>) userRepository.findById(1L);
-        List<Listing> listing = (List<Listing>) listingRepository.findById(1L);
-        List<Listing> listing2 = (List<Listing>) listingRepository.findById(2L);
-
-       save(ListingRequest.builder()
-               .listing(listing)
-               .requester(user)
-               .createdAt(LocalDateTime.of(2024, 7, 1, 10, 0))
-               .status("Active")
-               .offeredPrice(new BigDecimal("44.4"))
-               .build());
+    private void initializeData() {
+        User user = userRepository.findById(1L);
+        Listing listing = listingRepository.findById(1L);
+        Listing listing2 = listingRepository.findById(2L);
 
         save(ListingRequest.builder()
-                .listing(listing2)
-                .requester(user)
-                .createdAt(LocalDateTime.of(2024, 12, 5, 10, 0))
+                .listing(List.of(listing))
+                .requester(List.of(user))
+                .createdAt(LocalDateTime.of(2024, 7, 1, 10, 0))
                 .status("Active")
                 .offeredPrice(new BigDecimal("44.4"))
                 .build());
 
+        save(ListingRequest.builder()
+                .listing(List.of(listing2))
+                .requester(List.of(user))
+                .createdAt(LocalDateTime.of(2024, 12, 5, 10, 0))
+                .status("Active")
+                .offeredPrice(new BigDecimal("44.4"))
+                .build());
     }
-
 }

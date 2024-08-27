@@ -3,7 +3,7 @@ package homework.dto.userCredential;
 import lombok.*;
 
 import java.time.LocalDateTime;
-
+@Data
 @Setter
 @Getter
 @Builder

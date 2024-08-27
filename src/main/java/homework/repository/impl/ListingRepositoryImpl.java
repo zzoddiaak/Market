@@ -8,23 +8,29 @@ import homework.repository.api.UserRepository;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 
 @Repository
 public class ListingRepositoryImpl extends AbstractRepository<Listing> implements ListingRepository {
-    private UserRepository userRepository;
-    public ListingRepositoryImpl() {
-        this.userRepository = new UserRepositoryImpl();
+
+    private final UserRepository userRepository;
+
+    @Autowired
+    public ListingRepositoryImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
         initializeData();
     }
-    private void initializeData(){
-        List<User> user = (List<User>) userRepository.findById(1L);
-        List<User> user1 = (List<User>) userRepository.findById(2L);
+
+    private void initializeData() {
+        User user = userRepository.findById(1L);
+        User user1 = userRepository.findById(2L);
 
         save(Listing.builder()
                 .address("Grodno")
-                .users(user)
+                .users(List.of(user))
                 .price(new BigDecimal("32.3"))
                 .title("Hoh")
                 .listingType("Active")
@@ -36,7 +42,7 @@ public class ListingRepositoryImpl extends AbstractRepository<Listing> implement
 
         save(Listing.builder()
                 .address("Grodno")
-                .users(user1)
+                .users(List.of(user1))
                 .price(new BigDecimal("32.3"))
                 .title("PPpp")
                 .listingType("Active")
@@ -47,3 +53,4 @@ public class ListingRepositoryImpl extends AbstractRepository<Listing> implement
                 .build());
     }
 }
+
