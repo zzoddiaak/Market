@@ -1,5 +1,7 @@
 package homework;
 
+import homework.controller.BookingsController;
+import homework.controller.UserController;
 import homework.controller.UserCredentialController;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -19,5 +21,24 @@ public class Application {
                 """);
 
         System.out.println("User Credentials: \n" + userCredentialController.findAll());
+
+        UserController userController = context.getBean(UserController.class);
+        userController.deleteById(1L);
+        userController.update(2,"""
+                {
+                    "firstName":"Anton",
+                    "lastname":"Antonio"
+                    "bio":"Top"
+                }""");
+        System.out.println("User: \n" + userController.findAll());
+
+
+        BookingsController bookingsController = context.getBean(BookingsController.class);
+        bookingsController.deleteById(1L);
+        bookingsController.update(2, """
+                {
+                    "status":"Lua"
+                }""");
+        System.out.println("Bookings: \n" + bookingsController.findAll());
     }
 }
