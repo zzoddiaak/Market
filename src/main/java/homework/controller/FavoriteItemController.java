@@ -3,16 +3,14 @@ package homework.controller;
 import homework.dto.DtoMapperService;
 import homework.dto.favoriteItem.FavoriteItemFullDto;
 import homework.service.FavoriteItemService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/favoriteItems")
 public class FavoriteItemController {
+
     private final FavoriteItemService service;
     private final DtoMapperService mapperService;
 
@@ -22,50 +20,33 @@ public class FavoriteItemController {
     }
 
     @GetMapping
-    public ResponseEntity<String> findAll() {
-        try {
-            List<FavoriteItemFullDto> favoriteItems = service.findAll();
-            String json = mapperService.convertToJson(favoriteItems);
-            return ResponseEntity.ok(json);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).body("Error occurred");
-        }
+    public String findAll() {
+        List<FavoriteItemFullDto> favoriteItems = service.findAll();
+        return mapperService.convertToJson(favoriteItems);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<String> findById(@PathVariable("id") long id) {
-        try {
-            FavoriteItemFullDto favoriteItem = service.findById(id);
-            String json = mapperService.convertToJson(favoriteItem);
-            return ResponseEntity.ok(json);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).body("Error occurred");
-        }
+    public String findById(@PathVariable("id") long id) {
+        FavoriteItemFullDto favoriteItem = service.findById(id);
+        return mapperService.convertToJson(favoriteItem);
     }
 
     @PostMapping
-    public ResponseEntity<Void> save(@RequestBody FavoriteItemFullDto favoriteItemFullDto) {
+    public String save(@RequestBody FavoriteItemFullDto favoriteItemFullDto) {
         service.save(favoriteItemFullDto);
-        return ResponseEntity.ok().build();
+        return "Saved successfully";
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@PathVariable("id") long id, @RequestBody String json) {
-        try {
-            FavoriteItemFullDto dto = mapperService.convertFromJson(json, FavoriteItemFullDto.class);
-            service.update(id, dto);
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.badRequest().build();
-        }
+    public String update(@PathVariable("id") long id, @RequestBody String json) {
+        FavoriteItemFullDto dto = mapperService.convertFromJson(json, FavoriteItemFullDto.class);
+        service.update(id, dto);
+        return "Updated successfully";
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable("id") long id) {
+    public String deleteById(@PathVariable("id") long id) {
         service.deleteById(id);
-        return ResponseEntity.ok().build();
+        return "Deleted successfully";
     }
 }

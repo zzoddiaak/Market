@@ -3,13 +3,11 @@ package homework.controller;
 import homework.dto.DtoMapperService;
 import homework.dto.user.UserFullDto;
 import homework.service.UserService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/users")
 public class UserController {
 
@@ -22,51 +20,33 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<String> findAll() {
-        try {
-            List<UserFullDto> users = service.findAll();
-            String json = mapperService.convertToJson(users);
-            return ResponseEntity.ok(json);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).body("Error occurred");
-        }
+    public String findAll() {
+        List<UserFullDto> dtos = service.findAll();
+        return mapperService.convertToJson(dtos);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<String> findById(@PathVariable("id") long id) {
-        try {
-            UserFullDto user = service.findById(id);
-            String json = mapperService.convertToJson(user);
-            return ResponseEntity.ok(json);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).body("Error occurred");
-        }
+    public String findById(@PathVariable("id") long id) {
+        UserFullDto dto = service.findById(id);
+        return mapperService.convertToJson(dto);
     }
 
     @PostMapping
-    public ResponseEntity<Void> save(@RequestBody UserFullDto userFullDto) {
+    public String save(@RequestBody UserFullDto userFullDto) {
         service.save(userFullDto);
-        return ResponseEntity.ok().build();
+        return "Saved successfully";
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@PathVariable("id") long id, @RequestBody String json) {
-        try {
-            UserFullDto dto = mapperService.convertFromJson(json, UserFullDto.class);
-            service.update(id, dto);
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.badRequest().build();
-        }
+    public String update(@PathVariable("id") long id, @RequestBody String json) {
+        UserFullDto dto = mapperService.convertFromJson(json, UserFullDto.class);
+        service.update(id, dto);
+        return "Updated successfully";
     }
 
-
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable("id") long id) {
+    public String deleteById(@PathVariable("id") long id) {
         service.deleteById(id);
-        return ResponseEntity.ok().build();
+        return "Deleted successfully";
     }
 }

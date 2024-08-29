@@ -3,16 +3,14 @@ package homework.controller;
 import homework.dto.DtoMapperService;
 import homework.dto.listing.ListingFullDto;
 import homework.service.ListingService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/listings")
 public class ListingController {
+
     private final ListingService service;
     private final DtoMapperService mapperService;
 
@@ -22,50 +20,33 @@ public class ListingController {
     }
 
     @GetMapping
-    public ResponseEntity<String> findAll() {
-        try {
-            List<ListingFullDto> listings = service.findAll();
-            String json = mapperService.convertToJson(listings);
-            return ResponseEntity.ok(json);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).body("Error occurred");
-        }
+    public String findAll() {
+        List<ListingFullDto> listings = service.findAll();
+        return mapperService.convertToJson(listings);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<String> findById(@PathVariable("id") long id) {
-        try {
-            ListingFullDto listing = service.findById(id);
-            String json = mapperService.convertToJson(listing);
-            return ResponseEntity.ok(json);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).body("Error occurred");
-        }
+    public String findById(@PathVariable("id") long id) {
+        ListingFullDto listing = service.findById(id);
+        return mapperService.convertToJson(listing);
     }
 
     @PostMapping
-    public ResponseEntity<Void> save(@RequestBody ListingFullDto listingFullDto) {
+    public String save(@RequestBody ListingFullDto listingFullDto) {
         service.save(listingFullDto);
-        return ResponseEntity.ok().build();
+        return "Saved successfully";
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@PathVariable("id") long id, @RequestBody String json) {
-        try {
-            ListingFullDto dto = mapperService.convertFromJson(json, ListingFullDto.class);
-            service.update(id, dto);
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.badRequest().build();
-        }
+    public String update(@PathVariable("id") long id, @RequestBody String json) {
+        ListingFullDto dto = mapperService.convertFromJson(json, ListingFullDto.class);
+        service.update(id, dto);
+        return "Updated successfully";
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable("id") long id) {
+    public String deleteById(@PathVariable("id") long id) {
         service.deleteById(id);
-        return ResponseEntity.ok().build();
+        return "Deleted successfully";
     }
 }

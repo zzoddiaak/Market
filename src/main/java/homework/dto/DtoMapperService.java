@@ -16,18 +16,34 @@ public class DtoMapperService {
     }
 
     public <D, E> D convertToDto(E entity, Class<D> dtoClass) {
-        return modelMapper.map(entity, dtoClass);
+        try {
+            return modelMapper.map(entity, dtoClass);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to map entity to DTO", e);
+        }
     }
 
     public <D, E> E convertToEntity(D dto, Class<E> entityClass) {
-        return modelMapper.map(dto, entityClass);
+        try {
+            return modelMapper.map(dto, entityClass);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to map DTO to entity", e);
+        }
     }
 
-    public String convertToJson(Object object) throws Exception {
-        return objectMapper.writeValueAsString(object);
+    public String convertToJson(Object object) {
+        try {
+            return objectMapper.writeValueAsString(object);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to convert object to JSON", e);
+        }
     }
 
-    public <T> T convertFromJson(String json, Class<T> valueType) throws Exception {
-        return objectMapper.readValue(json, valueType);
+    public <T> T convertFromJson(String json, Class<T> valueType) {
+        try {
+            return objectMapper.readValue(json, valueType);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to parse JSON", e);
+        }
     }
 }
