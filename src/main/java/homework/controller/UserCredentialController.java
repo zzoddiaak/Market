@@ -1,34 +1,32 @@
 package homework.controller;
 
-import homework.dto.DtoMapperService;
+import homework.dto.JsonMapper;
 import homework.dto.userCredential.UserCredentialFullDto;
 import homework.service.UserCredentialService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/userCredentials")
 public class UserCredentialController {
 
     private final UserCredentialService service;
-    private final DtoMapperService mapperService;
+    private final JsonMapper mapper;
 
-    public UserCredentialController(UserCredentialService service, DtoMapperService mapperService) {
-        this.service = service;
-        this.mapperService = mapperService;
-    }
+
 
     @GetMapping
     public String findAll() {
         List<UserCredentialFullDto> dtos = service.findAll();
-        return mapperService.convertToJson(dtos);
+        return mapper.convertToJson(dtos);
     }
 
     @GetMapping("/{id}")
     public String findById(@PathVariable("id") long id) {
         UserCredentialFullDto dto = service.findById(id);
-        return mapperService.convertToJson(dto);
+        return mapper.convertToJson(dto);
     }
 
     @PostMapping
@@ -39,7 +37,7 @@ public class UserCredentialController {
 
     @PutMapping("/{id}")
     public String update(@PathVariable("id") long id, @RequestBody String json) {
-        UserCredentialFullDto dto = mapperService.convertFromJson(json, UserCredentialFullDto.class);
+        UserCredentialFullDto dto = mapper.convertFromJson(json, UserCredentialFullDto.class);
         service.update(id, dto);
         return "Updated successfully";
     }

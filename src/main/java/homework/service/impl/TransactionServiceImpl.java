@@ -1,6 +1,6 @@
 package homework.service.impl;
 
-import homework.dto.DtoMapperService;
+import homework.dto.DtoMapper;
 import homework.dto.transaction.TransactionFullDto;
 import homework.entity.Transaction;
 import homework.repository.api.TransactionRepository;
@@ -15,30 +15,30 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class TransactionServiceImpl implements TransactionService {
     private final TransactionRepository repository;
-    private final DtoMapperService mapperService;
+    private final DtoMapper mapper;
 
     @Override
     public List<TransactionFullDto> findAll() {
         return repository.findAll().stream()
-                .map(transaction -> mapperService.convertToDto(transaction, TransactionFullDto.class))
+                .map(transaction -> mapper.convertToDto(transaction, TransactionFullDto.class))
                 .collect(Collectors.toList());
     }
 
     @Override
     public TransactionFullDto findById(long id) {
         Transaction transaction = repository.findById(id);
-        return mapperService.convertToDto(transaction, TransactionFullDto.class);
+        return mapper.convertToDto(transaction, TransactionFullDto.class);
     }
 
     @Override
     public void save(TransactionFullDto object) {
-        Transaction transaction = mapperService.convertToEntity(object, Transaction.class);
+        Transaction transaction = mapper.convertToEntity(object, Transaction.class);
         repository.save(transaction);
     }
 
     @Override
     public void update(long id, TransactionFullDto updateDTO) {
-        Transaction transaction = mapperService.convertToEntity(updateDTO, Transaction.class);
+        Transaction transaction = mapper.convertToEntity(updateDTO, Transaction.class);
         repository.update(id, transaction);
     }
 

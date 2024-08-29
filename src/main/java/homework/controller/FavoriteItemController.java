@@ -1,23 +1,20 @@
 package homework.controller;
 
-import homework.dto.DtoMapperService;
+import homework.dto.JsonMapper;
 import homework.dto.favoriteItem.FavoriteItemFullDto;
 import homework.service.FavoriteItemService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/favoriteItems")
 public class FavoriteItemController {
 
     private final FavoriteItemService service;
-    private final DtoMapperService mapperService;
+    private final JsonMapper mapperService;
 
-    public FavoriteItemController(FavoriteItemService service, DtoMapperService mapperService) {
-        this.service = service;
-        this.mapperService = mapperService;
-    }
 
     @GetMapping
     public String findAll() {

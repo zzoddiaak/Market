@@ -1,34 +1,32 @@
 package homework.controller;
 
-import homework.dto.DtoMapperService;
+import homework.dto.JsonMapper;
 import homework.dto.booking.BookingFullDto;
 import homework.service.BookingsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/bookings")
 public class BookingsController {
 
     private final BookingsService service;
-    private final DtoMapperService mapperService;
+    private final JsonMapper mapper;
 
-    public BookingsController(BookingsService service, DtoMapperService mapperService) {
-        this.service = service;
-        this.mapperService = mapperService;
-    }
+
 
     @GetMapping
     public String findAll() {
         List<BookingFullDto> bookings = service.findAll();
-        return mapperService.convertToJson(bookings);
+        return mapper.convertToJson(bookings);
     }
 
     @GetMapping("/{id}")
     public String findById(@PathVariable("id") long id) {
         BookingFullDto booking = service.findById(id);
-        return mapperService.convertToJson(booking);
+        return mapper.convertToJson(booking);
     }
 
     @PostMapping
@@ -39,7 +37,7 @@ public class BookingsController {
 
     @PutMapping("/{id}")
     public String update(@PathVariable("id") long id, @RequestBody String json) {
-        BookingFullDto dto = mapperService.convertFromJson(json, BookingFullDto.class);
+        BookingFullDto dto = mapper.convertFromJson(json, BookingFullDto.class);
         service.update(id, dto);
         return "Updated successfully";
     }

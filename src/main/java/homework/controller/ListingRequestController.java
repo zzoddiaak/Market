@@ -1,35 +1,32 @@
 package homework.controller;
 
-import homework.dto.DtoMapperService;
+import homework.dto.JsonMapper;
 import homework.dto.listingRequest.ListingRequestFullDto;
 import homework.service.ListingRequestService;
-import org.springframework.http.ResponseEntity;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/listingRequests")
 public class ListingRequestController {
 
     private final ListingRequestService service;
-    private final DtoMapperService mapperService;
+    private final JsonMapper mapper;
 
-    public ListingRequestController(ListingRequestService service, DtoMapperService mapperService) {
-        this.service = service;
-        this.mapperService = mapperService;
-    }
+
 
     @GetMapping
     public String findAll() {
         List<ListingRequestFullDto> listingRequests = service.findAll();
-        return mapperService.convertToJson(listingRequests);
+        return mapper.convertToJson(listingRequests);
     }
 
     @GetMapping("/{id}")
     public String findById(@PathVariable("id") long id) {
         ListingRequestFullDto listingRequest = service.findById(id);
-        return mapperService.convertToJson(listingRequest);
+        return mapper.convertToJson(listingRequest);
     }
 
     @PostMapping
@@ -40,7 +37,7 @@ public class ListingRequestController {
 
     @PutMapping("/{id}")
     public String update(@PathVariable("id") long id, @RequestBody String json) {
-        ListingRequestFullDto dto = mapperService.convertFromJson(json, ListingRequestFullDto.class);
+        ListingRequestFullDto dto = mapper.convertFromJson(json, ListingRequestFullDto.class);
         service.update(id, dto);
         return "Updated successfully";
     }

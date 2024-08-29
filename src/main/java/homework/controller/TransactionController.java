@@ -1,23 +1,21 @@
 package homework.controller;
 
-import homework.dto.DtoMapperService;
+import homework.dto.JsonMapper;
 import homework.dto.transaction.TransactionFullDto;
 import homework.service.TransactionService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/transactions")
 public class TransactionController {
 
     private final TransactionService service;
-    private final DtoMapperService mapperService;
+    private final JsonMapper mapperService;
 
-    public TransactionController(TransactionService service, DtoMapperService mapperService) {
-        this.service = service;
-        this.mapperService = mapperService;
-    }
+
 
     @GetMapping
     public String findAll() {

@@ -1,23 +1,20 @@
 package homework.controller;
 
-import homework.dto.DtoMapperService;
+import homework.dto.JsonMapper;
 import homework.dto.role.RoleFullDto;
 import homework.service.RoleService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/roles")
 public class RoleController {
 
     private final RoleService service;
-    private final DtoMapperService mapperService;
+    private final JsonMapper mapperService;
 
-    public RoleController(RoleService service, DtoMapperService mapperService) {
-        this.service = service;
-        this.mapperService = mapperService;
-    }
 
     @GetMapping
     public String findAll() {

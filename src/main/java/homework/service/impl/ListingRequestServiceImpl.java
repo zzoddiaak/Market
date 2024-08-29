@@ -1,6 +1,6 @@
 package homework.service.impl;
 
-import homework.dto.DtoMapperService;
+import homework.dto.DtoMapper;
 import homework.dto.listingRequest.ListingRequestFullDto;
 import homework.entity.ListingRequest;
 import homework.repository.api.ListingRequestRepository;
@@ -15,30 +15,30 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ListingRequestServiceImpl implements ListingRequestService {
     private ListingRequestRepository repository;
-    private final DtoMapperService mapperService;
+    private final DtoMapper mapper;
 
     @Override
     public List<ListingRequestFullDto> findAll() {
         return repository.findAll().stream()
-                .map(listingRequest -> mapperService.convertToDto(listingRequest, ListingRequestFullDto.class))
+                .map(listingRequest -> mapper.convertToDto(listingRequest, ListingRequestFullDto.class))
                 .collect(Collectors.toList());
     }
 
     @Override
     public ListingRequestFullDto findById(long id) {
         ListingRequest listingRequest = repository.findById(id);
-        return mapperService.convertToDto(listingRequest, ListingRequestFullDto.class);
+        return mapper.convertToDto(listingRequest, ListingRequestFullDto.class);
     }
 
     @Override
     public void save(ListingRequestFullDto object) {
-        ListingRequest listingRequest = mapperService.convertToEntity(object, ListingRequest.class);
+        ListingRequest listingRequest = mapper.convertToEntity(object, ListingRequest.class);
         repository.save(listingRequest);
     }
 
     @Override
     public void update(long id, ListingRequestFullDto updateDTO) {
-        ListingRequest listingRequest= mapperService.convertToEntity(updateDTO, ListingRequest.class);
+        ListingRequest listingRequest= mapper.convertToEntity(updateDTO, ListingRequest.class);
         repository.update(id, listingRequest);
     }
 

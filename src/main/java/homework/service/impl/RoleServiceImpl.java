@@ -1,6 +1,6 @@
 package homework.service.impl;
 
-import homework.dto.DtoMapperService;
+import homework.dto.DtoMapper;
 import homework.dto.role.RoleFullDto;
 import homework.entity.Role;
 import homework.repository.api.RoleRepository;
@@ -15,30 +15,30 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class RoleServiceImpl implements RoleService {
     private final RoleRepository repository;
-    private final DtoMapperService mapperService;
+    private final DtoMapper mapper;
 
     @Override
     public List<RoleFullDto> findAll() {
         return repository.findAll().stream()
-                .map(role -> mapperService.convertToDto(role, RoleFullDto.class))
+                .map(role -> mapper.convertToDto(role, RoleFullDto.class))
                 .collect(Collectors.toList());
     }
 
     @Override
     public RoleFullDto findById(long id) {
         Role role = repository.findById(id);
-        return mapperService.convertToDto(role, RoleFullDto.class);
+        return mapper.convertToDto(role, RoleFullDto.class);
     }
 
     @Override
     public void save(RoleFullDto object) {
-        Role role = mapperService.convertToEntity(object, Role.class);
+        Role role = mapper.convertToEntity(object, Role.class);
         repository.save(role);
     }
 
     @Override
     public void update(long id, RoleFullDto updateDTO) {
-        Role role = mapperService.convertToEntity(updateDTO, Role.class);
+        Role role = mapper.convertToEntity(updateDTO, Role.class);
         repository.update(id, role);
     }
 

@@ -1,34 +1,33 @@
 package homework.controller;
 
-import homework.dto.DtoMapperService;
+import homework.dto.JsonMapper;
 import homework.dto.category.CategoryFullDto;
 import homework.service.CategoryService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+
+@RequiredArgsConstructor
 
 @RestController
 @RequestMapping("/categories")
 public class CategoryController {
 
     private final CategoryService service;
-    private final DtoMapperService mapperService;
+    private final JsonMapper mapper;
 
-    public CategoryController(CategoryService service, DtoMapperService mapperService) {
-        this.service = service;
-        this.mapperService = mapperService;
-    }
+
 
     @GetMapping
     public String findAll() {
         List<CategoryFullDto> dtos = service.findAll();
-        return mapperService.convertToJson(dtos);
+        return mapper.convertToJson(dtos);
     }
 
     @GetMapping("/{id}")
     public String findById(@PathVariable("id") long id) {
         CategoryFullDto dto = service.findById(id);
-        return mapperService.convertToJson(dto);
+        return mapper.convertToJson(dto);
     }
 
     @PostMapping
@@ -39,7 +38,7 @@ public class CategoryController {
 
     @PutMapping("/{id}")
     public String update(@PathVariable("id") long id, @RequestBody String json) {
-        CategoryFullDto dto = mapperService.convertFromJson(json, CategoryFullDto.class);
+        CategoryFullDto dto = mapper.convertFromJson(json, CategoryFullDto.class);
         service.update(id, dto);
         return "Updated successfully";
     }

@@ -1,7 +1,6 @@
 package homework.service.impl;
 
-import homework.dto.DtoMapperService;
-
+import homework.dto.DtoMapper;
 import homework.dto.category.CategoryFullDto;
 import homework.entity.Category;
 import homework.repository.api.CategoryRepository;
@@ -15,30 +14,30 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository repository;
-    private final  DtoMapperService mapperService;
+    private final DtoMapper mapper;
 
     @Override
     public List<CategoryFullDto> findAll() {
         return repository.findAll().stream()
-                .map(category -> mapperService.convertToDto(category, CategoryFullDto.class))
+                .map(category -> mapper.convertToDto(category, CategoryFullDto.class))
                 .collect(Collectors.toList());
     }
 
     @Override
     public CategoryFullDto findById(long id) {
         Category category = repository.findById(id);
-        return mapperService.convertToDto(category, CategoryFullDto.class);
+        return mapper.convertToDto(category, CategoryFullDto.class);
     }
 
     @Override
     public void save(CategoryFullDto object) {
-        Category category = mapperService.convertToEntity(object, Category.class);
+        Category category = mapper.convertToEntity(object, Category.class);
         repository.save(category);
     }
 
     @Override
     public void update(long id, CategoryFullDto updateDTO) {
-        Category category  = mapperService.convertToEntity(updateDTO, Category.class);
+        Category category  = mapper.convertToEntity(updateDTO, Category.class);
         repository.update(id, category);
     }
 

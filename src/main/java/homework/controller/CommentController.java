@@ -1,23 +1,20 @@
 package homework.controller;
 
-import homework.dto.DtoMapperService;
+import homework.dto.JsonMapper;
 import homework.dto.comment.CommentFullDto;
 import homework.service.CommentService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/comments")
 public class CommentController {
 
     private final CommentService service;
-    private final DtoMapperService mapperService;
+    private final JsonMapper mapperService;
 
-    public CommentController(CommentService service, DtoMapperService mapperService) {
-        this.service = service;
-        this.mapperService = mapperService;
-    }
 
     @GetMapping
     public String findAll() {
