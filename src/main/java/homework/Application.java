@@ -27,7 +27,7 @@ public class Application {
         userController.update(2,"""
                 {
                     "firstName":"Anton",
-                    "lastname":"Antonio"
+                    "lastname":"Antonio",
                     "bio":"Top"
                 }""");
         System.out.println("User: \n" + userController.findAll());
