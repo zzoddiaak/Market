@@ -50,12 +50,12 @@
         <sqlFile encoding="utf8" path="sql/13.create-favorite_items-table.sql" relativeToChangelogFile="true"/>
     </changeSet>
     <changeSet id="homework-2-index" author="Daniil Savko">
-        <sqlFile encoding="utf8" path="./sql/index.sql" relativeToChangelogFile="true"/>
+        <sqlFile encoding="utf8" path="sql/index.sql" relativeToChangelogFile="true"/>
     </changeSet>
     <changeSet id="homework-2-insert" author="Daniil Savko">
-        <sqlFile encoding="utf8" path="./sql/insert.sql" relativeToChangelogFile="true"/>
+        <sqlFile encoding="utf8" path="sql/insert.sql" relativeToChangelogFile="true"/>
     </changeSet>
     <changeSet id="homework-2-select" author="Daniil Savko">
-        <sqlFile encoding="utf8" path="./sql/select.sql" relativeToChangelogFile="true"/>
+        <sqlFile encoding="utf8" path="sql/select.sql" relativeToChangelogFile="true"/>
     </changeSet>
 </databaseChangeLog>

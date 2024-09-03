@@ -1,6 +1,7 @@
 package homework.entity;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -12,8 +13,8 @@ import java.util.List;
 public class Bookings extends Entity{
     private String status;
     private LocalDateTime crearedAt;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
     private List<Listing> listing;
     private List<User> users;
