@@ -14,11 +14,13 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class RoleServiceImpl implements RoleService {
+
     private final RoleRepository repository;
     private final DtoMapper mapper;
 
     @Override
     public List<RoleFullDto> findAll() {
+
         return repository.findAll().stream()
                 .map(role -> mapper.convertToDto(role, RoleFullDto.class))
                 .collect(Collectors.toList());
@@ -27,6 +29,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public RoleFullDto findById(long id) {
         Role role = repository.findById(id);
+
         return mapper.convertToDto(role, RoleFullDto.class);
     }
 

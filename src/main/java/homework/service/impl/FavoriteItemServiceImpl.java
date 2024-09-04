@@ -14,11 +14,13 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class FavoriteItemServiceImpl implements FavoriteItemService {
+
     private final FavoriteItemRepository repository;
     private final DtoMapper mapper;
 
     @Override
     public List<FavoriteItemFullDto> findAll() {
+
         return repository.findAll().stream()
                 .map(favoriteItem -> mapper.convertToDto(favoriteItem, FavoriteItemFullDto.class))
                 .collect(Collectors.toList());
@@ -27,6 +29,7 @@ public class FavoriteItemServiceImpl implements FavoriteItemService {
     @Override
     public FavoriteItemFullDto findById(long id) {
         FavoriteItem favoriteItem = repository.findById(id);
+
         return mapper.convertToDto(favoriteItem, FavoriteItemFullDto.class);
     }
 

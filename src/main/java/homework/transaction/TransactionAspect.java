@@ -33,6 +33,7 @@ public class TransactionAspect {
                 connectionHolder.closeConnection();
             }
         }
+
         return result;
     }
 }

@@ -20,6 +20,7 @@ public class BookingsServiceImpl implements BookingsService {
 
     @Override
     public List<BookingFullDto> findAll() {
+
         return repository.findAll().stream()
                 .map(bookings -> mapper.convertToDto(bookings, BookingFullDto.class))
                 .collect(Collectors.toList());
@@ -28,6 +29,7 @@ public class BookingsServiceImpl implements BookingsService {
     @Override
     public BookingFullDto findById(long id) {
         Bookings bookings = repository.findById(id);
+
         return mapper.convertToDto(bookings, BookingFullDto.class);
     }
 

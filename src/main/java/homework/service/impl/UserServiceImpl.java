@@ -14,11 +14,13 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
+
     private final UserRepository repository;
     private final DtoMapper mapper;
 
     @Override
     public List<UserFullDto> findAll() {
+
         return repository.findAll().stream()
                 .map(user -> mapper.convertToDto(user, UserFullDto.class))
                 .collect(Collectors.toList());
@@ -27,6 +29,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserFullDto findById(long id) {
         User user = repository.findById(id);
+
         return mapper.convertToDto(user, UserFullDto.class);
     }
 

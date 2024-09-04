@@ -14,11 +14,13 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class UserRatingServiceImpl implements UserRatingService {
+
     private final UserRatingRepository repository;
     private final DtoMapper mapper;
 
     @Override
     public List<UserRatingFullDto> findAll() {
+
         return repository.findAll().stream()
                 .map(userRating -> mapper.convertToDto(userRating, UserRatingFullDto.class))
                 .collect(Collectors.toList());
@@ -27,6 +29,7 @@ public class UserRatingServiceImpl implements UserRatingService {
     @Override
     public UserRatingFullDto findById(long id) {
         UserRating userRating = repository.findById(id);
+
         return mapper.convertToDto(userRating, UserRatingFullDto.class);
     }
 

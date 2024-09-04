@@ -21,18 +21,21 @@ public class CategoryController {
     @GetMapping
     public String findAll() {
         List<CategoryFullDto> dtos = service.findAll();
+
         return mapper.convertToJson(dtos);
     }
 
     @GetMapping("/{id}")
     public String findById(@PathVariable("id") long id) {
         CategoryFullDto dto = service.findById(id);
+
         return mapper.convertToJson(dto);
     }
 
     @PostMapping
     public String save(@RequestBody CategoryFullDto categoryFullDto) {
         service.save(categoryFullDto);
+
         return "Saved successfully";
     }
 
@@ -40,12 +43,14 @@ public class CategoryController {
     public String update(@PathVariable("id") long id, @RequestBody String json) {
         CategoryFullDto dto = mapper.convertFromJson(json, CategoryFullDto.class);
         service.update(id, dto);
+
         return "Updated successfully";
     }
 
     @DeleteMapping("/{id}")
     public String deleteById(@PathVariable("id") long id) {
         service.deleteById(id);
+
         return "Deleted successfully";
     }
 }

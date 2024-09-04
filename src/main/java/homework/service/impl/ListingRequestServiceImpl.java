@@ -14,11 +14,13 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class ListingRequestServiceImpl implements ListingRequestService {
+
     private ListingRequestRepository repository;
     private final DtoMapper mapper;
 
     @Override
     public List<ListingRequestFullDto> findAll() {
+
         return repository.findAll().stream()
                 .map(listingRequest -> mapper.convertToDto(listingRequest, ListingRequestFullDto.class))
                 .collect(Collectors.toList());
@@ -27,6 +29,7 @@ public class ListingRequestServiceImpl implements ListingRequestService {
     @Override
     public ListingRequestFullDto findById(long id) {
         ListingRequest listingRequest = repository.findById(id);
+
         return mapper.convertToDto(listingRequest, ListingRequestFullDto.class);
     }
 

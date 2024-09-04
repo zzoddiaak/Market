@@ -1,6 +1,7 @@
 package homework.connect.implement;
 
 import homework.connect.ConnectionHolder;
+import homework.exeption.ConnectionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -29,6 +30,7 @@ public class ConnectionHolderImpl implements ConnectionHolder {
             connection = getConnectionFromPool();
             threadLocalConnection.set(connection);
         }
+
         return connection;
     }
 
@@ -36,8 +38,9 @@ public class ConnectionHolderImpl implements ConnectionHolder {
     public void openTransaction() throws SQLException {
         Connection connection = getConnection();
         if (!connection.getAutoCommit()) {
-            throw new IllegalStateException("Transaction already opened for this thread");
+            throw new ConnectionException();
         }
+
         connection.setAutoCommit(false);
     }
 
@@ -80,14 +83,17 @@ public class ConnectionHolderImpl implements ConnectionHolder {
 
     private synchronized Connection getConnectionFromPool() throws SQLException {
         if (connectionPool.isEmpty()) {
+
             return dataSource.getConnection();
         } else {
+
             return connectionPool.remove(connectionPool.size() - 1);
         }
     }
 
     public synchronized void releaseConnection(Connection connection) {
         if (connection != null && isTransactionOpen()) {
+
             return;
         }
         if (connection != null) {
@@ -97,9 +103,11 @@ public class ConnectionHolderImpl implements ConnectionHolder {
     public boolean isTransactionOpen() {
         try {
             Connection connection = threadLocalConnection.get();
+
             return connection != null && !connection.getAutoCommit();
         } catch (SQLException e) {
             e.printStackTrace();
+
             return false;
         }
     }

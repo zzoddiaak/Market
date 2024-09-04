@@ -20,13 +20,18 @@ public class BookingsRepositoryImpl implements BookingsRepository {
 
     private final ConnectionHolder connectionHolder;
 
-
+    // SQL Queries as constants
+    private static final String SELECT_ALL_BOOKINGS = "SELECT * FROM bookings";
+    private static final String SELECT_BOOKING_BY_ID = "SELECT * FROM bookings WHERE id = ?";
+    private static final String INSERT_BOOKING = "INSERT INTO bookings (listing_id, user_id, start_date, end_date, status, created_at) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String UPDATE_BOOKING = "UPDATE bookings SET listing_id = ?, user_id = ?, start_date = ?, end_date = ?, status = ? WHERE id = ?";
+    private static final String DELETE_BOOKING_BY_ID = "DELETE FROM bookings WHERE id = ?";
 
     @Override
     public List<Bookings> findAll() {
         List<Bookings> bookingsList = new ArrayList<>();
         try (Connection connection = connectionHolder.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM bookings");
+             PreparedStatement statement = connection.prepareStatement(SELECT_ALL_BOOKINGS);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 bookingsList.add(mapBookings(resultSet));
@@ -34,6 +39,7 @@ public class BookingsRepositoryImpl implements BookingsRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return bookingsList;
     }
 
@@ -41,7 +47,7 @@ public class BookingsRepositoryImpl implements BookingsRepository {
     public Bookings findById(Long id) {
         Bookings booking = null;
         try (Connection connection = connectionHolder.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM bookings WHERE id = ?")) {
+             PreparedStatement statement = connection.prepareStatement(SELECT_BOOKING_BY_ID)) {
             statement.setLong(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -51,15 +57,14 @@ public class BookingsRepositoryImpl implements BookingsRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return booking;
     }
 
     @Override
     public void save(Bookings booking) {
         try (Connection connection = connectionHolder.getConnection();
-             PreparedStatement statement = connection.prepareStatement(
-                     "INSERT INTO bookings (listing_id, user_id, start_date, end_date, status, created_at) VALUES (?, ?, ?, ?, ?, ?)",
-                     Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement statement = connection.prepareStatement(INSERT_BOOKING, Statement.RETURN_GENERATED_KEYS)) {
             statement.setLong(1, booking.getListing().get(0).getId());
             statement.setLong(2, booking.getUsers().get(0).getId());
             statement.setObject(3, booking.getStartDate());
@@ -83,8 +88,7 @@ public class BookingsRepositoryImpl implements BookingsRepository {
     @Override
     public void update(Long id, Bookings booking) {
         try (Connection connection = connectionHolder.getConnection();
-             PreparedStatement statement = connection.prepareStatement(
-                     "UPDATE bookings SET listing_id = ?, user_id = ?, start_date = ?, end_date = ?, status = ? WHERE id = ?")) {
+             PreparedStatement statement = connection.prepareStatement(UPDATE_BOOKING)) {
             statement.setLong(1, booking.getListing().get(0).getId());
             statement.setLong(2, booking.getUsers().get(0).getId());
             statement.setObject(3, booking.getStartDate());
@@ -100,7 +104,7 @@ public class BookingsRepositoryImpl implements BookingsRepository {
     @Override
     public void deleteById(Long id) {
         try (Connection connection = connectionHolder.getConnection();
-             PreparedStatement statement = connection.prepareStatement("DELETE FROM bookings WHERE id = ?")) {
+             PreparedStatement statement = connection.prepareStatement(DELETE_BOOKING_BY_ID)) {
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -119,6 +123,7 @@ public class BookingsRepositoryImpl implements BookingsRepository {
         Listing listing = loadListing(listingId);
         User user = loadUser(userId);
 
+
         return Bookings.builder()
                 .listing(List.of(listing))
                 .users(List.of(user))
@@ -130,10 +135,12 @@ public class BookingsRepositoryImpl implements BookingsRepository {
     }
 
     private Listing loadListing(Long id) throws SQLException {
+
         return new Listing();
     }
 
     private User loadUser(Long id) throws SQLException {
+
         return new User();
     }
 }

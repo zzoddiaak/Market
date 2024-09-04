@@ -20,18 +20,21 @@ public class UserRatingController {
     @GetMapping
     public String findAll() {
         List<UserRatingFullDto> dtos = service.findAll();
+
         return mapper.convertToJson(dtos);
     }
 
     @GetMapping("/{id}")
     public String findById(@PathVariable("id") long id) {
         UserRatingFullDto dto = service.findById(id);
+
         return mapper.convertToJson(dto);
     }
 
     @PostMapping
     public String save(@RequestBody UserRatingFullDto userRatingFullDto) {
         service.save(userRatingFullDto);
+
         return "Saved successfully";
     }
 
@@ -39,12 +42,14 @@ public class UserRatingController {
     public String update(@PathVariable("id") long id, @RequestBody String json) {
         UserRatingFullDto dto = mapper.convertFromJson(json, UserRatingFullDto.class);
         service.update(id, dto);
+
         return "Updated successfully";
     }
 
     @DeleteMapping("/{id}")
     public String deleteById(@PathVariable("id") long id) {
         service.deleteById(id);
+
         return "Deleted successfully";
     }
 }

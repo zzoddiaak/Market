@@ -13,11 +13,13 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
+
     private final CategoryRepository repository;
     private final DtoMapper mapper;
 
     @Override
     public List<CategoryFullDto> findAll() {
+
         return repository.findAll().stream()
                 .map(category -> mapper.convertToDto(category, CategoryFullDto.class))
                 .collect(Collectors.toList());
@@ -26,6 +28,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryFullDto findById(long id) {
         Category category = repository.findById(id);
+
         return mapper.convertToDto(category, CategoryFullDto.class);
     }
 

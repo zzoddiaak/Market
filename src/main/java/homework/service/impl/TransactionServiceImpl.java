@@ -14,11 +14,13 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class TransactionServiceImpl implements TransactionService {
+
     private final TransactionRepository repository;
     private final DtoMapper mapper;
 
     @Override
     public List<TransactionFullDto> findAll() {
+
         return repository.findAll().stream()
                 .map(transaction -> mapper.convertToDto(transaction, TransactionFullDto.class))
                 .collect(Collectors.toList());
@@ -27,6 +29,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public TransactionFullDto findById(long id) {
         Transaction transaction = repository.findById(id);
+
         return mapper.convertToDto(transaction, TransactionFullDto.class);
     }
 

@@ -19,18 +19,21 @@ public class CommentController {
     @GetMapping
     public String findAll() {
         List<CommentFullDto> comments = service.findAll();
+
         return mapperService.convertToJson(comments);
     }
 
     @GetMapping("/{id}")
     public String findById(@PathVariable("id") long id) {
         CommentFullDto comment = service.findById(id);
+
         return mapperService.convertToJson(comment);
     }
 
     @PostMapping
     public String save(@RequestBody CommentFullDto commentFullDto) {
         service.save(commentFullDto);
+
         return "Saved successfully";
     }
 
@@ -38,12 +41,14 @@ public class CommentController {
     public String update(@PathVariable("id") long id, @RequestBody String json) {
         CommentFullDto dto = mapperService.convertFromJson(json, CommentFullDto.class);
         service.update(id, dto);
+
         return "Updated successfully";
     }
 
     @DeleteMapping("/{id}")
     public String deleteById(@PathVariable("id") long id) {
         service.deleteById(id);
+
         return "Deleted successfully";
     }
 }
