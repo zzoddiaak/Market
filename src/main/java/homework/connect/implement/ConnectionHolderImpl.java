@@ -18,7 +18,6 @@ public class ConnectionHolderImpl implements ConnectionHolder {
     private final ThreadLocal<Connection> threadLocalConnection = new ThreadLocal<>();
     private final List<Connection> connectionPool = new ArrayList<>();
 
-    @Autowired
     public ConnectionHolderImpl(DataSource dataSource) {
         this.dataSource = dataSource;
     }
@@ -82,13 +81,10 @@ public class ConnectionHolderImpl implements ConnectionHolder {
     }
 
     private synchronized Connection getConnectionFromPool() throws SQLException {
-        if (connectionPool.isEmpty()) {
+        return connectionPool.isEmpty()
+                ? dataSource.getConnection()
+                : connectionPool.remove(connectionPool.size() - 1);
 
-            return dataSource.getConnection();
-        } else {
-
-            return connectionPool.remove(connectionPool.size() - 1);
-        }
     }
 
     public synchronized void releaseConnection(Connection connection) {
