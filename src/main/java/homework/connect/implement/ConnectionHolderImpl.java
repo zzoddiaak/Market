@@ -43,7 +43,6 @@ public class ConnectionHolderImpl implements ConnectionHolder {
         connection.setAutoCommit(false);
     }
 
-    @Override
     public void commitTransaction() throws SQLException {
         Connection connection = getConnection();
         if (connection.getAutoCommit()) {
@@ -51,12 +50,15 @@ public class ConnectionHolderImpl implements ConnectionHolder {
         }
         try {
             connection.commit();
+        } catch (SQLException e) {
+            connection.rollback();
+            throw e;
         } finally {
             connection.setAutoCommit(true);
             releaseConnection(connection);
-
         }
     }
+
 
 
 
