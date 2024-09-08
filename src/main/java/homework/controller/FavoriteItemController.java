@@ -19,18 +19,21 @@ public class FavoriteItemController {
     @GetMapping
     public String findAll() {
         List<FavoriteItemFullDto> favoriteItems = service.findAll();
+
         return mapperService.convertToJson(favoriteItems);
     }
 
     @GetMapping("/{id}")
     public String findById(@PathVariable("id") long id) {
         FavoriteItemFullDto favoriteItem = service.findById(id);
+
         return mapperService.convertToJson(favoriteItem);
     }
 
     @PostMapping
     public String save(@RequestBody FavoriteItemFullDto favoriteItemFullDto) {
         service.save(favoriteItemFullDto);
+
         return "Saved successfully";
     }
 
@@ -38,12 +41,14 @@ public class FavoriteItemController {
     public String update(@PathVariable("id") long id, @RequestBody String json) {
         FavoriteItemFullDto dto = mapperService.convertFromJson(json, FavoriteItemFullDto.class);
         service.update(id, dto);
+
         return "Updated successfully";
     }
 
     @DeleteMapping("/{id}")
     public String deleteById(@PathVariable("id") long id) {
         service.deleteById(id);
+
         return "Deleted successfully";
     }
 }

@@ -14,11 +14,13 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService {
+
     private final CommentRepository repository;
     private final DtoMapper mapper;
 
     @Override
     public List<CommentFullDto> findAll() {
+
         return repository.findAll().stream()
                 .map(comment -> mapper.convertToDto(comment, CommentFullDto.class))
                 .collect(Collectors.toList());
@@ -27,6 +29,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public CommentFullDto findById(long id) {
         Comment comment = repository.findById(id);
+
         return mapper.convertToDto(comment, CommentFullDto.class);
     }
 

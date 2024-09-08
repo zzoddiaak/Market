@@ -1,44 +1,31 @@
 package homework;
 
 import homework.controller.BookingsController;
-import homework.controller.UserController;
-import homework.controller.UserCredentialController;
+import homework.entity.Bookings;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Application {
-
     public static void main(String[] args) {
-        ApplicationContext context = new AnnotationConfigApplicationContext("homework");
-        UserCredentialController userCredentialController = context.getBean(UserCredentialController.class);
+        ApplicationContext context =new AnnotationConfigApplicationContext("homework");
 
-        userCredentialController.deleteById(1L);
-        userCredentialController.update(2, """
+
+
+        Runnable sessionTask = () -> {
+            BookingsController bookingsController = context.getBean(BookingsController.class);
+            bookingsController.deleteById(1L);
+            bookingsController.update(2, """
                 {
-                    "password":"45646",
-                    "username":"anton"
+                        
+                      "start_date" : "2024-04-17T08:35:00",
+                      "end_date" : "2024-05-12T09:30:00"
                 }
                 """);
+            System.out.println("Session: \n" + bookingsController.findAll());
 
-        System.out.println("User Credentials: \n" + userCredentialController.findAll());
-
-        UserController userController = context.getBean(UserController.class);
-        userController.deleteById(1L);
-        userController.update(2,"""
-                {
-                    "firstName":"Anton",
-                    "lastname":"Antonio",
-                    "bio":"Top"
-                }""");
-        System.out.println("User: \n" + userController.findAll());
+        };
+        sessionTask.run();
 
 
-        BookingsController bookingsController = context.getBean(BookingsController.class);
-        bookingsController.deleteById(1L);
-        bookingsController.update(2, """
-                {
-                    "status":"Lua"
-                }""");
-        System.out.println("Bookings: \n" + bookingsController.findAll());
     }
 }

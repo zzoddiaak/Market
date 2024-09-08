@@ -14,11 +14,13 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class UserCredentialServiceImpl implements UserCredentialService {
+
     private final UserCredentialRepository repository;
     private final DtoMapper mapper;
 
     @Override
     public List<UserCredentialFullDto> findAll() {
+
         return repository.findAll().stream()
                 .map(userCredential -> mapper.convertToDto(userCredential, UserCredentialFullDto.class))
                 .collect(Collectors.toList());
@@ -27,6 +29,7 @@ public class UserCredentialServiceImpl implements UserCredentialService {
     @Override
     public UserCredentialFullDto findById(long id) {
         UserCredential userCredential = repository.findById(id);
+
         return mapper.convertToDto(userCredential, UserCredentialFullDto.class);
     }
 

@@ -20,18 +20,21 @@ public class BookingsController {
     @GetMapping
     public String findAll() {
         List<BookingFullDto> bookings = service.findAll();
+
         return mapper.convertToJson(bookings);
     }
 
     @GetMapping("/{id}")
     public String findById(@PathVariable("id") long id) {
         BookingFullDto booking = service.findById(id);
+
         return mapper.convertToJson(booking);
     }
 
     @PostMapping
     public String save(@RequestBody BookingFullDto bookingFullDto) {
         service.save(bookingFullDto);
+
         return "Saved successfully";
     }
 
@@ -39,12 +42,14 @@ public class BookingsController {
     public String update(@PathVariable("id") long id, @RequestBody String json) {
         BookingFullDto dto = mapper.convertFromJson(json, BookingFullDto.class);
         service.update(id, dto);
+
         return "Updated successfully";
     }
 
     @DeleteMapping("/{id}")
     public String deleteById(@PathVariable("id") long id) {
         service.deleteById(id);
+
         return "Deleted successfully";
     }
 }

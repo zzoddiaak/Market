@@ -14,6 +14,7 @@ public class JsonMapper {
 
     public String convertToJson(Object object) {
         try {
+
             return objectMapper.writeValueAsString(object);
         } catch (Exception e) {
             throw new RuntimeException("Failed to convert object to JSON", e);
@@ -22,6 +23,7 @@ public class JsonMapper {
 
     public <T> T convertFromJson(String json, Class<T> valueType) {
         try {
+
             return objectMapper.readValue(json, valueType);
         } catch (Exception e) {
             throw new RuntimeException("Failed to parse JSON", e);
