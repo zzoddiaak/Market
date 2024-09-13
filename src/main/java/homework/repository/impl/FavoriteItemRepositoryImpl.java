@@ -1,43 +1,57 @@
 package homework.repository.impl;
 
 import homework.entity.FavoriteItem;
-import homework.entity.Listing;
-import homework.entity.User;
+import homework.entity.FavoriteItem_;
 import homework.repository.AbstractRepository;
 import homework.repository.api.FavoriteItemRepository;
-import homework.repository.api.ListingRepository;
-import homework.repository.api.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collections;
+import java.util.List;
 
 @Repository
-public class FavoriteItemRepositoryImpl extends AbstractRepository<FavoriteItem> implements FavoriteItemRepository {
+public class FavoriteItemRepositoryImpl extends AbstractRepository<Long, FavoriteItem> implements FavoriteItemRepository {
 
-    private final UserRepository userRepository;
-    private final ListingRepository listingRepository;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-    @Autowired
-    public FavoriteItemRepositoryImpl(UserRepository userRepository, ListingRepository listingRepository) {
-        this.userRepository = userRepository;
-        this.listingRepository = listingRepository;
-        initializeData();
+    public FavoriteItemRepositoryImpl() {
+        super(FavoriteItem.class);
     }
 
-    private void initializeData() {
-        User user = userRepository.findById(1L);
-        Listing listing = listingRepository.findById(1L);
-        Listing listing1 = listingRepository.findById(2L);
+    // JPQL запрос: Поиск по ID пользователя
+    public List<FavoriteItem> findByUserIdJPQL(Long userId) {
+        TypedQuery<FavoriteItem> query = entityManager.createQuery(
+                "SELECT f FROM FavoriteItem f WHERE f.user.id = :userId", FavoriteItem.class);
+        query.setParameter("userId", userId);
+        return query.getResultList();
+    }
 
-        save(FavoriteItem.builder()
-                .listing(Collections.singletonList(listing))
-                .user(Collections.singletonList(user))
-                .build());
+    // Criteria API запрос: Поиск по ID пользователя
+    public List<FavoriteItem> findByUserIdCriteria(Long userId) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<FavoriteItem> query = cb.createQuery(FavoriteItem.class);
+        Root<FavoriteItem> root = query.from(FavoriteItem.class);
 
-        save(FavoriteItem.builder()
-                .listing(Collections.singletonList(listing1))
-                .user(Collections.singletonList(user))
-                .build());
+        Predicate predicate = cb.equal(root.join(FavoriteItem_.user).get("id"), userId);
+        query.select(root).where(predicate);
+
+        return entityManager.createQuery(query).getResultList();
+    }
+
+    // Обновление данных
+    public void update(Long id, FavoriteItem favoriteItem) {
+        FavoriteItem existingFavoriteItem = findById(id);
+        if (existingFavoriteItem != null) {
+            existingFavoriteItem.setUser(favoriteItem.getUser());
+            existingFavoriteItem.setListing(favoriteItem.getListing());
+            entityManager.merge(existingFavoriteItem);
+        }
     }
 }
