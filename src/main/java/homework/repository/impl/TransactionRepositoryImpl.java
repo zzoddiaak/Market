@@ -26,7 +26,7 @@ public class TransactionRepositoryImpl extends AbstractRepository<Long, Transact
         super(Transaction.class);
     }
 
-    // JPQL запрос: Поиск по ID
+    // Поиск по ID
     @Override
     public Transaction findById(Long id) {
         TypedQuery<Transaction> query = entityManager.createQuery(
@@ -35,7 +35,7 @@ public class TransactionRepositoryImpl extends AbstractRepository<Long, Transact
         return query.getSingleResult();
     }
 
-    // JPQL запрос: Поиск всех транзакций
+    // Поиск всех транзакций
     @Override
     public List<Transaction> findAll() {
         TypedQuery<Transaction> query = entityManager.createQuery(
@@ -43,7 +43,7 @@ public class TransactionRepositoryImpl extends AbstractRepository<Long, Transact
         return query.getResultList();
     }
 
-    // Criteria API запрос: Поиск по дате завершения
+    // Поиск по дате завершения
     public List<Transaction> findByCompletedAtCriteria(LocalDate completedAt) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Transaction> query = cb.createQuery(Transaction.class);
@@ -55,7 +55,6 @@ public class TransactionRepositoryImpl extends AbstractRepository<Long, Transact
         return entityManager.createQuery(query).getResultList();
     }
 
-    // Обновление данных
     @Override
     public void update(Long id, Transaction transaction) {
         Transaction existingTransaction = findById(id);

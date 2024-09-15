@@ -25,7 +25,7 @@ public class RoleRepositoryImpl extends AbstractRepository<Long, Role> implement
         super(Role.class);
     }
 
-    // JPQL запрос: Поиск по ID
+    // Поиск по ID
     @Override
     public Role findById(Long id) {
         TypedQuery<Role> query = entityManager.createQuery(
@@ -34,7 +34,7 @@ public class RoleRepositoryImpl extends AbstractRepository<Long, Role> implement
         return query.getSingleResult();
     }
 
-    // JPQL запрос: Поиск всех ролей
+    // Поиск всех ролей
     @Override
     public List<Role> findAll() {
         TypedQuery<Role> query = entityManager.createQuery(
@@ -42,7 +42,7 @@ public class RoleRepositoryImpl extends AbstractRepository<Long, Role> implement
         return query.getResultList();
     }
 
-    // Criteria API запрос: Поиск по имени
+    // Поиск по имени
     public List<Role> findByNameCriteria(String name) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Role> query = cb.createQuery(Role.class);

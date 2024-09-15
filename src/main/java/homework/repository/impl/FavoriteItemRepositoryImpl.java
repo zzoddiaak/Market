@@ -25,7 +25,7 @@ public class FavoriteItemRepositoryImpl extends AbstractRepository<Long, Favorit
         super(FavoriteItem.class);
     }
 
-    // JPQL запрос: Поиск по ID пользователя
+    // Поиск по ID пользователя
     public List<FavoriteItem> findByUserIdJPQL(Long userId) {
         TypedQuery<FavoriteItem> query = entityManager.createQuery(
                 "SELECT f FROM FavoriteItem f WHERE f.user.id = :userId", FavoriteItem.class);
@@ -33,7 +33,7 @@ public class FavoriteItemRepositoryImpl extends AbstractRepository<Long, Favorit
         return query.getResultList();
     }
 
-    // Criteria API запрос: Поиск по ID пользователя
+    // Поиск по ID пользователя
     public List<FavoriteItem> findByUserIdCriteria(Long userId) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<FavoriteItem> query = cb.createQuery(FavoriteItem.class);
@@ -45,7 +45,6 @@ public class FavoriteItemRepositoryImpl extends AbstractRepository<Long, Favorit
         return entityManager.createQuery(query).getResultList();
     }
 
-    // Обновление данных
     public void update(Long id, FavoriteItem favoriteItem) {
         FavoriteItem existingFavoriteItem = findById(id);
         if (existingFavoriteItem != null) {

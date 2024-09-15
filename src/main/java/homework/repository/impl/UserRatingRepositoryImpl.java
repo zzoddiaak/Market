@@ -22,7 +22,7 @@ public class UserRatingRepositoryImpl extends AbstractRepository<Long, UserRatin
         super(UserRating.class);
     }
 
-    // JPQL запрос: Поиск по ID
+    // Поиск по ID
     @Override
     public UserRating findById(Long id) {
         TypedQuery<UserRating> query = entityManager.createQuery(
@@ -31,7 +31,7 @@ public class UserRatingRepositoryImpl extends AbstractRepository<Long, UserRatin
         return query.getSingleResult();
     }
 
-    // JPQL запрос: Поиск всех оценок
+    // Поиск всех оценок
     @Override
     public List<UserRating> findAll() {
         TypedQuery<UserRating> query = entityManager.createQuery(
@@ -42,7 +42,6 @@ public class UserRatingRepositoryImpl extends AbstractRepository<Long, UserRatin
 
 
 
-    // Обновление данных
     @Override
     public void update(Long id, UserRating userRating) {
         UserRating existingUserRating = findById(id);

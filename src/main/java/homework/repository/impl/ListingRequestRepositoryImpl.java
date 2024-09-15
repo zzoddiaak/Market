@@ -26,7 +26,7 @@ public class ListingRequestRepositoryImpl extends AbstractRepository<Long, Listi
         super(ListingRequest.class);
     }
 
-    // JPQL запрос: Поиск по ID
+    // Поиск по ID
     @Override
     public ListingRequest findById(Long id) {
         TypedQuery<ListingRequest> query = entityManager.createQuery(
@@ -35,7 +35,7 @@ public class ListingRequestRepositoryImpl extends AbstractRepository<Long, Listi
         return query.getSingleResult();
     }
 
-    // JPQL запрос: Поиск всех элементов
+    // Поиск всех элементов
     @Override
     public List<ListingRequest> findAll() {
         TypedQuery<ListingRequest> query = entityManager.createQuery(
@@ -43,15 +43,16 @@ public class ListingRequestRepositoryImpl extends AbstractRepository<Long, Listi
         return query.getResultList();
     }
 
-    // JPQL запрос: Поиск по статусу
+    // Поиск по статусу
     public List<ListingRequest> findByStatusJPQL(String status) {
         TypedQuery<ListingRequest> query = entityManager.createQuery(
                 "SELECT lr FROM ListingRequest lr WHERE lr.status = :status", ListingRequest.class);
         query.setParameter("status", status);
+
         return query.getResultList();
     }
 
-    // Criteria API запрос: Поиск по предложенной цене
+    // Поиск по предложенной цене
     public List<ListingRequest> findByOfferedPriceCriteria(BigDecimal offeredPrice) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<ListingRequest> query = cb.createQuery(ListingRequest.class);
@@ -62,7 +63,7 @@ public class ListingRequestRepositoryImpl extends AbstractRepository<Long, Listi
 
         return entityManager.createQuery(query).getResultList();
     }
-    // Обновление данных
+
     @Override
     public void update(Long id, ListingRequest listingRequest) {
         ListingRequest existingListingRequest = findById(id);

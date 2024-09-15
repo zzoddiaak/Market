@@ -26,33 +26,36 @@ public class ListingRepositoryImpl extends AbstractRepository<Long, Listing> imp
         super(Listing.class);
     }
 
-    // JPQL запрос: Поиск по ID
+    // Поиск по ID
     @Override
     public Listing findById(Long id) {
         TypedQuery<Listing> query = entityManager.createQuery(
                 "SELECT l FROM Listing l WHERE l.id = :id", Listing.class);
         query.setParameter("id", id);
+
         return query.getSingleResult();
     }
 
-    // JPQL запрос: Поиск всех элементов
+    // Поиск всех элементов
     @Override
     public List<Listing> findAll() {
         TypedQuery<Listing> query = entityManager.createQuery(
                 "SELECT l FROM Listing l", Listing.class);
+
         return query.getResultList();
     }
 
-    // JPQL запрос: Поиск по типу объявления
+    // Поиск по типу объявления
     public List<Listing> findByListingTypeJPQL(String listingType) {
         TypedQuery<Listing> query = entityManager.createQuery(
                 "SELECT l FROM Listing l WHERE l.listingType = :listingType", Listing.class);
         query.setParameter("listingType", listingType);
+
         return query.getResultList();
     }
 
 
-    // Criteria API запрос: Поиск по цене с использованием метамодели
+    // Поиск по цене с использованием метамодели
     public List<Listing> findByPriceCriteria(BigDecimal price) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Listing> query = cb.createQuery(Listing.class);

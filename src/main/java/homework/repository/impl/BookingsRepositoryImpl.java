@@ -27,15 +27,16 @@ public class BookingsRepositoryImpl extends AbstractRepository<Long, Bookings> i
         super(Bookings.class);
     }
 
-    // JPQL запрос: Поиск по статусу
+    // Поиск по статусу
     public List<Bookings> findByStatusJPQL(String status) {
         TypedQuery<Bookings> query = entityManager.createQuery(
                 "SELECT b FROM Bookings b WHERE b.status = :status", Bookings.class);
         query.setParameter("status", status);
+
         return query.getResultList();
     }
 
-    // Criteria API запрос: Поиск по дате
+    // Поиск по дате
     public List<Bookings> findByDateCriteria(LocalDate startDate, LocalDate endDate) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Bookings> query = cb.createQuery(Bookings.class);
@@ -53,7 +54,7 @@ public class BookingsRepositoryImpl extends AbstractRepository<Long, Bookings> i
 
         return entityManager.createQuery(query).getResultList();
     }
-    // Обновление данных
+
     public void update(Long id, Bookings bookings) {
         Bookings existingBooking = findById(id);
         if (existingBooking != null) {

@@ -25,7 +25,7 @@ public class UserRepositoryImpl extends AbstractRepository<Long, User> implement
         super(User.class);
     }
 
-    // JPQL запрос: Поиск по ID
+    // Поиск по ID
     @Override
     public User findById(Long id) {
         TypedQuery<User> query = entityManager.createQuery(
@@ -34,7 +34,7 @@ public class UserRepositoryImpl extends AbstractRepository<Long, User> implement
         return query.getSingleResult();
     }
 
-    // JPQL запрос: Поиск всех пользователей
+    // Поиск всех пользователей
     @Override
     public List<User> findAll() {
         TypedQuery<User> query = entityManager.createQuery(
@@ -42,7 +42,7 @@ public class UserRepositoryImpl extends AbstractRepository<Long, User> implement
         return query.getResultList();
     }
 
-    // Criteria API запрос: Поиск по имени
+    // Поиск по имени
     public List<User> findByFirstNameCriteria(String firstName) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<User> query = cb.createQuery(User.class);
@@ -54,7 +54,6 @@ public class UserRepositoryImpl extends AbstractRepository<Long, User> implement
         return entityManager.createQuery(query).getResultList();
     }
 
-    // Обновление данных
     @Override
     public void update(Long id, User user) {
         User existingUser = findById(id);

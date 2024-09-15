@@ -25,7 +25,7 @@ public class UserCredentialRepositoryImpl extends AbstractRepository<Long, UserC
         super(UserCredential.class);
     }
 
-    // JPQL запрос: Поиск по ID
+    // Поиск по ID
     @Override
     public UserCredential findById(Long id) {
         TypedQuery<UserCredential> query = entityManager.createQuery(
@@ -34,7 +34,7 @@ public class UserCredentialRepositoryImpl extends AbstractRepository<Long, UserC
         return query.getSingleResult();
     }
 
-    // JPQL запрос: Поиск всех учетных записей
+    // Поиск всех учетных записей
     @Override
     public List<UserCredential> findAll() {
         TypedQuery<UserCredential> query = entityManager.createQuery(
@@ -42,7 +42,7 @@ public class UserCredentialRepositoryImpl extends AbstractRepository<Long, UserC
         return query.getResultList();
     }
 
-    // Criteria API запрос: Поиск по имени пользователя
+    // Поиск по имени пользователя
     public List<UserCredential> findByUsernameCriteria(String username) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<UserCredential> query = cb.createQuery(UserCredential.class);
@@ -54,7 +54,6 @@ public class UserCredentialRepositoryImpl extends AbstractRepository<Long, UserC
         return entityManager.createQuery(query).getResultList();
     }
 
-    // Обновление данных
     @Override
     public void update(Long id, UserCredential userCredential) {
         UserCredential existingUserCredential = findById(id);

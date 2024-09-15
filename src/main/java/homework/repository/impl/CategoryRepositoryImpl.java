@@ -25,15 +25,16 @@ public class CategoryRepositoryImpl extends AbstractRepository<Long, Category> i
         super(Category.class);
     }
 
-    // JPQL запрос: Поиск по имени
+    //  Поиск по имени
     public List<Category> findByNameJPQL(String name) {
         TypedQuery<Category> query = entityManager.createQuery(
                 "SELECT c FROM Category c WHERE c.name = :name", Category.class);
         query.setParameter("name", name);
+
         return query.getResultList();
     }
 
-    // Criteria API запрос: Поиск по имени
+    //  Поиск по имени
     public List<Category> findByNameCriteria(String name) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Category> query = cb.createQuery(Category.class);
@@ -45,7 +46,6 @@ public class CategoryRepositoryImpl extends AbstractRepository<Long, Category> i
         return entityManager.createQuery(query).getResultList();
     }
 
-    // Обновление данных
     public void update(Long id, Category category) {
         Category existingCategory = findById(id);
         if (existingCategory != null) {

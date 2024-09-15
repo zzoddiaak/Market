@@ -25,7 +25,7 @@ public class CommentRepositoryImpl extends AbstractRepository<Long, Comment> imp
         super(Comment.class);
     }
 
-    // JPQL запрос: Поиск по тексту комментария
+    // Поиск по тексту комментария
     public List<Comment> findByCommentTextJPQL(String commentText) {
         TypedQuery<Comment> query = entityManager.createQuery(
                 "SELECT c FROM Comment c WHERE c.commentText LIKE :commentText", Comment.class);
@@ -33,7 +33,7 @@ public class CommentRepositoryImpl extends AbstractRepository<Long, Comment> imp
         return query.getResultList();
     }
 
-    // Criteria API запрос: Поиск по тексту комментария
+    // Поиск по тексту комментария
     public List<Comment> findByCommentTextCriteria(String commentText) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Comment> query = cb.createQuery(Comment.class);
@@ -45,7 +45,6 @@ public class CommentRepositoryImpl extends AbstractRepository<Long, Comment> imp
         return entityManager.createQuery(query).getResultList();
     }
 
-    // Обновление данных
     public void update(Long id, Comment comment) {
         Comment existingComment = findById(id);
         if (existingComment != null) {
