@@ -4,6 +4,7 @@ import homework.entity.Role;
 import homework.entity.Role_;
 import homework.repository.AbstractRepository;
 import homework.repository.api.RoleRepository;
+import jakarta.persistence.EntityGraph;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
@@ -25,22 +26,34 @@ public class RoleRepositoryImpl extends AbstractRepository<Long, Role> implement
         super(Role.class);
     }
 
-    // Поиск по ID
-    @Override
-    public Role findById(Long id) {
-        TypedQuery<Role> query = entityManager.createQuery(
-                "SELECT r FROM Role r WHERE r.id = :id", Role.class);
-        query.setParameter("id", id);
-        return query.getSingleResult();
+    // Criteria API
+    public List<Role> findAllWithAssociationsCriteria() {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Role> query = cb.createQuery(Role.class);
+        Root<Role> root = query.from(Role.class);
+
+        query.select(root);
+
+        return entityManager.createQuery(query).getResultList();
     }
 
-    // Поиск всех ролей
-    @Override
-    public List<Role> findAll() {
-        TypedQuery<Role> query = entityManager.createQuery(
-                "SELECT r FROM Role r", Role.class);
+    // JPQL
+    public List<Role> findAllWithAssociationsJPQL() {
+        String jpql = "SELECT r FROM Role r";
+        TypedQuery<Role> query = entityManager.createQuery(jpql, Role.class);
         return query.getResultList();
     }
+
+    // EntityGraph
+    public List<Role> findAllWithAssociationsEntityGraph() {
+        EntityGraph<Role> graph = entityManager.createEntityGraph(Role.class);
+
+        TypedQuery<Role> query = entityManager.createQuery("SELECT r FROM Role r", Role.class);
+        query.setHint("javax.persistence.fetchgraph", graph);
+
+        return query.getResultList();
+    }
+
 
     // Поиск по имени
     public List<Role> findByNameCriteria(String name) {

@@ -4,13 +4,11 @@ import homework.entity.Transaction;
 import homework.entity.Transaction_;
 import homework.repository.AbstractRepository;
 import homework.repository.api.TransactionRepository;
+import jakarta.persistence.EntityGraph;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.*;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -26,22 +24,40 @@ public class TransactionRepositoryImpl extends AbstractRepository<Long, Transact
         super(Transaction.class);
     }
 
-    // Поиск по ID
-    @Override
-    public Transaction findById(Long id) {
-        TypedQuery<Transaction> query = entityManager.createQuery(
-                "SELECT t FROM Transaction t WHERE t.id = :id", Transaction.class);
-        query.setParameter("id", id);
-        return query.getSingleResult();
+    // Criteria API
+    public List<Transaction> findAllWithAssociationsCriteria() {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Transaction> query = cb.createQuery(Transaction.class);
+        Root<Transaction> root = query.from(Transaction.class);
+
+        root.fetch(Transaction_.request, JoinType.LEFT);
+
+        query.select(root);
+
+        return entityManager.createQuery(query).getResultList();
     }
 
-    // Поиск всех транзакций
-    @Override
-    public List<Transaction> findAll() {
-        TypedQuery<Transaction> query = entityManager.createQuery(
-                "SELECT t FROM Transaction t", Transaction.class);
+    // JPQL
+    public List<Transaction> findAllWithAssociationsJPQL() {
+        String jpql = "SELECT t FROM Transaction t " +
+                "LEFT JOIN FETCH t.request";
+        TypedQuery<Transaction> query = entityManager.createQuery(jpql, Transaction.class);
+
         return query.getResultList();
     }
+
+    // EntityGraph
+    public List<Transaction> findAllWithAssociationsEntityGraph() {
+        EntityGraph<Transaction> graph = entityManager.createEntityGraph(Transaction.class);
+
+        graph.addAttributeNodes("request");
+
+        TypedQuery<Transaction> query = entityManager.createQuery("SELECT t FROM Transaction t", Transaction.class);
+        query.setHint("javax.persistence.fetchgraph", graph);
+
+        return query.getResultList();
+    }
+
 
     // Поиск по дате завершения
     public List<Transaction> findByCompletedAtCriteria(LocalDate completedAt) {

@@ -4,13 +4,11 @@ import homework.entity.ListingRequest;
 import homework.entity.ListingRequest_;
 import homework.repository.AbstractRepository;
 import homework.repository.api.ListingRequestRepository;
+import jakarta.persistence.EntityGraph;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.*;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
@@ -26,31 +24,42 @@ public class ListingRequestRepositoryImpl extends AbstractRepository<Long, Listi
         super(ListingRequest.class);
     }
 
-    // Поиск по ID
-    @Override
-    public ListingRequest findById(Long id) {
-        TypedQuery<ListingRequest> query = entityManager.createQuery(
-                "SELECT lr FROM ListingRequest lr WHERE lr.id = :id", ListingRequest.class);
-        query.setParameter("id", id);
-        return query.getSingleResult();
+    // Criteria API
+    public List<ListingRequest> findAllWithAssociationsCriteria() {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<ListingRequest> query = cb.createQuery(ListingRequest.class);
+        Root<ListingRequest> root = query.from(ListingRequest.class);
+
+        root.fetch(ListingRequest_.listing, JoinType.LEFT);
+        root.fetch(ListingRequest_.requester, JoinType.LEFT);
+
+        query.select(root);
+
+        return entityManager.createQuery(query).getResultList();
     }
 
-    // Поиск всех элементов
-    @Override
-    public List<ListingRequest> findAll() {
-        TypedQuery<ListingRequest> query = entityManager.createQuery(
-                "SELECT lr FROM ListingRequest lr", ListingRequest.class);
+    // JPQL
+    public List<ListingRequest> findAllWithAssociationsJPQL() {
+        String jpql = "SELECT lr FROM ListingRequest lr " +
+                "LEFT JOIN FETCH lr.listing " +
+                "LEFT JOIN FETCH lr.requester";
+        TypedQuery<ListingRequest> query = entityManager.createQuery(jpql, ListingRequest.class);
         return query.getResultList();
     }
 
-    // Поиск по статусу
-    public List<ListingRequest> findByStatusJPQL(String status) {
-        TypedQuery<ListingRequest> query = entityManager.createQuery(
-                "SELECT lr FROM ListingRequest lr WHERE lr.status = :status", ListingRequest.class);
-        query.setParameter("status", status);
+    // EntityGraph
+    public List<ListingRequest> findAllWithAssociationsEntityGraph() {
+        EntityGraph<ListingRequest> graph = entityManager.createEntityGraph(ListingRequest.class);
+
+        graph.addAttributeNodes("listing");
+        graph.addAttributeNodes("requester");
+
+        TypedQuery<ListingRequest> query = entityManager.createQuery("SELECT lr FROM ListingRequest lr", ListingRequest.class);
+        query.setHint("javax.persistence.fetchgraph", graph);
 
         return query.getResultList();
     }
+
 
     // Поиск по предложенной цене
     public List<ListingRequest> findByOfferedPriceCriteria(BigDecimal offeredPrice) {

@@ -4,6 +4,7 @@ import homework.entity.UserCredential;
 import homework.entity.UserCredential_;
 import homework.repository.AbstractRepository;
 import homework.repository.api.UserCredentialRepository;
+import jakarta.persistence.EntityGraph;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
@@ -26,33 +27,34 @@ public class UserCredentialRepositoryImpl extends AbstractRepository<Long, UserC
     }
 
     // Поиск по ID
-    @Override
-    public UserCredential findById(Long id) {
-        TypedQuery<UserCredential> query = entityManager.createQuery(
-                "SELECT uc FROM UserCredential uc WHERE uc.id = :id", UserCredential.class);
-        query.setParameter("id", id);
-        return query.getSingleResult();
-    }
-
-    // Поиск всех учетных записей
-    @Override
-    public List<UserCredential> findAll() {
-        TypedQuery<UserCredential> query = entityManager.createQuery(
-                "SELECT uc FROM UserCredential uc", UserCredential.class);
-        return query.getResultList();
-    }
-
-    // Поиск по имени пользователя
-    public List<UserCredential> findByUsernameCriteria(String username) {
+    // Criteria API
+    public List<UserCredential> findAllWithAssociationsCriteria() {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<UserCredential> query = cb.createQuery(UserCredential.class);
         Root<UserCredential> root = query.from(UserCredential.class);
 
-        Predicate predicate = cb.equal(root.get(UserCredential_.username), username);
-        query.select(root).where(predicate);
+        query.select(root);
 
         return entityManager.createQuery(query).getResultList();
     }
+
+    // JPQL
+    public List<UserCredential> findAllWithAssociationsJPQL() {
+        String jpql = "SELECT uc FROM UserCredential uc";
+        TypedQuery<UserCredential> query = entityManager.createQuery(jpql, UserCredential.class);
+        return query.getResultList();
+    }
+
+    // EntityGraph
+    public List<UserCredential> findAllWithAssociationsEntityGraph() {
+        EntityGraph<UserCredential> graph = entityManager.createEntityGraph(UserCredential.class);
+
+        TypedQuery<UserCredential> query = entityManager.createQuery("SELECT uc FROM UserCredential uc", UserCredential.class);
+        query.setHint("javax.persistence.fetchgraph", graph);
+
+        return query.getResultList();
+    }
+
 
     @Override
     public void update(Long id, UserCredential userCredential) {
