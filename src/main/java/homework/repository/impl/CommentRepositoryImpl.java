@@ -4,6 +4,7 @@ import homework.entity.Comment;
 import homework.entity.Comment_;
 import homework.repository.AbstractRepository;
 import homework.repository.api.CommentRepository;
+import jakarta.persistence.EntityGraph;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
@@ -25,13 +26,28 @@ public class CommentRepositoryImpl extends AbstractRepository<Long, Comment> imp
         super(Comment.class);
     }
 
-    // Поиск по тексту комментария
-    public List<Comment> findByCommentTextJPQL(String commentText) {
-        TypedQuery<Comment> query = entityManager.createQuery(
-                "SELECT c FROM Comment c WHERE c.commentText LIKE :commentText", Comment.class);
-        query.setParameter("commentText", "%" + commentText + "%");
+
+    // JPQL
+    public List<Comment> findAllWithAssociationsJPQL() {
+        String jpql = "SELECT c FROM Comment c " +
+                "LEFT JOIN FETCH c.user";
+        TypedQuery<Comment> query = entityManager.createQuery(jpql, Comment.class);
+
         return query.getResultList();
     }
+
+    // EntityGraph
+    public List<Comment> findAllWithAssociationsEntityGraph() {
+        EntityGraph<Comment> graph = entityManager.createEntityGraph(Comment.class);
+
+        graph.addAttributeNodes("user");
+
+        TypedQuery<Comment> query = entityManager.createQuery("SELECT c FROM Comment c", Comment.class);
+        query.setHint("javax.persistence.fetchgraph", graph);
+
+        return query.getResultList();
+    }
+
 
     // Поиск по тексту комментария
     public List<Comment> findByCommentTextCriteria(String commentText) {

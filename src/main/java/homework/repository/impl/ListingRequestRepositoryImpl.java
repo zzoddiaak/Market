@@ -44,6 +44,7 @@ public class ListingRequestRepositoryImpl extends AbstractRepository<Long, Listi
                 "LEFT JOIN FETCH lr.listing " +
                 "LEFT JOIN FETCH lr.requester";
         TypedQuery<ListingRequest> query = entityManager.createQuery(jpql, ListingRequest.class);
+
         return query.getResultList();
     }
 

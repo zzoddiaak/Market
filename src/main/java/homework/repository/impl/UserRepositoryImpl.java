@@ -43,6 +43,7 @@ public class UserRepositoryImpl extends AbstractRepository<Long, User> implement
                 "LEFT JOIN FETCH u.credential " +
                 "LEFT JOIN FETCH u.role";
         TypedQuery<User> query = entityManager.createQuery(jpql, User.class);
+
         return query.getResultList();
     }
 

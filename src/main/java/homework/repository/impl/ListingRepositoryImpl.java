@@ -4,13 +4,11 @@ import homework.entity.Listing;
 import homework.entity.Listing_;
 import homework.repository.AbstractRepository;
 import homework.repository.api.ListingRepository;
+import jakarta.persistence.EntityGraph;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.*;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
@@ -26,36 +24,46 @@ public class ListingRepositoryImpl extends AbstractRepository<Long, Listing> imp
         super(Listing.class);
     }
 
-    // Поиск по ID
-    @Override
-    public Listing findById(Long id) {
-        TypedQuery<Listing> query = entityManager.createQuery(
-                "SELECT l FROM Listing l WHERE l.id = :id", Listing.class);
-        query.setParameter("id", id);
+    // Criteria API
+    public List<Listing> findAllWithAssociationsCriteria() {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Listing> query = cb.createQuery(Listing.class);
+        Root<Listing> root = query.from(Listing.class);
 
-        return query.getSingleResult();
+        root.fetch(Listing_.users, JoinType.LEFT);
+        root.fetch(Listing_.categories, JoinType.LEFT);
+
+        query.select(root);
+
+        return entityManager.createQuery(query).getResultList();
     }
 
-    // Поиск всех элементов
-    @Override
-    public List<Listing> findAll() {
-        TypedQuery<Listing> query = entityManager.createQuery(
-                "SELECT l FROM Listing l", Listing.class);
+    // JPQL
+    public List<Listing> findAllWithAssociationsJPQL() {
+        String jpql = "SELECT l FROM Listing l " +
+                "LEFT JOIN FETCH l.users " +
+                "LEFT JOIN FETCH l.categories";
+        TypedQuery<Listing> query = entityManager.createQuery(jpql, Listing.class);
 
         return query.getResultList();
     }
 
-    // Поиск по типу объявления
-    public List<Listing> findByListingTypeJPQL(String listingType) {
-        TypedQuery<Listing> query = entityManager.createQuery(
-                "SELECT l FROM Listing l WHERE l.listingType = :listingType", Listing.class);
-        query.setParameter("listingType", listingType);
+    // EntityGraph
+    public List<Listing> findAllWithAssociationsEntityGraph() {
+        EntityGraph<Listing> graph = entityManager.createEntityGraph(Listing.class);
+
+        graph.addAttributeNodes("users");
+        graph.addAttributeNodes("categories");
+
+        TypedQuery<Listing> query = entityManager.createQuery("SELECT l FROM Listing l", Listing.class);
+        query.setHint("javax.persistence.fetchgraph", graph);
 
         return query.getResultList();
     }
 
 
-    // Поиск по цене с использованием метамодели
+
+    // Поиск по цене с использованием
     public List<Listing> findByPriceCriteria(BigDecimal price) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Listing> query = cb.createQuery(Listing.class);

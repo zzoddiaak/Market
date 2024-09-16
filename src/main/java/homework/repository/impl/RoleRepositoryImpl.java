@@ -41,6 +41,7 @@ public class RoleRepositoryImpl extends AbstractRepository<Long, Role> implement
     public List<Role> findAllWithAssociationsJPQL() {
         String jpql = "SELECT r FROM Role r";
         TypedQuery<Role> query = entityManager.createQuery(jpql, Role.class);
+
         return query.getResultList();
     }
 

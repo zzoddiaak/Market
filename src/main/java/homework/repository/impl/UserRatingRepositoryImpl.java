@@ -22,20 +22,13 @@ public class UserRatingRepositoryImpl extends AbstractRepository<Long, UserRatin
         super(UserRating.class);
     }
 
-    // Поиск по ID
-    @Override
-    public UserRating findById(Long id) {
-        TypedQuery<UserRating> query = entityManager.createQuery(
-                "SELECT ur FROM UserRating ur WHERE ur.id = :id", UserRating.class);
-        query.setParameter("id", id);
-        return query.getSingleResult();
-    }
 
     // Поиск всех оценок
     @Override
     public List<UserRating> findAll() {
         TypedQuery<UserRating> query = entityManager.createQuery(
                 "SELECT ur FROM UserRating ur", UserRating.class);
+
         return query.getResultList();
     }
 

@@ -4,6 +4,7 @@ import homework.entity.Category;
 import homework.entity.Category_;
 import homework.repository.AbstractRepository;
 import homework.repository.api.CategoryRepository;
+import jakarta.persistence.EntityGraph;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
@@ -25,14 +26,25 @@ public class CategoryRepositoryImpl extends AbstractRepository<Long, Category> i
         super(Category.class);
     }
 
-    //  Поиск по имени
-    public List<Category> findByNameJPQL(String name) {
-        TypedQuery<Category> query = entityManager.createQuery(
-                "SELECT c FROM Category c WHERE c.name = :name", Category.class);
-        query.setParameter("name", name);
+
+    // JPQL
+    public List<Category> findAllWithAssociationsJPQL() {
+        String jpql = "SELECT c FROM Category c";
+        TypedQuery<Category> query = entityManager.createQuery(jpql, Category.class);
 
         return query.getResultList();
     }
+
+    // EntityGraph
+    public List<Category> findAllWithAssociationsEntityGraph() {
+        EntityGraph<Category> graph = entityManager.createEntityGraph(Category.class);
+
+        TypedQuery<Category> query = entityManager.createQuery("SELECT c FROM Category c", Category.class);
+        query.setHint("javax.persistence.fetchgraph", graph);
+
+        return query.getResultList();
+    }
+
 
     //  Поиск по имени
     public List<Category> findByNameCriteria(String name) {

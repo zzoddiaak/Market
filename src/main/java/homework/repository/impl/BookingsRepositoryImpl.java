@@ -4,13 +4,11 @@ import homework.entity.Bookings;
 import homework.entity.Bookings_;
 import homework.repository.AbstractRepository;
 import homework.repository.api.BookingsRepository;
+import jakarta.persistence.EntityGraph;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.*;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -36,24 +34,34 @@ public class BookingsRepositoryImpl extends AbstractRepository<Long, Bookings> i
         return query.getResultList();
     }
 
-    // Поиск по дате
-    public List<Bookings> findByDateCriteria(LocalDate startDate, LocalDate endDate) {
+    // Criteria API
+    public List<Bookings> findAllWithAssociationsCriteria() {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Bookings> query = cb.createQuery(Bookings.class);
         Root<Bookings> root = query.from(Bookings.class);
 
-        List<Predicate> predicates = new ArrayList<>();
-        if (startDate != null) {
-            predicates.add(cb.greaterThanOrEqualTo(root.get(Bookings_.startDate), startDate));
-        }
-        if (endDate != null) {
-            predicates.add(cb.lessThanOrEqualTo(root.get(Bookings_.endDate), endDate));
-        }
+        root.fetch(Bookings_.listing, JoinType.LEFT);
+        root.fetch(Bookings_.users, JoinType.LEFT);
 
-        query.select(root).where(cb.and(predicates.toArray(new Predicate[0])));
+        query.select(root);
 
         return entityManager.createQuery(query).getResultList();
     }
+
+
+    // EntityGraph
+    public List<Bookings> findAllWithAssociationsEntityGraph() {
+        EntityGraph<Bookings> graph = entityManager.createEntityGraph(Bookings.class);
+
+        graph.addAttributeNodes("listing");
+        graph.addAttributeNodes("users");
+
+        TypedQuery<Bookings> query = entityManager.createQuery("SELECT b FROM Bookings b", Bookings.class);
+        query.setHint("javax.persistence.fetchgraph", graph);
+
+        return query.getResultList();
+    }
+
 
     public void update(Long id, Bookings bookings) {
         Bookings existingBooking = findById(id);
