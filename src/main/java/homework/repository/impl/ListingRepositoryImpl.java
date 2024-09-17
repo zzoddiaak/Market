@@ -75,23 +75,5 @@ public class ListingRepositoryImpl extends AbstractRepository<Long, Listing> imp
         return entityManager.createQuery(query).getResultList();
     }
 
-    // Обновление данных
-    @Override
-    public void update(Long id, Listing listing) {
-        Listing existingListing = findById(id);
-        if (existingListing != null) {
-            existingListing.setTitle(listing.getTitle());
-            existingListing.setDescription(listing.getDescription());
-            existingListing.setPrice(listing.getPrice());
-            existingListing.setNegotiable(listing.isNegotiable());
-            existingListing.setListingType(listing.getListingType());
-            existingListing.setItemType(listing.getItemType());
-            existingListing.setAddress(listing.getAddress());
-            existingListing.setRentalPrice(listing.getRentalPrice());
-            existingListing.setCreatedAt(listing.getCreatedAt());
-            existingListing.setUsers(listing.getUsers());
-            existingListing.setCategories(listing.getCategories());
-            entityManager.merge(existingListing);
-        }
-    }
+
 }

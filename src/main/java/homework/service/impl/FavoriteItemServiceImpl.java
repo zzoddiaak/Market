@@ -7,12 +7,14 @@ import homework.repository.api.FavoriteItemRepository;
 import homework.service.FavoriteItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class FavoriteItemServiceImpl implements FavoriteItemService {
 
     private final FavoriteItemRepository repository;
@@ -41,8 +43,8 @@ public class FavoriteItemServiceImpl implements FavoriteItemService {
 
     @Override
     public void update(long id, FavoriteItemFullDto updateDTO) {
-        FavoriteItem favoriteItem = mapper.convertToEntity(updateDTO, FavoriteItem.class);
-        repository.update(id, favoriteItem);
+        FavoriteItem favoriteItem  = mapper.convertToEntity(updateDTO, FavoriteItem.class);
+        repository.update(favoriteItem);
     }
 
     @Override

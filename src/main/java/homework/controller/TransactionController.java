@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("/transactions")
 public class TransactionController {
@@ -15,7 +14,10 @@ public class TransactionController {
     private final TransactionService service;
     private final JsonMapper mapperService;
 
-
+    public TransactionController(TransactionService service, JsonMapper mapperService) {
+        this.service = service;
+        this.mapperService = mapperService;
+    }
 
     @GetMapping
     public String findAll() {

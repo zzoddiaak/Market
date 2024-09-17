@@ -7,6 +7,6 @@ public interface FavoriteItemService {
     List<FavoriteItemFullDto> findAll();
     FavoriteItemFullDto findById(long id);
     void save(FavoriteItemFullDto object);
-    void update(long id,FavoriteItemFullDto  updateDTO);
     void deleteById(long id);
+    void update(long id,FavoriteItemFullDto object);
 }

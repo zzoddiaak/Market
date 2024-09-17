@@ -58,11 +58,4 @@ public class CategoryRepositoryImpl extends AbstractRepository<Long, Category> i
         return entityManager.createQuery(query).getResultList();
     }
 
-    public void update(Long id, Category category) {
-        Category existingCategory = findById(id);
-        if (existingCategory != null) {
-            existingCategory.setName(category.getName());
-            entityManager.merge(existingCategory);
-        }
-    }
 }

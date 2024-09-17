@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("/userCredentials")
 public class UserCredentialController {
@@ -15,7 +14,10 @@ public class UserCredentialController {
     private final UserCredentialService service;
     private final JsonMapper mapper;
 
-
+    public UserCredentialController(UserCredentialService service, JsonMapper mapper) {
+        this.service = service;
+        this.mapper = mapper;
+    }
 
     @GetMapping
     public String findAll() {

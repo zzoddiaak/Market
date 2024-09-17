@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@RequiredArgsConstructor
+
 @RestController
 @RequestMapping("/favoriteItems")
 public class FavoriteItemController {
@@ -15,6 +15,10 @@ public class FavoriteItemController {
     private final FavoriteItemService service;
     private final JsonMapper mapperService;
 
+    public FavoriteItemController(FavoriteItemService service, JsonMapper mapperService) {
+        this.service = service;
+        this.mapperService = mapperService;
+    }
 
     @GetMapping
     public String findAll() {

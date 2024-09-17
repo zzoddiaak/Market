@@ -68,13 +68,5 @@ public class RoleRepositoryImpl extends AbstractRepository<Long, Role> implement
         return entityManager.createQuery(query).getResultList();
     }
 
-    // Обновление данных
-    @Override
-    public void update(Long id, Role role) {
-        Role existingRole = findById(id);
-        if (existingRole != null) {
-            existingRole.setName(role.getName());
-            entityManager.merge(existingRole);
-        }
-    }
+
 }

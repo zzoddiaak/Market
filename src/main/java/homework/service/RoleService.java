@@ -7,6 +7,6 @@ public interface RoleService {
     List<RoleFullDto> findAll();
     RoleFullDto findById(long id);
     void save(RoleFullDto object);
-    void update(long id,RoleFullDto  updateDTO);
     void deleteById(long id);
+    void update(long id,RoleFullDto object);
 }

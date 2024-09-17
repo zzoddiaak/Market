@@ -7,6 +7,6 @@ public interface UserService {
     List<UserFullDto> findAll();
     UserFullDto findById(long id);
     void save(UserFullDto object);
-    void update(long id,UserFullDto  updateDTO);
     void deleteById(long id);
+    void update(long id,UserFullDto object);
 }

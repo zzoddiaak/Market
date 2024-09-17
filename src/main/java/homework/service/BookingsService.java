@@ -8,6 +8,7 @@ public interface BookingsService {
     List<BookingFullDto> findAll();
     BookingFullDto findById(long id);
     void save(BookingFullDto object);
-    void update(long id, BookingFullDto updateDTO);
     void deleteById(long id);
+    void update(long id, BookingFullDto updateDTO);
+
 }

@@ -35,15 +35,5 @@ public class UserRatingRepositoryImpl extends AbstractRepository<Long, UserRatin
 
 
 
-    @Override
-    public void update(Long id, UserRating userRating) {
-        UserRating existingUserRating = findById(id);
-        if (existingUserRating != null) {
-            existingUserRating.setRating(userRating.getRating());
-            existingUserRating.setCreatedAt(userRating.getCreatedAt());
-            existingUserRating.setRater(userRating.getRater());
-            existingUserRating.setRatedUser(userRating.getRatedUser());
-            entityManager.merge(existingUserRating);
-        }
-    }
+
 }

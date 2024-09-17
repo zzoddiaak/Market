@@ -61,13 +61,5 @@ public class CommentRepositoryImpl extends AbstractRepository<Long, Comment> imp
         return entityManager.createQuery(query).getResultList();
     }
 
-    public void update(Long id, Comment comment) {
-        Comment existingComment = findById(id);
-        if (existingComment != null) {
-            existingComment.setCommentText(comment.getCommentText());
-            existingComment.setCreatedAt(comment.getCreatedAt());
-            existingComment.setUser(comment.getUser());
-            entityManager.merge(existingComment);
-        }
-    }
+
 }

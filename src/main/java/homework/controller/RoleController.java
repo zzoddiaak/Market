@@ -4,10 +4,10 @@ import homework.dto.JsonMapper;
 import homework.dto.role.RoleFullDto;
 import homework.service.RoleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("/roles")
 public class RoleController {
@@ -15,6 +15,11 @@ public class RoleController {
     private final RoleService service;
     private final JsonMapper mapperService;
 
+    @Autowired
+    public RoleController(RoleService service, JsonMapper mapperService) {
+        this.service = service;
+        this.mapperService = mapperService;
+    }
 
     @GetMapping
     public String findAll() {

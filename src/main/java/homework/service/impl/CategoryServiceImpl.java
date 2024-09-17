@@ -7,11 +7,14 @@ import homework.repository.api.CategoryRepository;
 import homework.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository repository;
@@ -41,7 +44,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void update(long id, CategoryFullDto updateDTO) {
         Category category  = mapper.convertToEntity(updateDTO, Category.class);
-        repository.update(id, category);
+        repository.update(category);
     }
 
     @Override

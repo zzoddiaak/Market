@@ -36,7 +36,6 @@ public class UserRepositoryImpl extends AbstractRepository<Long, User> implement
 
         return entityManager.createQuery(query).getResultList();
     }
-
     // JPQL
     public List<User> findAllWithAssociationsJPQL() {
         String jpql = "SELECT u FROM User u " +
@@ -60,17 +59,5 @@ public class UserRepositoryImpl extends AbstractRepository<Long, User> implement
         return query.getResultList();
     }
 
-    @Override
-    public void update(Long id, User user) {
-        User existingUser = findById(id);
-        if (existingUser != null) {
-            existingUser.setFirstName(user.getFirstName());
-            existingUser.setLastName(user.getLastName());
-            existingUser.setBio(user.getBio());
-            existingUser.setCreatedAt(user.getCreatedAt());
-            existingUser.setCredential(user.getCredential());
-            existingUser.setRole(user.getRole());
-            entityManager.merge(existingUser);
-        }
-    }
+
 }

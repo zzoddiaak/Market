@@ -43,8 +43,9 @@ public class BookingsServiceImpl implements BookingsService {
     @Override
     public void update(long id, BookingFullDto updateDTO) {
         Bookings bookings = mapper.convertToEntity(updateDTO, Bookings.class);
-        repository.update(id, bookings);
+        repository.update(bookings);
     }
+
 
     @Override
     public void deleteById(long id) {

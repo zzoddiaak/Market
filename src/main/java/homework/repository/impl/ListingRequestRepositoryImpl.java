@@ -74,16 +74,5 @@ public class ListingRequestRepositoryImpl extends AbstractRepository<Long, Listi
         return entityManager.createQuery(query).getResultList();
     }
 
-    @Override
-    public void update(Long id, ListingRequest listingRequest) {
-        ListingRequest existingListingRequest = findById(id);
-        if (existingListingRequest != null) {
-            existingListingRequest.setOfferedPrice(listingRequest.getOfferedPrice());
-            existingListingRequest.setStatus(listingRequest.getStatus());
-            existingListingRequest.setCreatedAt(listingRequest.getCreatedAt());
-            existingListingRequest.setListing(listingRequest.getListing());
-            existingListingRequest.setRequester(listingRequest.getRequester());
-            entityManager.merge(existingListingRequest);
-        }
-    }
+
 }

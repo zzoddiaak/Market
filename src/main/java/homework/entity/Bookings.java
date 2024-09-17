@@ -1,7 +1,7 @@
 package homework.entity;
+
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,7 +23,7 @@ public class Bookings {
     private String status;
 
     @Column(name = "created_at")
-    private LocalDateTime crearedAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "start_date")
     private LocalDate startDate;
@@ -33,9 +33,9 @@ public class Bookings {
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "listing_id", referencedColumnName = "id")
-    private List<Listing> listing;
+    private List<Listing> listings;
+
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private List<User> users;
-
 }

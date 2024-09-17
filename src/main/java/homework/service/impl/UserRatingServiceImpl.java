@@ -7,12 +7,14 @@ import homework.repository.api.UserRatingRepository;
 import homework.service.UserRatingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UserRatingServiceImpl implements UserRatingService {
 
     private final UserRatingRepository repository;
@@ -41,8 +43,8 @@ public class UserRatingServiceImpl implements UserRatingService {
 
     @Override
     public void update(long id, UserRatingFullDto updateDTO) {
-        UserRating userRating = mapper.convertToEntity(updateDTO, UserRating.class);
-        repository.update(id, userRating);
+        UserRating userRating  = mapper.convertToEntity(updateDTO, UserRating.class);
+        repository.update(userRating);
     }
 
     @Override

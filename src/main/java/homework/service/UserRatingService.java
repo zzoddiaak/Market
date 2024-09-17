@@ -7,6 +7,6 @@ public interface UserRatingService {
     List<UserRatingFullDto> findAll();
     UserRatingFullDto findById(long id);
     void save(UserRatingFullDto object);
-    void update(long id,UserRatingFullDto  updateDTO);
     void deleteById(long id);
+    void update(long id,UserRatingFullDto object);
 }

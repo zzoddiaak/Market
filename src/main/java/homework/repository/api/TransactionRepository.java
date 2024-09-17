@@ -2,6 +2,7 @@ package homework.repository.api;
 
 import homework.entity.Transaction;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface TransactionRepository {
@@ -9,6 +10,10 @@ public interface TransactionRepository {
     List<Transaction> findAll();
     void save(Transaction transaction);
     void deleteById(Long id);
-    void update(Long id, Transaction transaction);
+    void update(Transaction transaction);
+    List<Transaction> findByCompletedAtCriteria(LocalDate completedAt);
+    List<Transaction> findAllWithAssociationsEntityGraph();
+    List<Transaction> findAllWithAssociationsJPQL();
+    List<Transaction> findAllWithAssociationsCriteria();
 
 }

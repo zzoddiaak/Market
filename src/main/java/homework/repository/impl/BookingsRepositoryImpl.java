@@ -10,9 +10,6 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
 import org.springframework.stereotype.Repository;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -40,7 +37,7 @@ public class BookingsRepositoryImpl extends AbstractRepository<Long, Bookings> i
         CriteriaQuery<Bookings> query = cb.createQuery(Bookings.class);
         Root<Bookings> root = query.from(Bookings.class);
 
-        root.fetch(Bookings_.listing, JoinType.LEFT);
+        root.fetch(Bookings_.listings, JoinType.LEFT);
         root.fetch(Bookings_.users, JoinType.LEFT);
 
         query.select(root);
@@ -53,7 +50,7 @@ public class BookingsRepositoryImpl extends AbstractRepository<Long, Bookings> i
     public List<Bookings> findAllWithAssociationsEntityGraph() {
         EntityGraph<Bookings> graph = entityManager.createEntityGraph(Bookings.class);
 
-        graph.addAttributeNodes("listing");
+        graph.addAttributeNodes("listings");
         graph.addAttributeNodes("users");
 
         TypedQuery<Bookings> query = entityManager.createQuery("SELECT b FROM Bookings b", Bookings.class);
@@ -63,13 +60,6 @@ public class BookingsRepositoryImpl extends AbstractRepository<Long, Bookings> i
     }
 
 
-    public void update(Long id, Bookings bookings) {
-        Bookings existingBooking = findById(id);
-        if (existingBooking != null) {
-            existingBooking.setStatus(bookings.getStatus());
-            existingBooking.setStartDate(bookings.getStartDate());
-            existingBooking.setEndDate(bookings.getEndDate());
-            entityManager.merge(existingBooking);
-        }
-    }
+
+
 }

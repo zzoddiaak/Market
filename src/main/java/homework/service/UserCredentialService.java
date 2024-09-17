@@ -7,6 +7,6 @@ public interface UserCredentialService {
     List<UserCredentialFullDto> findAll();
     UserCredentialFullDto findById(long id);
     void save(UserCredentialFullDto object);
-    void update(long id,UserCredentialFullDto  updateDTO);
     void deleteById(long id);
+    void update(long id,UserCredentialFullDto object);
 }

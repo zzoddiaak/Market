@@ -7,12 +7,14 @@ import homework.repository.api.UserCredentialRepository;
 import homework.service.UserCredentialService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UserCredentialServiceImpl implements UserCredentialService {
 
     private final UserCredentialRepository repository;
@@ -41,8 +43,8 @@ public class UserCredentialServiceImpl implements UserCredentialService {
 
     @Override
     public void update(long id, UserCredentialFullDto updateDTO) {
-        UserCredential userCredential = mapper.convertToEntity(updateDTO, UserCredential.class);
-        repository.update(id, userCredential);
+        UserCredential userCredential  = mapper.convertToEntity(updateDTO, UserCredential.class);
+        repository.update(userCredential);
     }
 
     @Override

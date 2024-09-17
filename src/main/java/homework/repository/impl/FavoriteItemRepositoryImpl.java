@@ -62,12 +62,5 @@ public class FavoriteItemRepositoryImpl extends AbstractRepository<Long, Favorit
     }
 
 
-    public void update(Long id, FavoriteItem favoriteItem) {
-        FavoriteItem existingFavoriteItem = findById(id);
-        if (existingFavoriteItem != null) {
-            existingFavoriteItem.setUser(favoriteItem.getUser());
-            existingFavoriteItem.setListing(favoriteItem.getListing());
-            entityManager.merge(existingFavoriteItem);
-        }
-    }
+
 }

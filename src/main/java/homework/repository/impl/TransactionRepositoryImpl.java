@@ -71,13 +71,5 @@ public class TransactionRepositoryImpl extends AbstractRepository<Long, Transact
         return entityManager.createQuery(query).getResultList();
     }
 
-    @Override
-    public void update(Long id, Transaction transaction) {
-        Transaction existingTransaction = findById(id);
-        if (existingTransaction != null) {
-            existingTransaction.setCompletedAt(transaction.getCompletedAt());
-            existingTransaction.setRequest(transaction.getRequest());
-            entityManager.merge(existingTransaction);
-        }
-    }
+
 }
