@@ -23,7 +23,7 @@ public class UserRepositoryImpl extends AbstractRepository<Long, User> implement
         super(User.class);
     }
 
-    // Criteria API
+    @Override
     public List<User> findAllWithAssociationsCriteria() {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<User> query = cb.createQuery(User.class);
@@ -36,7 +36,8 @@ public class UserRepositoryImpl extends AbstractRepository<Long, User> implement
 
         return entityManager.createQuery(query).getResultList();
     }
-    // JPQL
+
+    @Override
     public List<User> findAllWithAssociationsJPQL() {
         String jpql = "SELECT u FROM User u " +
                 "LEFT JOIN FETCH u.credential " +
@@ -46,7 +47,7 @@ public class UserRepositoryImpl extends AbstractRepository<Long, User> implement
         return query.getResultList();
     }
 
-    // EntityGraph
+    @Override
     public List<User> findAllWithAssociationsEntityGraph() {
         EntityGraph<User> graph = entityManager.createEntityGraph(User.class);
 

@@ -24,7 +24,7 @@ public class TransactionRepositoryImpl extends AbstractRepository<Long, Transact
         super(Transaction.class);
     }
 
-    // Criteria API
+    @Override
     public List<Transaction> findAllWithAssociationsCriteria() {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Transaction> query = cb.createQuery(Transaction.class);
@@ -37,7 +37,7 @@ public class TransactionRepositoryImpl extends AbstractRepository<Long, Transact
         return entityManager.createQuery(query).getResultList();
     }
 
-    // JPQL
+    @Override
     public List<Transaction> findAllWithAssociationsJPQL() {
         String jpql = "SELECT t FROM Transaction t " +
                 "LEFT JOIN FETCH t.request";
@@ -46,7 +46,7 @@ public class TransactionRepositoryImpl extends AbstractRepository<Long, Transact
         return query.getResultList();
     }
 
-    // EntityGraph
+    @Override
     public List<Transaction> findAllWithAssociationsEntityGraph() {
         EntityGraph<Transaction> graph = entityManager.createEntityGraph(Transaction.class);
 
@@ -59,7 +59,7 @@ public class TransactionRepositoryImpl extends AbstractRepository<Long, Transact
     }
 
 
-    // Поиск по дате завершения
+    @Override
     public List<Transaction> findByCompletedAtCriteria(LocalDate completedAt) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Transaction> query = cb.createQuery(Transaction.class);

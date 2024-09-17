@@ -24,7 +24,7 @@ public class UserCredentialRepositoryImpl extends AbstractRepository<Long, UserC
         super(UserCredential.class);
     }
 
-    // Criteria API
+    @Override
     public List<UserCredential> findAllWithAssociationsCriteria() {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<UserCredential> query = cb.createQuery(UserCredential.class);
@@ -35,14 +35,15 @@ public class UserCredentialRepositoryImpl extends AbstractRepository<Long, UserC
         return entityManager.createQuery(query).getResultList();
     }
 
-    // JPQL
+    @Override
     public List<UserCredential> findAllWithAssociationsJPQL() {
         String jpql = "SELECT uc FROM UserCredential uc";
         TypedQuery<UserCredential> query = entityManager.createQuery(jpql, UserCredential.class);
+
         return query.getResultList();
     }
 
-    // EntityGraph
+    @Override
     public List<UserCredential> findAllWithAssociationsEntityGraph() {
         EntityGraph<UserCredential> graph = entityManager.createEntityGraph(UserCredential.class);
 

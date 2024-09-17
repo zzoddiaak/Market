@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 
 
 @Configuration
-@PropertySource("classpath:application-test.properties")
+@PropertySource("classpath:application.properties")
 @EnableTransactionManagement
 @ComponentScan(basePackages = "homework.repository")
 public class DatabaseConfig {

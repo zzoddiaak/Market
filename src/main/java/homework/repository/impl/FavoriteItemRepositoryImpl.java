@@ -23,32 +23,30 @@ public class FavoriteItemRepositoryImpl extends AbstractRepository<Long, Favorit
         super(FavoriteItem.class);
     }
 
-
-
-    // Criteria API
+    @Override
     public List<FavoriteItem> findAllWithAssociationsCriteria() {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<FavoriteItem> query = cb.createQuery(FavoriteItem.class);
         Root<FavoriteItem> root = query.from(FavoriteItem.class);
 
-        root.fetch(FavoriteItem_.user, JoinType.LEFT);
-        root.fetch(FavoriteItem_.listing, JoinType.LEFT);
+        root.fetch("user", JoinType.LEFT);
 
         query.select(root);
 
         return entityManager.createQuery(query).getResultList();
     }
 
-    // JPQL
+    @Override
     public List<FavoriteItem> findAllWithAssociationsJPQL() {
         String jpql = "SELECT fi FROM FavoriteItem fi " +
-                "LEFT JOIN FETCH fi.user " +
-                "LEFT JOIN FETCH fi.listing";
+                "LEFT JOIN fi.user u " +
+                "LEFT JOIN fi.listing l";
         TypedQuery<FavoriteItem> query = entityManager.createQuery(jpql, FavoriteItem.class);
+
         return query.getResultList();
     }
 
-    // EntityGraph
+    @Override
     public List<FavoriteItem> findAllWithAssociationsEntityGraph() {
         EntityGraph<FavoriteItem> graph = entityManager.createEntityGraph(FavoriteItem.class);
 
@@ -60,6 +58,7 @@ public class FavoriteItemRepositoryImpl extends AbstractRepository<Long, Favorit
 
         return query.getResultList();
     }
+
 
 
 

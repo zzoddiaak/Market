@@ -1,30 +1,51 @@
 package homework.repository.impl;
 
-import homework.config.DatabaseConfig;
-import homework.config.LiquibaseConfig;
+import homework.config.TestConfig;
 import homework.entity.FavoriteItem;
+import homework.entity.Listing;
+import homework.entity.User;
 import homework.repository.api.FavoriteItemRepository;
 import jakarta.annotation.Resource;
 import jakarta.transaction.Transactional;
-import junit.framework.TestCase;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
-
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {DatabaseConfig.class, LiquibaseConfig.class}, loader = AnnotationConfigContextLoader.class)
+@ContextConfiguration(classes = {TestConfig.class})
 @Transactional
 public class FavoriteItemRepositoryImplTest {
 
     @Resource
     private FavoriteItemRepository favoriteItemRepository;
+
+    @Before
+    public void setUp() {
+        User user = new User();
+        user.setFirstName("John");
+        user.setLastName("Doe");
+
+        Listing listing1 = new Listing();
+        listing1.setTitle("Listing 1");
+
+        Listing listing2 = new Listing();
+        listing2.setTitle("Listing 2");
+
+        FavoriteItem favoriteItem = FavoriteItem.builder()
+                .user(Set.of(user))
+                .listing(Set.of(listing1, listing2))
+                .build();
+
+        favoriteItemRepository.save(favoriteItem);
+    }
 
     @Test
     public void findAllWithAssociationsCriteria() {

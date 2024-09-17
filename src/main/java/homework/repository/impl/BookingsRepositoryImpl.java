@@ -22,7 +22,7 @@ public class BookingsRepositoryImpl extends AbstractRepository<Long, Bookings> i
         super(Bookings.class);
     }
 
-    // Поиск по статусу
+    @Override
     public List<Bookings> findByStatusJPQL(String status) {
         TypedQuery<Bookings> query = entityManager.createQuery(
                 "SELECT b FROM Bookings b WHERE b.status = :status", Bookings.class);
@@ -31,7 +31,7 @@ public class BookingsRepositoryImpl extends AbstractRepository<Long, Bookings> i
         return query.getResultList();
     }
 
-    // Criteria API
+    @Override
     public List<Bookings> findAllWithAssociationsCriteria() {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Bookings> query = cb.createQuery(Bookings.class);
@@ -46,20 +46,16 @@ public class BookingsRepositoryImpl extends AbstractRepository<Long, Bookings> i
     }
 
 
-    // EntityGraph
+    @Override
     public List<Bookings> findAllWithAssociationsEntityGraph() {
         EntityGraph<Bookings> graph = entityManager.createEntityGraph(Bookings.class);
-
         graph.addAttributeNodes("listings");
         graph.addAttributeNodes("users");
 
         TypedQuery<Bookings> query = entityManager.createQuery("SELECT b FROM Bookings b", Bookings.class);
-        query.setHint("javax.persistence.fetchgraph", graph);
+        query.setHint("jakarta.persistence.fetchgraph", graph);
 
         return query.getResultList();
     }
-
-
-
-
 }
+

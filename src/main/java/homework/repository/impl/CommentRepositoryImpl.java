@@ -26,8 +26,7 @@ public class CommentRepositoryImpl extends AbstractRepository<Long, Comment> imp
         super(Comment.class);
     }
 
-
-    // JPQL
+    @Override
     public List<Comment> findAllWithAssociationsJPQL() {
         String jpql = "SELECT c FROM Comment c " +
                 "LEFT JOIN FETCH c.user";
@@ -36,7 +35,7 @@ public class CommentRepositoryImpl extends AbstractRepository<Long, Comment> imp
         return query.getResultList();
     }
 
-    // EntityGraph
+    @Override
     public List<Comment> findAllWithAssociationsEntityGraph() {
         EntityGraph<Comment> graph = entityManager.createEntityGraph(Comment.class);
 
@@ -49,7 +48,7 @@ public class CommentRepositoryImpl extends AbstractRepository<Long, Comment> imp
     }
 
 
-    // Поиск по тексту комментария
+    @Override
     public List<Comment> findByCommentTextCriteria(String commentText) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Comment> query = cb.createQuery(Comment.class);

@@ -24,21 +24,26 @@ public class ListingRequestRepositoryImpl extends AbstractRepository<Long, Listi
         super(ListingRequest.class);
     }
 
-    // Criteria API
+    @Override
     public List<ListingRequest> findAllWithAssociationsCriteria() {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<ListingRequest> query = cb.createQuery(ListingRequest.class);
         Root<ListingRequest> root = query.from(ListingRequest.class);
 
-        root.fetch(ListingRequest_.listing, JoinType.LEFT);
-        root.fetch(ListingRequest_.requester, JoinType.LEFT);
-
         query.select(root);
 
-        return entityManager.createQuery(query).getResultList();
+        List<ListingRequest> result = entityManager.createQuery(query).getResultList();
+
+        for (ListingRequest listingRequest : result) {
+            listingRequest.getListing().size();
+            listingRequest.getRequester().size();
+        }
+
+        return result;
     }
 
-    // JPQL
+
+    @Override
     public List<ListingRequest> findAllWithAssociationsJPQL() {
         String jpql = "SELECT lr FROM ListingRequest lr " +
                 "LEFT JOIN FETCH lr.listing " +
@@ -48,7 +53,7 @@ public class ListingRequestRepositoryImpl extends AbstractRepository<Long, Listi
         return query.getResultList();
     }
 
-    // EntityGraph
+    @Override
     public List<ListingRequest> findAllWithAssociationsEntityGraph() {
         EntityGraph<ListingRequest> graph = entityManager.createEntityGraph(ListingRequest.class);
 
@@ -62,7 +67,7 @@ public class ListingRequestRepositoryImpl extends AbstractRepository<Long, Listi
     }
 
 
-    // Поиск по предложенной цене
+    @Override
     public List<ListingRequest> findByOfferedPriceCriteria(BigDecimal offeredPrice) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<ListingRequest> query = cb.createQuery(ListingRequest.class);

@@ -26,7 +26,7 @@ public class RoleRepositoryImpl extends AbstractRepository<Long, Role> implement
         super(Role.class);
     }
 
-    // Criteria API
+    @Override
     public List<Role> findAllWithAssociationsCriteria() {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Role> query = cb.createQuery(Role.class);
@@ -37,7 +37,7 @@ public class RoleRepositoryImpl extends AbstractRepository<Long, Role> implement
         return entityManager.createQuery(query).getResultList();
     }
 
-    // JPQL
+    @Override
     public List<Role> findAllWithAssociationsJPQL() {
         String jpql = "SELECT r FROM Role r";
         TypedQuery<Role> query = entityManager.createQuery(jpql, Role.class);
@@ -45,7 +45,7 @@ public class RoleRepositoryImpl extends AbstractRepository<Long, Role> implement
         return query.getResultList();
     }
 
-    // EntityGraph
+    @Override
     public List<Role> findAllWithAssociationsEntityGraph() {
         EntityGraph<Role> graph = entityManager.createEntityGraph(Role.class);
 
@@ -56,7 +56,7 @@ public class RoleRepositoryImpl extends AbstractRepository<Long, Role> implement
     }
 
 
-    // Поиск по имени
+    @Override
     public List<Role> findByNameCriteria(String name) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Role> query = cb.createQuery(Role.class);

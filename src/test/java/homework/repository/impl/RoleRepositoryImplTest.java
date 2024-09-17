@@ -1,17 +1,15 @@
 package homework.repository.impl;
 
-import homework.config.DatabaseConfig;
-import homework.config.LiquibaseConfig;
+import homework.config.TestConfig;
 import homework.entity.Role;
 import homework.repository.api.RoleRepository;
 import jakarta.annotation.Resource;
 import jakarta.transaction.Transactional;
-import junit.framework.TestCase;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import java.util.List;
 
@@ -19,12 +17,23 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {DatabaseConfig.class, LiquibaseConfig.class}, loader = AnnotationConfigContextLoader.class)
+@ContextConfiguration(classes = {TestConfig.class})
 @Transactional
 public class RoleRepositoryImplTest {
 
     @Resource
     private RoleRepository roleRepository;
+
+    @Before
+    public void setUp() {
+        Role adminRole = new Role();
+        adminRole.setName("ADMIN");
+        roleRepository.save(adminRole);
+
+        Role userRole = new Role();
+        userRole.setName("USER");
+        roleRepository.save(userRole);
+    }
 
     @Test
     public void findAllWithAssociationsCriteria() {

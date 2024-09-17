@@ -22,8 +22,6 @@ public class UserRatingRepositoryImpl extends AbstractRepository<Long, UserRatin
         super(UserRating.class);
     }
 
-
-    // Поиск всех оценок
     @Override
     public List<UserRating> findAll() {
         TypedQuery<UserRating> query = entityManager.createQuery(

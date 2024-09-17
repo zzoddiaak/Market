@@ -2,7 +2,9 @@ package homework.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -12,15 +14,17 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FavoriteItem {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private List<User> user;
+    private Set<User> user = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "listing_id", referencedColumnName = "id")
-    private List<Listing> listing;
+    private Set<Listing> listing = new HashSet<>();
+
 }

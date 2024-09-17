@@ -26,8 +26,7 @@ public class CategoryRepositoryImpl extends AbstractRepository<Long, Category> i
         super(Category.class);
     }
 
-
-    // JPQL
+    @Override
     public List<Category> findAllWithAssociationsJPQL() {
         String jpql = "SELECT c FROM Category c";
         TypedQuery<Category> query = entityManager.createQuery(jpql, Category.class);
@@ -35,7 +34,7 @@ public class CategoryRepositoryImpl extends AbstractRepository<Long, Category> i
         return query.getResultList();
     }
 
-    // EntityGraph
+    @Override
     public List<Category> findAllWithAssociationsEntityGraph() {
         EntityGraph<Category> graph = entityManager.createEntityGraph(Category.class);
 
@@ -46,7 +45,7 @@ public class CategoryRepositoryImpl extends AbstractRepository<Long, Category> i
     }
 
 
-    //  Поиск по имени
+    @Override
     public List<Category> findByNameCriteria(String name) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Category> query = cb.createQuery(Category.class);

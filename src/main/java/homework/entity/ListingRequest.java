@@ -5,6 +5,7 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -14,22 +15,26 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ListingRequest {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "offered_price")
     private BigDecimal offeredPrice;
+
     @Column(name = "status")
     private String status;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "listing_id", referencedColumnName = "id")
-    private List<Listing> listing;
+    private Set<Listing> listing;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "requester_id", referencedColumnName = "id")
-    private List<User> requester;
+    private Set<User> requester;
 }
+

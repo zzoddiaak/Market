@@ -1,30 +1,39 @@
 package homework.repository.impl;
 
-import homework.config.DatabaseConfig;
-import homework.config.LiquibaseConfig;
+import homework.config.TestConfig;
 import homework.entity.UserCredential;
 import homework.repository.api.UserCredentialRepository;
 import jakarta.annotation.Resource;
 import jakarta.transaction.Transactional;
-import junit.framework.TestCase;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {DatabaseConfig.class, LiquibaseConfig.class}, loader = AnnotationConfigContextLoader.class)
+@ContextConfiguration(classes = {TestConfig.class})
 @Transactional
 public class UserCredentialRepositoryImplTest {
 
     @Resource
     private UserCredentialRepository userCredentialRepository;
+
+    @Before
+    public void setUp() {
+        UserCredential userCredential = UserCredential.builder()
+                .username("testuser")
+                .password("testpassword")
+                .createdAt(LocalDateTime.now())
+                .build();
+        userCredentialRepository.save(userCredential);
+    }
 
     @Test
     public void findAllWithAssociationsCriteria() {

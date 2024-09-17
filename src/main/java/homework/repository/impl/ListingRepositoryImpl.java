@@ -24,46 +24,55 @@ public class ListingRepositoryImpl extends AbstractRepository<Long, Listing> imp
         super(Listing.class);
     }
 
-    // Criteria API
+    @Override
     public List<Listing> findAllWithAssociationsCriteria() {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Listing> query = cb.createQuery(Listing.class);
         Root<Listing> root = query.from(Listing.class);
 
         root.fetch(Listing_.users, JoinType.LEFT);
-        root.fetch(Listing_.categories, JoinType.LEFT);
-
         query.select(root);
 
-        return entityManager.createQuery(query).getResultList();
+        List<Listing> listings = entityManager.createQuery(query).getResultList();
+
+        for (Listing listing : listings) {
+            listing.getCategories().size();
+        }
+
+        return listings;
     }
 
-    // JPQL
+    @Override
     public List<Listing> findAllWithAssociationsJPQL() {
-        String jpql = "SELECT l FROM Listing l " +
-                "LEFT JOIN FETCH l.users " +
-                "LEFT JOIN FETCH l.categories";
-        TypedQuery<Listing> query = entityManager.createQuery(jpql, Listing.class);
+        String jpqlUsers = "SELECT l FROM Listing l LEFT JOIN FETCH l.users";
+        TypedQuery<Listing> queryUsers = entityManager.createQuery(jpqlUsers, Listing.class);
+        List<Listing> listings = queryUsers.getResultList();
 
-        return query.getResultList();
+        String jpqlCategories = "SELECT l FROM Listing l LEFT JOIN FETCH l.categories WHERE l IN :listings";
+        TypedQuery<Listing> queryCategories = entityManager.createQuery(jpqlCategories, Listing.class);
+        queryCategories.setParameter("listings", listings);
+
+        return queryCategories.getResultList();
     }
 
-    // EntityGraph
+    @Override
     public List<Listing> findAllWithAssociationsEntityGraph() {
         EntityGraph<Listing> graph = entityManager.createEntityGraph(Listing.class);
-
-        graph.addAttributeNodes("users");
-        graph.addAttributeNodes("categories");
+        graph.addAttributeNodes("users"); // Fetch users
 
         TypedQuery<Listing> query = entityManager.createQuery("SELECT l FROM Listing l", Listing.class);
         query.setHint("javax.persistence.fetchgraph", graph);
 
-        return query.getResultList();
+        List<Listing> listings = query.getResultList();
+
+        for (Listing listing : listings) {
+            listing.getCategories().size();
+        }
+
+        return listings;
     }
 
-
-
-    // Поиск по цене с использованием
+    @Override
     public List<Listing> findByPriceCriteria(BigDecimal price) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Listing> query = cb.createQuery(Listing.class);
@@ -74,6 +83,4 @@ public class ListingRepositoryImpl extends AbstractRepository<Long, Listing> imp
 
         return entityManager.createQuery(query).getResultList();
     }
-
-
 }
