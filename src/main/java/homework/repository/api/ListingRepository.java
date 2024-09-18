@@ -12,8 +12,6 @@ public interface ListingRepository {
     void save(Listing listing);
     void deleteById(Long id);
     void update(Listing listing);
-    List<Listing> findAllWithAssociationsCriteria();
     List<Listing> findAllWithAssociationsJPQL();
-    List<Listing> findAllWithAssociationsEntityGraph();
     List<Listing> findByPriceCriteria(BigDecimal price);
 }

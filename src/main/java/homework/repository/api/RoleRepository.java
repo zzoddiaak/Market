@@ -10,7 +10,6 @@ public interface RoleRepository {
     void save(Role role);
     void deleteById(Long id);
     void update(Role role);
-    List<Role> findByNameCriteria(String name);
     List<Role> findAllWithAssociationsEntityGraph();
     List<Role> findAllWithAssociationsJPQL();
     List<Role> findAllWithAssociationsCriteria();

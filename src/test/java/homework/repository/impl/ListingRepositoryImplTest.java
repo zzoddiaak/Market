@@ -75,12 +75,7 @@ public class ListingRepositoryImplTest {
         listingRepository.save(listing2);
     }
 
-    @Test
-    public void findAllWithAssociationsCriteria() {
-        List<Listing> listings = listingRepository.findAllWithAssociationsCriteria();
-        assertNotNull(listings);
-        assertFalse(listings.isEmpty());
-    }
+
 
     @Test
     public void findAllWithAssociationsJPQL() {
@@ -89,12 +84,6 @@ public class ListingRepositoryImplTest {
         assertFalse(listings.isEmpty());
     }
 
-    @Test
-    public void findAllWithAssociationsEntityGraph() {
-        List<Listing> listings = listingRepository.findAllWithAssociationsEntityGraph();
-        assertNotNull(listings);
-        assertFalse(listings.isEmpty());
-    }
 
     @Test
     public void findByPriceCriteria() {

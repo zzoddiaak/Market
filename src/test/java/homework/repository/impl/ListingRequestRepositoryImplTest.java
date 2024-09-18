@@ -44,19 +44,6 @@ public class ListingRequestRepositoryImplTest {
         listingRequestRepository.save(listingRequest2);
     }
 
-    @Test
-    public void findAllWithAssociationsCriteria() {
-        List<ListingRequest> listingRequests = listingRequestRepository.findAllWithAssociationsCriteria();
-        assertNotNull(listingRequests);
-        assertFalse(listingRequests.isEmpty());
-    }
-
-    @Test
-    public void findAllWithAssociationsJPQL() {
-        List<ListingRequest> listingRequests = listingRequestRepository.findAllWithAssociationsJPQL();
-        assertNotNull(listingRequests);
-        assertFalse(listingRequests.isEmpty());
-    }
 
     @Test
     public void findAllWithAssociationsEntityGraph() {

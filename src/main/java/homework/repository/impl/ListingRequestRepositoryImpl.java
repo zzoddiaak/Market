@@ -24,34 +24,7 @@ public class ListingRequestRepositoryImpl extends AbstractRepository<Long, Listi
         super(ListingRequest.class);
     }
 
-    @Override
-    public List<ListingRequest> findAllWithAssociationsCriteria() {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<ListingRequest> query = cb.createQuery(ListingRequest.class);
-        Root<ListingRequest> root = query.from(ListingRequest.class);
 
-        query.select(root);
-
-        List<ListingRequest> result = entityManager.createQuery(query).getResultList();
-
-        for (ListingRequest listingRequest : result) {
-            listingRequest.getListing().size();
-            listingRequest.getRequester().size();
-        }
-
-        return result;
-    }
-
-
-    @Override
-    public List<ListingRequest> findAllWithAssociationsJPQL() {
-        String jpql = "SELECT lr FROM ListingRequest lr " +
-                "LEFT JOIN FETCH lr.listing " +
-                "LEFT JOIN FETCH lr.requester";
-        TypedQuery<ListingRequest> query = entityManager.createQuery(jpql, ListingRequest.class);
-
-        return query.getResultList();
-    }
 
     @Override
     public List<ListingRequest> findAllWithAssociationsEntityGraph() {

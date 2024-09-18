@@ -27,14 +27,6 @@ public class CategoryRepositoryImpl extends AbstractRepository<Long, Category> i
     }
 
     @Override
-    public List<Category> findAllWithAssociationsJPQL() {
-        String jpql = "SELECT c FROM Category c";
-        TypedQuery<Category> query = entityManager.createQuery(jpql, Category.class);
-
-        return query.getResultList();
-    }
-
-    @Override
     public List<Category> findAllWithAssociationsEntityGraph() {
         EntityGraph<Category> graph = entityManager.createEntityGraph(Category.class);
 

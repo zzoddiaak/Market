@@ -42,13 +42,6 @@ public class CategoryRepositoryImplTest {
     }
 
     @Test
-    public void findAllWithAssociationsJPQL() {
-        List<Category> categories = categoryRepository.findAllWithAssociationsJPQL();
-        assertNotNull(categories);
-        assertFalse(categories.isEmpty());
-    }
-
-    @Test
     public void findAllWithAssociationsEntityGraph() {
         List<Category> categories = categoryRepository.findAllWithAssociationsEntityGraph();
         assertNotNull(categories);

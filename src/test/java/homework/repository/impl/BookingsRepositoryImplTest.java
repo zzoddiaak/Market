@@ -39,16 +39,7 @@ public class BookingsRepositoryImplTest {
         bookings.forEach(b -> assertEquals("CONFIRMED", b.getStatus()));
     }
 
-    @Test
-    public void findAllWithAssociationsCriteria() {
-        List<Bookings> bookings = bookingsRepository.findAllWithAssociationsCriteria();
-        System.out.println("Bookings size: " + bookings.size()); // Выведите размер списка
-        for (Bookings booking : bookings) {
-            System.out.println("Booking ID: " + booking.getId()); // Выведите ID каждого бронирования
-        }
-        assertNotNull(bookings);
-        assertFalse(bookings.isEmpty());
-    }
+
 
     @Test
     public void findAllWithAssociationsEntityGraph() {

@@ -31,20 +31,6 @@ public class BookingsRepositoryImpl extends AbstractRepository<Long, Bookings> i
         return query.getResultList();
     }
 
-    @Override
-    public List<Bookings> findAllWithAssociationsCriteria() {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Bookings> query = cb.createQuery(Bookings.class);
-        Root<Bookings> root = query.from(Bookings.class);
-
-        root.fetch(Bookings_.listings, JoinType.LEFT);
-        root.fetch(Bookings_.users, JoinType.LEFT);
-
-        query.select(root);
-
-        return entityManager.createQuery(query).getResultList();
-    }
-
 
     @Override
     public List<Bookings> findAllWithAssociationsEntityGraph() {

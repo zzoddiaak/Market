@@ -12,6 +12,5 @@ public interface BookingsRepository {
     void deleteById(Long id);
     void update(Bookings bookings);
     List<Bookings> findAllWithAssociationsEntityGraph();
-    List<Bookings> findAllWithAssociationsCriteria();
     List<Bookings> findByStatusJPQL(String status);
 }

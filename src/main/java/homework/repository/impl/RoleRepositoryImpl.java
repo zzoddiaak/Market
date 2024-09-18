@@ -56,17 +56,7 @@ public class RoleRepositoryImpl extends AbstractRepository<Long, Role> implement
     }
 
 
-    @Override
-    public List<Role> findByNameCriteria(String name) {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Role> query = cb.createQuery(Role.class);
-        Root<Role> root = query.from(Role.class);
 
-        Predicate predicate = cb.equal(root.get(Role_.name), name);
-        query.select(root).where(predicate);
-
-        return entityManager.createQuery(query).getResultList();
-    }
 
 
 }

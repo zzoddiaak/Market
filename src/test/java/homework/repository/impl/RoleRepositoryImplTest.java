@@ -56,11 +56,4 @@ public class RoleRepositoryImplTest {
         assertFalse(roles.isEmpty());
     }
 
-    @Test
-    public void findByNameCriteria() {
-        String name = "ADMIN";
-        List<Role> roles = roleRepository.findByNameCriteria(name);
-        assertNotNull(roles);
-        assertFalse(roles.isEmpty());
-    }
 }
