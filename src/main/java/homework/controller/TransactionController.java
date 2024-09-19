@@ -9,15 +9,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/transactions")
+@RequiredArgsConstructor
 public class TransactionController {
 
     private final TransactionService service;
     private final JsonMapper mapperService;
-
-    public TransactionController(TransactionService service, JsonMapper mapperService) {
-        this.service = service;
-        this.mapperService = mapperService;
-    }
 
     @GetMapping
     public String findAll() {

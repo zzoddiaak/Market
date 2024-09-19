@@ -28,7 +28,8 @@ public abstract class AbstractRepository<ID, T> {
     }
 
     public List<T> findAll() {
-        TypedQuery<T> query = entityManager.createQuery("select u from " + entityClass.getName() + " u", entityClass);
+        String queryString = String.format("SELECT u FROM %s u", entityClass.getSimpleName());
+        TypedQuery<T> query = entityManager.createQuery(queryString, entityClass);
         return query.getResultList();
     }
 

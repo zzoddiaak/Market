@@ -1,6 +1,6 @@
 package homework.repository.impl;
 
-import homework.config.TestConfig;
+import homework.config.test.TestConfig;
 import homework.entity.ListingRequest;
 import homework.repository.api.ListingRequestRepository;
 import jakarta.annotation.Resource;

@@ -9,15 +9,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/userRatings")
+@RequiredArgsConstructor
 public class UserRatingController {
 
     private final UserRatingService service;
     private final JsonMapper mapper;
-
-    public UserRatingController(UserRatingService service, JsonMapper mapper) {
-        this.service = service;
-        this.mapper = mapper;
-    }
 
     @GetMapping
     public String findAll() {

@@ -1,6 +1,6 @@
 package homework.repository.impl;
 
-import homework.config.TestConfig;
+import homework.config.test.TestConfig;
 import homework.entity.Bookings;
 import homework.repository.api.BookingsRepository;
 import jakarta.annotation.Resource;

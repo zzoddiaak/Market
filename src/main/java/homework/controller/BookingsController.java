@@ -16,8 +16,6 @@ public class BookingsController {
     private final BookingsService service;
     private final JsonMapper mapper;
 
-
-
     @GetMapping
     public String findAll() {
         List<BookingFullDto> bookings = service.findAll();

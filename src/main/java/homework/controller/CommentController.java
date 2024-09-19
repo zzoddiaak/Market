@@ -15,8 +15,6 @@ public class CommentController {
     private final CommentService service;
     private final JsonMapper mapperService;
 
-
-
     @GetMapping
     public String findAll() {
         List<CommentFullDto> comments = service.findAll();

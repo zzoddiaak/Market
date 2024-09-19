@@ -10,16 +10,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/roles")
+@RequiredArgsConstructor
 public class RoleController {
 
     private final RoleService service;
     private final JsonMapper mapperService;
-
-    @Autowired
-    public RoleController(RoleService service, JsonMapper mapperService) {
-        this.service = service;
-        this.mapperService = mapperService;
-    }
 
     @GetMapping
     public String findAll() {
