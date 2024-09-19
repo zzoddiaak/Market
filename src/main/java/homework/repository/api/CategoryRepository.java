@@ -11,6 +11,8 @@ public interface CategoryRepository {
     List<Category> findAll();
     void save(Category category);
     void deleteById(Long id);
-    void update(Long id, Category category);
+    void update(Category category);
+    List<Category> findAllWithAssociationsEntityGraph();
+    List<Category> findByNameCriteria(String name);
 
 }

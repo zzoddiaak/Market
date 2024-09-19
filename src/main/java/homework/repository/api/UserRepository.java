@@ -9,6 +9,9 @@ public interface UserRepository {
     List<User> findAll();
     void save(User user);
     void deleteById(Long id);
-    void update(Long id, User user);
+    void update(User user);
+    List<User> findAllWithAssociationsEntityGraph();
+    List<User> findAllWithAssociationsJPQL();
+    List<User> findAllWithAssociationsCriteria();
 
 }

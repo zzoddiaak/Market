@@ -7,12 +7,13 @@ import homework.repository.api.ListingRepository;
 import homework.service.ListingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ListingServiceImpl implements ListingService {
 
     private final ListingRepository repository;
@@ -41,8 +42,8 @@ public class ListingServiceImpl implements ListingService {
 
     @Override
     public void update(long id, ListingFullDto updateDTO) {
-        Listing listing = mapper.convertToEntity(updateDTO, Listing.class);
-        repository.update(id, listing);
+        Listing listing  = mapper.convertToEntity(updateDTO, Listing.class);
+        repository.update(listing);
     }
 
     @Override

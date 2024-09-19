@@ -1,51 +1,56 @@
 package homework.repository.impl;
 
 import homework.entity.ListingRequest;
-import homework.entity.Listing;
-import homework.entity.User;
+import homework.entity.ListingRequest_;
 import homework.repository.AbstractRepository;
 import homework.repository.api.ListingRequestRepository;
-import homework.repository.api.ListingRepository;
-import homework.repository.api.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.persistence.EntityGraph;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.*;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public class ListingRequestRepositoryImpl extends AbstractRepository<ListingRequest> implements ListingRequestRepository {
+public class ListingRequestRepositoryImpl extends AbstractRepository<Long, ListingRequest> implements ListingRequestRepository {
 
-    private final UserRepository userRepository;
-    private final ListingRepository listingRepository;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-    @Autowired
-    public ListingRequestRepositoryImpl(UserRepository userRepository, ListingRepository listingRepository) {
-        this.userRepository = userRepository;
-        this.listingRepository = listingRepository;
-        initializeData();
+    public ListingRequestRepositoryImpl() {
+        super(ListingRequest.class);
     }
 
-    private void initializeData() {
-        User user = userRepository.findById(1L);
-        Listing listing = listingRepository.findById(1L);
-        Listing listing2 = listingRepository.findById(2L);
 
-        save(ListingRequest.builder()
-                .listing(List.of(listing))
-                .requester(List.of(user))
-                .createdAt(LocalDateTime.of(2024, 7, 1, 10, 0))
-                .status("Active")
-                .offeredPrice(new BigDecimal("44.4"))
-                .build());
 
-        save(ListingRequest.builder()
-                .listing(List.of(listing2))
-                .requester(List.of(user))
-                .createdAt(LocalDateTime.of(2024, 12, 5, 10, 0))
-                .status("Active")
-                .offeredPrice(new BigDecimal("44.4"))
-                .build());
+    @Override
+    public List<ListingRequest> findAllWithAssociationsEntityGraph() {
+        EntityGraph<ListingRequest> graph = entityManager.createEntityGraph(ListingRequest.class);
+
+        graph.addAttributeNodes("listing");
+        graph.addAttributeNodes("requester");
+
+        TypedQuery<ListingRequest> query = entityManager.createQuery("SELECT lr FROM ListingRequest lr", ListingRequest.class);
+        query.setHint("javax.persistence.fetchgraph", graph);
+
+        return query.getResultList();
     }
+
+
+    @Override
+    public List<ListingRequest> findByOfferedPriceCriteria(BigDecimal offeredPrice) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<ListingRequest> query = cb.createQuery(ListingRequest.class);
+        Root<ListingRequest> root = query.from(ListingRequest.class);
+
+        Predicate predicate = cb.equal(root.get(ListingRequest_.offeredPrice), offeredPrice);
+        query.select(root).where(predicate);
+
+        return entityManager.createQuery(query).getResultList();
+    }
+
+
 }

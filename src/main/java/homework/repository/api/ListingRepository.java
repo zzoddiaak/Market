@@ -3,6 +3,7 @@ package homework.repository.api;
 import homework.entity.FavoriteItem;
 import homework.entity.Listing;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface ListingRepository {
@@ -10,6 +11,7 @@ public interface ListingRepository {
     List<Listing> findAll();
     void save(Listing listing);
     void deleteById(Long id);
-    void update(Long id, Listing listing);
-
+    void update(Listing listing);
+    List<Listing> findAllWithAssociationsJPQL();
+    List<Listing> findByPriceCriteria(BigDecimal price);
 }

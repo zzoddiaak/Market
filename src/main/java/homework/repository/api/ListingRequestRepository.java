@@ -2,6 +2,7 @@ package homework.repository.api;
 
 import homework.entity.ListingRequest;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface ListingRequestRepository {
@@ -9,6 +10,8 @@ public interface ListingRequestRepository {
     List<ListingRequest> findAll();
     void save(ListingRequest listingRequest);
     void deleteById(Long id);
-    void update(Long id, ListingRequest listingRequest);
+    void update(ListingRequest listingRequest);
+    List<ListingRequest> findAllWithAssociationsEntityGraph();
+    List<ListingRequest> findByOfferedPriceCriteria(BigDecimal offeredPrice);
 
 }

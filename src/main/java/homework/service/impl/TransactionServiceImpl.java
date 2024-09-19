@@ -7,12 +7,14 @@ import homework.repository.api.TransactionRepository;
 import homework.service.TransactionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class TransactionServiceImpl implements TransactionService {
 
     private final TransactionRepository repository;
@@ -41,9 +43,10 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public void update(long id, TransactionFullDto updateDTO) {
-        Transaction transaction = mapper.convertToEntity(updateDTO, Transaction.class);
-        repository.update(id, transaction);
+        Transaction transaction  = mapper.convertToEntity(updateDTO, Transaction.class);
+        repository.update(transaction);
     }
+
 
     @Override
     public void deleteById(long id) {

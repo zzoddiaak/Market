@@ -1,32 +1,37 @@
 package homework.repository.impl;
 
-import homework.entity.User;
 import homework.entity.UserRating;
+
 import homework.repository.AbstractRepository;
 import homework.repository.api.UserRatingRepository;
-import homework.repository.api.UserRepository;
-import java.time.LocalDateTime;
-import java.util.List;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 
 @Repository
-public class UserRatingRepositoryImpl extends AbstractRepository<UserRating> implements UserRatingRepository {
-    private UserRepository userRepository;
+public class UserRatingRepositoryImpl extends AbstractRepository<Long, UserRating> implements UserRatingRepository {
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public UserRatingRepositoryImpl() {
-        this.userRepository = new UserRepositoryImpl();
+        super(UserRating.class);
     }
-    private void initializeData(){
-        List<User> user = (List<User>) userRepository.findById(1L);
-        List<User> user2 = (List<User>) userRepository.findById(2L);
+
+    @Override
+    public List<UserRating> findAll() {
+        TypedQuery<UserRating> query = entityManager.createQuery(
+                "SELECT ur FROM UserRating ur", UserRating.class);
+
+        return query.getResultList();
+    }
 
 
-        save(UserRating.builder()
-                .ratedUser(user)
-                .rating(6)
-                .rater(user2)
-                .createdAt(LocalDateTime.of(2024, 7, 1, 10, 0))
-                .build());
-    }
+
+
+
 }

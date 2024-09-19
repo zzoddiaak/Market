@@ -7,12 +7,14 @@ import homework.repository.api.UserRepository;
 import homework.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
@@ -41,8 +43,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void update(long id, UserFullDto updateDTO) {
-        User user = mapper.convertToEntity(updateDTO, User.class);
-        repository.update(id, user);
+        User user  = mapper.convertToEntity(updateDTO, User.class);
+        repository.update(user);
     }
 
     @Override

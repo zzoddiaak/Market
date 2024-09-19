@@ -10,5 +10,7 @@ public interface BookingsRepository {
     List<Bookings> findAll();
     void save(Bookings bookings);
     void deleteById(Long id);
-    void update(Long id, Bookings bookings);
+    void update(Bookings bookings);
+    List<Bookings> findAllWithAssociationsEntityGraph();
+    List<Bookings> findByStatusJPQL(String status);
 }

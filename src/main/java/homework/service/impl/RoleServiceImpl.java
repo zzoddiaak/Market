@@ -7,12 +7,14 @@ import homework.repository.api.RoleRepository;
 import homework.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class RoleServiceImpl implements RoleService {
 
     private final RoleRepository repository;
@@ -41,8 +43,8 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public void update(long id, RoleFullDto updateDTO) {
-        Role role = mapper.convertToEntity(updateDTO, Role.class);
-        repository.update(id, role);
+        Role role  = mapper.convertToEntity(updateDTO, Role.class);
+        repository.update(role);
     }
 
     @Override

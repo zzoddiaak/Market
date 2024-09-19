@@ -7,14 +7,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("/listings")
+@RequiredArgsConstructor
 public class ListingController {
 
     private final ListingService service;
     private final JsonMapper mapper;
-
 
     @GetMapping
     public String findAll() {

@@ -7,6 +7,6 @@ public interface ListingService {
     List<ListingFullDto> findAll();
     ListingFullDto findById(long id);
     void save(ListingFullDto object);
-    void update(long id,ListingFullDto  updateDTO);
     void deleteById(long id);
+    void update(long id,ListingFullDto object);
 }

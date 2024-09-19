@@ -1,56 +1,52 @@
 package homework.repository.impl;
 
 import homework.entity.Listing;
-import homework.entity.User;
+import homework.entity.Listing_;
 import homework.repository.AbstractRepository;
 import homework.repository.api.ListingRepository;
-import homework.repository.api.UserRepository;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.persistence.EntityGraph;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.*;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
+import java.util.List;
 
 @Repository
-public class ListingRepositoryImpl extends AbstractRepository<Listing> implements ListingRepository {
+public class ListingRepositoryImpl extends AbstractRepository<Long, Listing> implements ListingRepository {
 
-    private final UserRepository userRepository;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-    @Autowired
-    public ListingRepositoryImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-        initializeData();
+    public ListingRepositoryImpl() {
+        super(Listing.class);
     }
 
-    private void initializeData() {
-        User user = userRepository.findById(1L);
-        User user1 = userRepository.findById(2L);
+    @Override
+    public List<Listing> findAllWithAssociationsJPQL() {
+        String jpqlUsers = "SELECT l FROM Listing l LEFT JOIN FETCH l.users";
+        TypedQuery<Listing> queryUsers = entityManager.createQuery(jpqlUsers, Listing.class);
+        List<Listing> listings = queryUsers.getResultList();
 
-        save(Listing.builder()
-                .address("Grodno")
-                .users(List.of(user))
-                .price(new BigDecimal("32.3"))
-                .title("Hoh")
-                .listingType("Active")
-                .createdAt(LocalDateTime.of(2024, 7, 1, 10, 0))
-                .description("Pppd")
-                .negotiable(true)
-                .rentalPrice(new BigDecimal("32.3"))
-                .build());
+        String jpqlCategories = "SELECT l FROM Listing l LEFT JOIN FETCH l.categories WHERE l IN :listings";
+        TypedQuery<Listing> queryCategories = entityManager.createQuery(jpqlCategories, Listing.class);
+        queryCategories.setParameter("listings", listings);
 
-        save(Listing.builder()
-                .address("Grodno")
-                .users(List.of(user1))
-                .price(new BigDecimal("32.3"))
-                .title("PPpp")
-                .listingType("Active")
-                .createdAt(LocalDateTime.of(2024, 12, 4, 12, 0))
-                .description("Pppd")
-                .negotiable(true)
-                .rentalPrice(new BigDecimal("32.3"))
-                .build());
+        return queryCategories.getResultList();
+    }
+
+
+    @Override
+    public List<Listing> findByPriceCriteria(BigDecimal price) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Listing> query = cb.createQuery(Listing.class);
+        Root<Listing> root = query.from(Listing.class);
+
+        Predicate predicate = cb.equal(root.get(Listing_.price), price);
+        query.select(root).where(predicate);
+
+        return entityManager.createQuery(query).getResultList();
     }
 }
-
