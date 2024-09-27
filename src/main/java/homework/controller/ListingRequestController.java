@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/listingRequests")
+@RequestMapping("/api/v1/listing_requests")
 @RequiredArgsConstructor
 public class ListingRequestController {
 
