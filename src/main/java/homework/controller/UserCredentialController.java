@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/userCredentials")
+@RequestMapping("/api/v1/user_credentials")
 @RequiredArgsConstructor
 public class UserCredentialController {
 

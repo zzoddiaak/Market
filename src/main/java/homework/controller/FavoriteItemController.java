@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/favoriteItems")
+@RequestMapping("/api/v1/favorite_items")
 public class FavoriteItemController {
 
     private final FavoriteItemService service;
