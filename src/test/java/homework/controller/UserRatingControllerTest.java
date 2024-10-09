@@ -1,6 +1,6 @@
 package homework.controller;
 
-import homework.config.MapperConfig;
+import homework.config.basic.MapperConfig;
 import homework.config.test.TestConfig;
 import homework.entity.UserRating;
 import homework.repository.api.UserRatingRepository;
@@ -20,7 +20,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

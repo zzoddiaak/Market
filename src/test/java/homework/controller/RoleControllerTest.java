@@ -1,6 +1,6 @@
 package homework.controller;
 
-import homework.config.MapperConfig;
+import homework.config.basic.MapperConfig;
 import homework.config.test.TestConfig;
 import homework.entity.Role;
 import homework.repository.api.RoleRepository;

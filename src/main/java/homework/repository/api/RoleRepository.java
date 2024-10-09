@@ -13,4 +13,7 @@ public interface RoleRepository {
     List<Role> findAllWithAssociationsEntityGraph();
     List<Role> findAllWithAssociationsJPQL();
     List<Role> findAllWithAssociationsCriteria();
+    List<Role> findByRoleName(String roleName);
+
+
 }

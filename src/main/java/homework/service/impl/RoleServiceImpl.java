@@ -22,7 +22,6 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public List<RoleFullDto> findAll() {
-
         return repository.findAll().stream()
                 .map(role -> mapper.convertToDto(role, RoleFullDto.class))
                 .collect(Collectors.toList());
@@ -30,9 +29,8 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public RoleFullDto findById(long id) {
-        Role role = repository.findById(id);
-
-        return mapper.convertToDto(role, RoleFullDto.class);
+        Role role = repository.findById(id); // Поиск роли по ID
+        return mapper.convertToDto(role, RoleFullDto.class); // Преобразование в DTO
     }
 
     @Override
@@ -43,7 +41,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public void update(long id, RoleFullDto updateDTO) {
-        Role role  = mapper.convertToEntity(updateDTO, Role.class);
+        Role role = mapper.convertToEntity(updateDTO, Role.class);
         repository.update(role);
     }
 

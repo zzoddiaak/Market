@@ -1,6 +1,6 @@
 package homework.controller;
 
-import homework.config.MapperConfig;
+import homework.config.basic.MapperConfig;
 import homework.config.test.TestConfig;
 import homework.entity.UserCredential;
 import homework.repository.api.UserCredentialRepository;
@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -44,7 +45,7 @@ public class UserCredentialControllerTest {
     public void setup() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
 
-        UserCredential userCredential1 = new UserCredential(1L, "user1", "password1", LocalDateTime.now());
+        UserCredential userCredential1 = new UserCredential(1L, "user1", "password1", LocalDateTime.now(), new ArrayList<>());
         userCredentialRepository.save(userCredential1);
     }
 
@@ -62,7 +63,7 @@ public class UserCredentialControllerTest {
 
     @Test
     public void save() throws Exception {
-        UserCredential userCredential = new UserCredential(null, "user2", "password2", LocalDateTime.now());
+        UserCredential userCredential = new UserCredential(null, "user2", "password2", LocalDateTime.now(), new ArrayList<>());
 
         mockMvc.perform(post("/api/v1/user_credentials")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -72,7 +73,7 @@ public class UserCredentialControllerTest {
 
     @Test
     public void update() throws Exception {
-        UserCredential userCredential = new UserCredential(1L, "user1", "newpassword", LocalDateTime.now());
+        UserCredential userCredential = new UserCredential(1L, "user1", "newpassword", LocalDateTime.now(), new ArrayList<>());
 
         mockMvc.perform(put("/api/v1/user_credentials/1")
                         .contentType(MediaType.APPLICATION_JSON)

@@ -56,7 +56,6 @@ public class UserRepositoryImplTest {
                 .bio("Test user")
                 .createdAt(LocalDateTime.now())
                 .credential(credential)
-                .role(Arrays.asList(role1, role2))
                 .build();
         userRepository.save(user);
     }

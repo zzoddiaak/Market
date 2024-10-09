@@ -1,10 +1,10 @@
 package homework.config.test;
 
-import homework.config.HibernateConfigConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -22,6 +22,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
+@Profile("test")
 @ComponentScan(basePackages = "homework.repository")
 @PropertySource("classpath:application-test.properties")
 public class TestConfig {
@@ -46,12 +47,6 @@ public class TestConfig {
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         emf.setJpaVendorAdapter(vendorAdapter);
-
-        Properties properties = new Properties();
-        properties.setProperty("hibernate.dialect", HibernateConfigConstants.HIBERNATE_DIALECT);
-        properties.setProperty("hibernate.hbm2ddl.auto", HibernateConfigConstants.HBM2DDL_AUTO);
-        properties.setProperty("hibernate.show_sql", HibernateConfigConstants.SHOW_SQL);
-        emf.setJpaProperties(properties);
 
         return emf;
     }

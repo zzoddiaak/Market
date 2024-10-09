@@ -1,6 +1,6 @@
 package homework.controller;
 
-import homework.config.MapperConfig;
+import homework.config.basic.MapperConfig;
 import homework.config.test.TestConfig;
 import homework.entity.FavoriteItem;
 import homework.repository.api.FavoriteItemRepository;

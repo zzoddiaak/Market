@@ -8,7 +8,10 @@ import jakarta.persistence.EntityGraph;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.JoinType;
+import jakarta.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -30,7 +33,6 @@ public class UserRepositoryImpl extends AbstractRepository<Long, User> implement
         Root<User> root = query.from(User.class);
 
         root.fetch(User_.credential, JoinType.LEFT);
-        root.fetch(User_.role, JoinType.LEFT);
 
         query.select(root);
 
@@ -40,8 +42,7 @@ public class UserRepositoryImpl extends AbstractRepository<Long, User> implement
     @Override
     public List<User> findAllWithAssociationsJPQL() {
         String jpql = "SELECT u FROM User u " +
-                "LEFT JOIN FETCH u.credential " +
-                "LEFT JOIN FETCH u.role";
+                "LEFT JOIN FETCH u.credential";
         TypedQuery<User> query = entityManager.createQuery(jpql, User.class);
 
         return query.getResultList();
@@ -52,13 +53,10 @@ public class UserRepositoryImpl extends AbstractRepository<Long, User> implement
         EntityGraph<User> graph = entityManager.createEntityGraph(User.class);
 
         graph.addAttributeNodes("credential");
-        graph.addAttributeNodes("role");
 
         TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u", User.class);
         query.setHint("javax.persistence.fetchgraph", graph);
 
         return query.getResultList();
     }
-
-
 }

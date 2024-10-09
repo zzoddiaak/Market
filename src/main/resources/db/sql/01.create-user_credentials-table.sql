@@ -4,4 +4,4 @@ CREATE TABLE user_credentials (
     password VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
---rollback DROP TABLE user_credentials;
+-- rollback DROP TABLE user_credentials;

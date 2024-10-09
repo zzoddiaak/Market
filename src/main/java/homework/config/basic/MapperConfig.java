@@ -1,4 +1,4 @@
-package homework.config;
+package homework.config.basic;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;

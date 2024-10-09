@@ -7,4 +7,4 @@ CREATE TABLE users (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (credential_id) REFERENCES user_credentials(id)
 );
---rollback DROP TABLE users;
+-- rollback DROP TABLE users;

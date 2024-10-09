@@ -1,5 +1,8 @@
 package homework.config;
 
+import homework.config.basic.DatabaseConfig;
+import homework.config.basic.LiquibaseConfig;
+import homework.config.basic.MapperConfig;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;

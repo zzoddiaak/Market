@@ -1,27 +1,25 @@
-package homework.config;
+package homework.config.basic;
 
 import liquibase.integration.spring.SpringLiquibase;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 
+
 @Configuration
+@RequiredArgsConstructor
 public class LiquibaseConfig {
-
-    @Value("${spring.liquibase.change-log}")
-    private String changeLog;
-
-    @Autowired
-    private DataSource dataSource;
-
+    private final DataSource dataSource;
     @Bean
-    public SpringLiquibase liquibase() {
+    @SneakyThrows
+    public SpringLiquibase liquibase(){
         SpringLiquibase liquibase = new SpringLiquibase();
-        liquibase.setChangeLog(changeLog);
+        liquibase.setChangeLog("classpath:changelog-master.xml");
         liquibase.setDataSource(dataSource);
         return liquibase;
     }
+
 }

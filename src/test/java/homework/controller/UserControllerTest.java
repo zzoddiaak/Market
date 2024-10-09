@@ -1,6 +1,6 @@
 package homework.controller;
 
-import homework.config.MapperConfig;
+import homework.config.basic.MapperConfig;
 import homework.config.test.TestConfig;
 import homework.entity.User;
 import homework.repository.api.UserRepository;
@@ -45,7 +45,7 @@ public class UserControllerTest {
     public void setup() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
 
-        User user1 = new User(1L, "John", "Doe", "Bio", LocalDateTime.now(), null, new ArrayList<>());
+        User user1 = new User(1L, "John", "Doe", "Bio", LocalDateTime.now(), null);
         userRepository.save(user1);
     }
 
@@ -63,7 +63,7 @@ public class UserControllerTest {
 
     @Test
     public void save() throws Exception {
-        User user = new User(null, "Jane", "Doe", "Bio", LocalDateTime.now(), null, new ArrayList<>());
+        User user = new User(null, "Jane", "Doe", "Bio", LocalDateTime.now(), null);
 
         mockMvc.perform(post("/api/v1/users")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -73,7 +73,7 @@ public class UserControllerTest {
 
     @Test
     public void update() throws Exception {
-        User user = new User(1L, "John", "Smith", "Bio", LocalDateTime.now(), null, new ArrayList<>());
+        User user = new User(1L, "John", "Smith", "Bio", LocalDateTime.now(), null);
 
         mockMvc.perform(put("/api/v1/users/1")
                         .contentType(MediaType.APPLICATION_JSON)

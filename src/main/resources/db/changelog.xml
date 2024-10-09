@@ -7,7 +7,7 @@
       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd
       http://www.liquibase.org/xml/ns/pro
       http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd"
-        logicalFilePath="homework-2">
+        logicalFilePath="db">
 
     <changeSet id="homework-2-user_credentials" author="postgres">
         <sqlFile encoding="utf8" path="sql/01.create-user_credentials-table.sql" relativeToChangelogFile="true"/>

@@ -1,7 +1,7 @@
 package homework.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import homework.config.MapperConfig;
+import homework.config.basic.MapperConfig;
 import homework.config.test.TestConfig;
 import homework.dto.booking.BookingFullDto;
 import homework.entity.Bookings;
