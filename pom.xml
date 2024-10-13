@@ -265,7 +265,7 @@
 
     <distributionManagement>
         <repository>
-            <id>TomcatServer</id> <!-- Изменено здесь -->
+            <id>TomcatServer</id>
             <url>http://localhost:8080/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
