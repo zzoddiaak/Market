@@ -3,6 +3,7 @@ package homework.service.impl;
 import homework.dto.DtoMapper;
 import homework.dto.role.RoleFullDto;
 import homework.entity.Role;
+import homework.exeption.RoleNotFoundException;
 import homework.repository.api.RoleRepository;
 import homework.service.RoleService;
 import lombok.RequiredArgsConstructor;
@@ -29,8 +30,8 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public RoleFullDto findById(long id) {
-        Role role = repository.findById(id); // Поиск роли по ID
-        return mapper.convertToDto(role, RoleFullDto.class); // Преобразование в DTO
+        Role role = repository.findById(id);
+        return mapper.convertToDto(role, RoleFullDto.class);
     }
 
     @Override
@@ -49,4 +50,14 @@ public class RoleServiceImpl implements RoleService {
     public void deleteById(long id) {
         repository.deleteById(id);
     }
+
+    @Override
+    public RoleFullDto findByRoleName(String roleName) {
+        List<Role> roles = repository.findByRoleName(roleName);
+
+
+        Role role = roles.get(0);
+        return mapper.convertToDto(role, RoleFullDto.class);
+    }
+
 }

@@ -1,6 +1,7 @@
 package homework.repository.impl;
 
 import homework.entity.Role;
+import homework.exeption.RoleNotFoundException;
 import homework.repository.AbstractRepository;
 import homework.repository.api.RoleRepository;
 import jakarta.persistence.EntityGraph;
@@ -51,13 +52,11 @@ public class RoleRepositoryImpl extends AbstractRepository<Long, Role> implement
 
     @Override
     public List<Role> findByRoleName(String roleName) {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Role> query = cb.createQuery(Role.class);
-        Root<Role> root = query.from(Role.class);
+        String jpql = "SELECT r FROM Role r WHERE r.name = :roleName";
 
-        Predicate roleNamePredicate = cb.equal(root.get("name"), roleName);
-        query.where(roleNamePredicate);
-
-        return entityManager.createQuery(query).getResultList();
+        return entityManager.createQuery(jpql, Role.class)
+                .setParameter("roleName", roleName)
+                .getResultList();
     }
 }
+

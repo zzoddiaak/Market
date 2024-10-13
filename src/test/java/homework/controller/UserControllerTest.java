@@ -10,6 +10,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -19,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -28,6 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(classes = {TestConfig.class, MapperConfig.class})
 @WebAppConfiguration
 @Transactional
+@ActiveProfiles("test")
 public class UserControllerTest {
 
     private MockMvc mockMvc;
@@ -50,18 +52,21 @@ public class UserControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "user", roles = {"user"},password = "password1")
     public void findAll() throws Exception {
         mockMvc.perform(get("/api/v1/users"))
                 .andExpect(status().isOk());
     }
 
     @Test
+    @WithMockUser(username = "user", roles = {"user"},password = "password1")
     public void findById() throws Exception {
         mockMvc.perform(get("/api/v1/users/1"))
                 .andExpect(status().isOk());
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"admin"},password = "password1")
     public void save() throws Exception {
         User user = new User(null, "Jane", "Doe", "Bio", LocalDateTime.now(), null);
 
@@ -72,8 +77,9 @@ public class UserControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"admin"},password = "password1")
     public void update() throws Exception {
-        User user = new User(1L, "John", "Smith", "Bio", LocalDateTime.now(), null);
+        User user = new User(1L, "John", "Smith", "Updated Bio", LocalDateTime.now(), null);
 
         mockMvc.perform(put("/api/v1/users/1")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -82,6 +88,7 @@ public class UserControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"admin"},password = "password1")
     public void deleteById() throws Exception {
         mockMvc.perform(delete("/api/v1/users/1"))
                 .andExpect(status().isNoContent());

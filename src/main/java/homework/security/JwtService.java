@@ -6,6 +6,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.context.annotation.PropertySource;
@@ -22,8 +23,8 @@ import java.util.function.Function;
 @AllArgsConstructor
 public class JwtService {
 
-    private final Environment environment;
-
+    @Value("${jwt.key.secret}")
+    private String SECRET_KEY;
 
 
     public String generateToken(Map<String, Object> claims, UserDetails userDetails) {
@@ -32,7 +33,7 @@ public class JwtService {
                 .setClaims(claims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24)) // 24 часа
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -43,6 +44,7 @@ public class JwtService {
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String mail = extractLogin(token);
+
         return (mail.equals(userDetails.getUsername())) && !isTokenExpired(token);
     }
 
@@ -60,10 +62,12 @@ public class JwtService {
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
+
         return claimsResolver.apply(claims);
     }
 
     private Claims extractAllClaims(String token) {
+
         return Jwts
                 .parserBuilder()
                 .setSigningKey(getSignInKey())
@@ -73,11 +77,8 @@ public class JwtService {
     }
 
     private Key getSignInKey() {
-        String secretKey = environment.getProperty("jwt.key.secret");
-        if (secretKey == null || secretKey.isEmpty()) {
-            throw new IllegalStateException("JWT secret key is not configured.");
-        }
-        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+
         return Keys.hmacShaKeyFor(keyBytes);
     }
 }

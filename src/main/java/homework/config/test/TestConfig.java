@@ -1,6 +1,7 @@
 package homework.config.test;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -27,15 +28,22 @@ import java.util.Properties;
 @PropertySource("classpath:application-test.properties")
 public class TestConfig {
 
-    @Autowired
-    private Environment env;
+    @Value("${jdbc.url}")
+    private String url;
+
+    @Value("${jdbc.username}")
+    private String username;
+
+    @Value("${jdbc.password}")
+    private String password;
+
 
     @Bean
     public DataSource dataSource() {
         JdbcDataSource dataSource = new JdbcDataSource();
-        dataSource.setURL(env.getProperty("jdbc.url"));
-        dataSource.setUser(env.getProperty("jdbc.username"));
-        dataSource.setPassword(env.getProperty("jdbc.password"));
+        dataSource.setURL(url);
+        dataSource.setUser(username);
+        dataSource.setPassword(password);
         return dataSource;
     }
 
@@ -47,6 +55,13 @@ public class TestConfig {
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         emf.setJpaVendorAdapter(vendorAdapter);
+
+        Properties jpaProperties = new Properties();
+        jpaProperties.setProperty("hibernate.hbm2ddl.auto", HibernateConfigConstants.HBM2DDL_AUTO); // Используем константу
+        jpaProperties.setProperty("hibernate.dialect", HibernateConfigConstants.HIBERNATE_DIALECT); // Используем константу
+        jpaProperties.setProperty("hibernate.show_sql", HibernateConfigConstants.SHOW_SQL); // Если хотите отображать SQL запросы
+
+        emf.setJpaProperties(jpaProperties);
 
         return emf;
     }

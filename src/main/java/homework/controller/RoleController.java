@@ -44,6 +44,12 @@ public class RoleController {
 
         return "Updated successfully";
     }
+    @GetMapping("/name/{roleName}")
+    public String findByRoleName(@PathVariable("roleName") String roleName) {
+        RoleFullDto dto = service.findByRoleName(roleName);
+        return mapperService.convertToJson(dto);
+    }
+
 
     @DeleteMapping("/{id}")
     public String deleteById(@PathVariable("id") long id) {

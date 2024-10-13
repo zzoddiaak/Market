@@ -10,6 +10,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -28,6 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(classes = {TestConfig.class, MapperConfig.class})
 @WebAppConfiguration
 @Transactional
+@ActiveProfiles("test")
 public class UserRatingControllerTest {
 
     private MockMvc mockMvc;
@@ -44,27 +47,28 @@ public class UserRatingControllerTest {
     @Before
     public void setup() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-
         UserRating userRating1 = new UserRating(1L, 5, LocalDateTime.now(), new ArrayList<>(), new ArrayList<>());
         userRatingRepository.save(userRating1);
     }
 
     @Test
+    @WithMockUser(username = "user", roles = {"user"},password = "password1")
     public void findAll() throws Exception {
         mockMvc.perform(get("/api/v1/user_ratings"))
                 .andExpect(status().isOk());
     }
 
     @Test
+    @WithMockUser(username = "user", roles = {"user"},password = "password1")
     public void findById() throws Exception {
         mockMvc.perform(get("/api/v1/user_ratings/1"))
                 .andExpect(status().isOk());
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"admin"},password = "password1")
     public void save() throws Exception {
         UserRating userRating = new UserRating(null, 4, LocalDateTime.now(), new ArrayList<>(), new ArrayList<>());
-
         mockMvc.perform(post("/api/v1/user_ratings")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(userRating)))
@@ -72,9 +76,9 @@ public class UserRatingControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"admin"},password = "password1")
     public void update() throws Exception {
         UserRating userRating = new UserRating(1L, 5, LocalDateTime.now(), new ArrayList<>(), new ArrayList<>());
-
         mockMvc.perform(put("/api/v1/user_ratings/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(userRating)))
@@ -82,6 +86,7 @@ public class UserRatingControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"admin"},password = "password1")
     public void deleteById() throws Exception {
         mockMvc.perform(delete("/api/v1/user_ratings/1"))
                 .andExpect(status().isNoContent());

@@ -9,4 +9,5 @@ public interface RoleService {
     void save(RoleFullDto object);
     void deleteById(long id);
     void update(long id,RoleFullDto object);
+    RoleFullDto findByRoleName(String roleName);
 }

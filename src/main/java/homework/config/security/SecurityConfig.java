@@ -26,35 +26,30 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        // Открытый доступ к ресурсам
         http.authorizeHttpRequests(request -> request
-                .requestMatchers(new AntPathRequestMatcher("/api/v1/resource-controller/**")).permitAll()  // Доступ ко всем
+                .requestMatchers(new AntPathRequestMatcher("/api/v1/resource-controller/login")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/api/v1/resource-controller/reg")).permitAll()
         );
 
-        // Доступ для пользователей с ролью CLIENT
+
         http.authorizeHttpRequests(request -> request
-                .requestMatchers(new AntPathRequestMatcher("/api/v1/users/**")).hasAuthority("ROLE_CLIENT")  // Доступ для CLIENT
+                .requestMatchers(new AntPathRequestMatcher("/api/v1/users/**")).hasAuthority("user")
         );
 
-        // Доступ для администраторов
         http.authorizeHttpRequests(request -> request
-                .requestMatchers(new AntPathRequestMatcher("/api/v1/admin/**")).hasAuthority("ROLE_ADMIN")  // Доступ для ADMIN
+                .requestMatchers(new AntPathRequestMatcher("/api/v1/bookings/**")).hasAuthority("admin")
         );
 
-        // Доступ для администратора и клиента к определенным ресурсам
         http.authorizeHttpRequests(request -> request
-                .requestMatchers(new AntPathRequestMatcher("/api/v1/orders/**"))
-                .hasAnyAuthority("ROLE_CLIENT", "ROLE_ADMIN")  // Доступ для CLIENT и ADMIN
+                .requestMatchers(new AntPathRequestMatcher("/api/v1/categories/**"))
+                .hasAnyAuthority("admin", "user")
         );
 
-        // Доступ к другим запросам только аутентифицированным пользователям
         http.authorizeHttpRequests(request -> request.anyRequest().authenticated());
 
-        // Настройка политики сессий, отключение CSRF, добавление JWT фильтра
         http.csrf(AbstractHttpConfigurer::disable);
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-        // Настройка провайдера аутентификации и добавление фильтра
         http.authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 

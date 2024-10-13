@@ -39,7 +39,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AuthResponse reg(AuthRequest authRequest) {
-        var clientRole = roleRepository.findByRoleName("CLIENT");
+        var clientRole = roleRepository.findByRoleName("user");
 
         UserCredential user = UserCredential.builder()
                 .username(authRequest.getLogin())

@@ -1,35 +1,32 @@
 package homework.config.security;
 
 import homework.entity.UserCredential;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-
 import java.util.Collection;
-import java.util.List;
-
+import java.util.stream.Collectors;
 
 public class UserDetailsConfig implements UserDetails {
     @Getter
     private Long id;
     private String username;
     private String password;
-    private SimpleGrantedAuthority authority;
+    private Collection<? extends GrantedAuthority> authorities;
 
-    // Добавляем конструктор, принимающий UserCredential
     public UserDetailsConfig(UserCredential userCredential) {
         this.id = userCredential.getId();
         this.username = userCredential.getUsername();
         this.password = userCredential.getPassword();
-        this.authority = new SimpleGrantedAuthority(userCredential.getRoles().toString());
+        this.authorities = userCredential.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName()))
+                .collect(Collectors.toList());
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(authority);
+        return authorities;
     }
 
     @Override
@@ -62,4 +59,5 @@ public class UserDetailsConfig implements UserDetails {
         return true;
     }
 }
+
 
