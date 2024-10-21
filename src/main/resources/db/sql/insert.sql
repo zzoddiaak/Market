@@ -1,3 +1,4 @@
+-- Вставляем данные в user_credentials
 INSERT INTO user_credentials (username, password)
 VALUES
     ('user1', 'password1'),
@@ -6,6 +7,7 @@ VALUES
     ('user4', 'password4'),
     ('user5', 'password5');
 
+-- Вставляем данные в users
 INSERT INTO users (credential_id, first_name, last_name, bio)
 VALUES
     (1, 'First1', 'Last1', 'Bio for user 1'),
@@ -14,17 +16,20 @@ VALUES
     (4, 'First4', 'Last4', 'Bio for user 4'),
     (5, 'First5', 'Last5', 'Bio for user 5');
 
+-- Вставляем данные в roles
 INSERT INTO roles (name) VALUES ('user'), ('admin');
 
-INSERT INTO user_roles (user_id, role_id)
+-- Вставляем данные в user_roles, теперь ссылаемся на user_credentials
+INSERT INTO user_roles (user_credential_id, role_id)
 VALUES
-    (1, 1),
-    (2, 1),
-    (3, 1),
-    (4, 1),
-    (5, 1),
-    (1, 2);
+    (1, 1),  -- user1 с ролью 'user'
+    (2, 1),  -- user2 с ролью 'user'
+    (3, 1),  -- user3 с ролью 'user'
+    (4, 1),  -- user4 с ролью 'user'
+    (5, 1),  -- user5 с ролью 'user'
+    (1, 2);  -- user1 также имеет роль 'admin'
 
+-- Остальные данные остаются без изменений:
 INSERT INTO categories (name)
 VALUES
     ('Category 1'),

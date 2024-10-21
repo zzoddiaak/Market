@@ -1,24 +1,25 @@
-package homework.config;
+package homework.config.basic;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
 import javax.sql.DataSource;
 
 
 @Configuration
 @PropertySource("classpath:application.properties")
 @EnableTransactionManagement
-@ComponentScan(basePackages = "homework.repository")
+@ComponentScan(basePackages = "homework/repository")
 public class DatabaseConfig {
 
     @Value("${spring.datasource.url}")
@@ -44,6 +45,7 @@ public class DatabaseConfig {
 
         return dataSource;
     }
+
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
@@ -60,7 +62,6 @@ public class DatabaseConfig {
     public JpaTransactionManager transactionManager() {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
-
         return transactionManager;
     }
 }

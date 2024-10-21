@@ -49,7 +49,4 @@ public class User {
     @JoinColumn(name = "credential_id", referencedColumnName = "id")
     private UserCredential credential;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = CascadeType.MERGE)
-    private List<Role> role;
 }

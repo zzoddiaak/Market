@@ -1,7 +1,7 @@
 package homework.repository.impl;
 
 import homework.entity.Role;
-import homework.entity.Role_;
+import homework.exeption.RoleNotFoundException;
 import homework.repository.AbstractRepository;
 import homework.repository.api.RoleRepository;
 import jakarta.persistence.EntityGraph;
@@ -31,9 +31,7 @@ public class RoleRepositoryImpl extends AbstractRepository<Long, Role> implement
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Role> query = cb.createQuery(Role.class);
         Root<Role> root = query.from(Role.class);
-
         query.select(root);
-
         return entityManager.createQuery(query).getResultList();
     }
 
@@ -41,22 +39,24 @@ public class RoleRepositoryImpl extends AbstractRepository<Long, Role> implement
     public List<Role> findAllWithAssociationsJPQL() {
         String jpql = "SELECT r FROM Role r";
         TypedQuery<Role> query = entityManager.createQuery(jpql, Role.class);
-
         return query.getResultList();
     }
 
     @Override
     public List<Role> findAllWithAssociationsEntityGraph() {
         EntityGraph<Role> graph = entityManager.createEntityGraph(Role.class);
-
         TypedQuery<Role> query = entityManager.createQuery("SELECT r FROM Role r", Role.class);
         query.setHint("javax.persistence.fetchgraph", graph);
-
         return query.getResultList();
     }
 
+    @Override
+    public List<Role> findByRoleName(String roleName) {
+        String jpql = "SELECT r FROM Role r WHERE r.name = :roleName";
 
-
-
-
+        return entityManager.createQuery(jpql, Role.class)
+                .setParameter("roleName", roleName)
+                .getResultList();
+    }
 }
+

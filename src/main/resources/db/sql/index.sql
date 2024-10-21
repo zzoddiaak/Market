@@ -12,5 +12,5 @@ CREATE INDEX idx_user_ratings_rater_id ON user_ratings(rater_id);
 CREATE INDEX idx_user_ratings_rated_user_id ON user_ratings(rated_user_id);
 CREATE INDEX idx_favorite_items_user_id ON favorite_items(user_id);
 CREATE INDEX idx_favorite_items_listing_id ON favorite_items(listing_id);
-CREATE INDEX idx_user_roles_user_id ON user_roles(user_id);
+CREATE INDEX idx_user_roles_user_credential_id ON user_roles(user_credential_id);
 CREATE INDEX idx_user_roles_role_id ON user_roles(role_id);

@@ -13,4 +13,6 @@ public interface UserCredentialRepository {
     List<UserCredential> findAllWithAssociationsCriteria();
     List<UserCredential> findAllWithAssociationsJPQL();
     List<UserCredential> findAllWithAssociationsEntityGraph();
+    UserCredential findLogin(String username);
+
 }

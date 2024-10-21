@@ -1,6 +1,6 @@
 package homework.controller;
 
-import homework.config.MapperConfig;
+import homework.config.basic.MapperConfig;
 import homework.config.test.TestConfig;
 import homework.entity.Role;
 import homework.repository.api.RoleRepository;
@@ -10,6 +10,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -25,6 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(classes = {TestConfig.class, MapperConfig.class})
 @WebAppConfiguration
 @Transactional
+@ActiveProfiles("test")
 public class RoleControllerTest {
 
     private MockMvc mockMvc;
@@ -41,27 +44,28 @@ public class RoleControllerTest {
     @Before
     public void setup() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-
-        Role role1 = new Role(1L, "Admin");
+        Role role1 = new Role(1L, "admin");
         roleRepository.save(role1);
     }
 
     @Test
+    @WithMockUser(username = "user", roles = {"user"},password = "password1")
     public void findAll() throws Exception {
         mockMvc.perform(get("/api/v1/roles"))
                 .andExpect(status().isOk());
     }
 
     @Test
+    @WithMockUser(username = "user", roles = {"user"},password = "password1")
     public void findById() throws Exception {
         mockMvc.perform(get("/api/v1/roles/1"))
                 .andExpect(status().isOk());
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"admin"},password = "password1")
     public void save() throws Exception {
-        Role role = new Role(null, "User");
-
+        Role role = new Role(null, "user");
         mockMvc.perform(post("/api/v1/roles")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(role)))
@@ -69,9 +73,9 @@ public class RoleControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"admin"},password = "password1")
     public void update() throws Exception {
-        Role role = new Role(1L, "SuperAdmin");
-
+        Role role = new Role(1L, "admin");
         mockMvc.perform(put("/api/v1/roles/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(role)))
@@ -79,6 +83,7 @@ public class RoleControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"admin"},password = "password1")
     public void deleteById() throws Exception {
         mockMvc.perform(delete("/api/v1/roles/1"))
                 .andExpect(status().isNoContent());
