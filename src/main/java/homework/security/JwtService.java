@@ -6,7 +6,6 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.context.annotation.PropertySource;
@@ -23,9 +22,11 @@ import java.util.function.Function;
 @AllArgsConstructor
 public class JwtService {
 
-    @Value("${jwt.key.secret}")
-    private String SECRET_KEY;
+    private final Environment environment;
 
+    private String getSecretKey() {
+        return environment.getProperty("jwt.key.secret");
+    }
 
     public String generateToken(Map<String, Object> claims, UserDetails userDetails) {
         return Jwts
@@ -44,7 +45,6 @@ public class JwtService {
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String mail = extractLogin(token);
-
         return (mail.equals(userDetails.getUsername())) && !isTokenExpired(token);
     }
 
@@ -62,12 +62,10 @@ public class JwtService {
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
-
         return claimsResolver.apply(claims);
     }
 
     private Claims extractAllClaims(String token) {
-
         return Jwts
                 .parserBuilder()
                 .setSigningKey(getSignInKey())
@@ -77,8 +75,7 @@ public class JwtService {
     }
 
     private Key getSignInKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
-
+        byte[] keyBytes = Decoders.BASE64.decode(getSecretKey());
         return Keys.hmacShaKeyFor(keyBytes);
     }
 }
